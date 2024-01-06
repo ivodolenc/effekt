@@ -1,0 +1,71 @@
+{
+  "name": "animer",
+  "version": "0.1.0",
+  "author": "Ivo Dolenc",
+  "description": "Web animation platform.",
+  "license": "MIT",
+  "repository": "ivodolenc/animer",
+  "homepage": "https://github.com/ivodolenc/animer",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./easing": {
+      "types": "./dist/types/easing/index.d.ts",
+      "import": "./dist/easing/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "animer",
+    "animate",
+    "animations",
+    "web-animations",
+    "javascript",
+    "typescript",
+    "animation",
+    "platform",
+    "engine",
+    "tween"
+  ],
+  "scripts": {
+    "dev": "vite playground",
+    "build": "hyperbundler",
+    "build:playground": "vite build playground",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c .config/eslint.config.js .",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=true eslint -c .config/eslint.config.js --fix .",
+    "format": "prettier --config .config/prettier.config.js --write .",
+    "prepublishOnly": "npm run build"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=v18.0.0"
+  },
+  "peerDependencies": {
+    "@types/node": ">=20.0.0",
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/node": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@hypernym/bundler": "^0.6.3",
+    "@hypernym/eslint-config": "^2.0.3",
+    "@hypernym/prettier-config": "^2.0.3",
+    "@hypernym/tsconfig": "^1.1.0",
+    "@types/node": "^20.10.6",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11"
+  }
+}
