@@ -4,7 +4,7 @@
     ".config/**/*",
     "src/**/*",
     "test/**/*",
-    "playground/**/*",
+    "playgrounds/**/*",
     "bundler.config.ts"
   ]
 }
