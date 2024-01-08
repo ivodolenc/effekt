@@ -45,7 +45,7 @@ Read the [docs]() to learn more.
 
 ## Community
 
-Feel free to ask questions or share ideas.
+Feel free to ask questions or share new ideas.
 
 Use the official [discussions](https://github.com/ivodolenc/animer/discussions) to get involved.
 
