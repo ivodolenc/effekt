@@ -8,7 +8,6 @@ Before submitting any contribution, please make sure to read the following guide
 - [Feature Requests](#feature-requests)
 - [Pull Requests](#pull-requests)
 - [Questions & Help](#questions--help)
-- [Commit Convention](#commit-convention)
 
 ## Reporting Issues
 
@@ -35,7 +34,3 @@ For some quick changes, such as typo fixes or broken links, it's ok to open a sm
 Official forum is the best place to ask for help or discuss all questions related to this project.
 
 [Visit Discussions](https://github.com/ivodolenc/animer/discussions)
-
-## Commit Convention
-
-Check out the [Commit Guide](COMMIT_CONVENTION.md) for more info.
