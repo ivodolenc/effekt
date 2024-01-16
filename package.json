@@ -33,10 +33,10 @@
     "tween"
   ],
   "scripts": {
-    "dev": "vite playgrounds/browser",
+    "dev": "vite -c .config/vite.config.js playgrounds/browser",
     "dev:node": "vite-node -w playgrounds/node/main.ts",
     "build": "hyperbundler",
-    "build:playground": "vite build playgrounds/browser",
+    "build:playground": "vite -c .config/vite.config.js build playgrounds/browser",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c .config/eslint.config.js .",
     "lint:fix": "ESLINT_USE_FLAT_CONFIG=true eslint -c .config/eslint.config.js --fix .",
     "format": "prettier --config .config/prettier.config.js --write .",
@@ -63,7 +63,7 @@
     "@hypernym/eslint-config": "^2.0.3",
     "@hypernym/prettier-config": "^2.0.3",
     "@hypernym/tsconfig": "^1.2.0",
-    "@types/node": "^20.11.1",
+    "@types/node": "^20.11.4",
     "eslint": "^8.56.0",
     "prettier": "^3.2.2",
     "typescript": "^5.3.3",
