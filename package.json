@@ -59,15 +59,15 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.7.0",
+    "@hypernym/bundler": "^0.8.0",
     "@hypernym/eslint-config": "^2.0.3",
     "@hypernym/prettier-config": "^2.0.3",
     "@hypernym/tsconfig": "^1.2.0",
     "@types/node": "^20.11.5",
     "eslint": "^8.56.0",
-    "prettier": "^3.2.3",
+    "prettier": "^3.2.4",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
-    "vite-node": "^1.2.0"
+    "vite-node": "^1.2.1"
   }
 }
