@@ -63,7 +63,7 @@
     "@hypernym/eslint-config": "^2.0.3",
     "@hypernym/prettier-config": "^2.0.3",
     "@hypernym/tsconfig": "^1.2.0",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.13",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3",
