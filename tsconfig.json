@@ -2,13 +2,13 @@
   "extends": "@hypernym/tsconfig",
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Bundler"
   },
   "include": [
     ".config/**/*",
     "src/**/*",
     "test/**/*",
     "playgrounds/**/*",
-    "bundler.config.ts",
-  ],
+    "bundler.config.ts"
+  ]
 }
