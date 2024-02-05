@@ -65,7 +65,7 @@
     "@hypernym/tsconfig": "^1.2.0",
     "@types/node": "^20.11.16",
     "eslint": "^8.56.0",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vite-node": "^1.2.2"
