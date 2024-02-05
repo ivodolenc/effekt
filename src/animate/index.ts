@@ -1,8 +1,11 @@
-import { Animation } from '@/animation'
-import type { Targets, AnimationOptions } from '@/types'
+import { AnimationController } from '@/animation'
+import type { Targets } from '@/types'
+import type { AnimationOptions } from '@/types/animation'
 
 /**
- * Creates a new `Animation` instance and applies it to the element.
+ * Creates a new `AnimationController` instance.
+ *
+ * Provides advanced controls that manage all animated elements.
  *
  * @example
  *
@@ -21,6 +24,6 @@ import type { Targets, AnimationOptions } from '@/types'
 export function animate(
   targets: Targets,
   options: AnimationOptions,
-): Animation {
-  return new Animation(targets, options)
+): AnimationController {
+  return new AnimationController(targets, options)
 }
