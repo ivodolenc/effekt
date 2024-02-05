@@ -1,6 +1,6 @@
 import { isNumber } from './is'
 import type { StaggerOptions, StaggerOrigin } from '@/types'
-import type { DelayFunction } from '@/types/animation'
+import type { DelayFunction } from '@/types'
 
 function getOriginIndex(from: StaggerOrigin, total: number): number {
   if (from === 'first') return 0
