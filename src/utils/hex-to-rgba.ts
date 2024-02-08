@@ -4,7 +4,7 @@ import type { RGBA } from '@/types'
  * Converts `hex` to `rgba` color format.
  *
  * ```ts
- * import { hexToRgba } from 'animer'
+ * import { hexToRgba } from 'effekt'
  *
  * hexToRgba('#fff') // => [255, 255, 255, 1]
  * hexToRgba('#ffffff33') // => [255, 255, 255, 0.2]

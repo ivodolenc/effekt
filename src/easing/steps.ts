@@ -7,7 +7,7 @@ import type { Easing } from '@/types'
  * @example
  *
  * ```ts
- * import { steps } from 'animer/easing'
+ * import { steps } from 'effekt/easing'
  *
  * animate('.el', {
  *   ease: steps(3),

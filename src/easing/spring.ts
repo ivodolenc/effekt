@@ -7,7 +7,7 @@ import type { SpringOptions } from '@/types/easing'
  * @example
  *
  * ```ts
- * import { spring } from 'animer/easing'
+ * import { spring } from 'effekt/easing'
  *
  * animate('.el', {
  *   ease: spring(),

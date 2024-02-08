@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { secToMs } from 'animer'
+ * import { secToMs } from 'effekt'
  *
  * secToMs(1) // => 1000
  * ```
@@ -19,7 +19,7 @@ export function secToMs(seconds: number): number {
  * @example
  *
  * ```ts
- * import { msToSec } from 'animer'
+ * import { msToSec } from 'effekt'
  *
  * msToSec(1000) // => 1
  * ```

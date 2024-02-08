@@ -9,7 +9,7 @@ import type { Mix, Easing } from '@/types'
  * @example
  *
  * ```ts
- * import { interpolate } from 'animer'
+ * import { interpolate } from 'effekt'
  *
  * const from = [255, 0, 0, 0]
  * const to = [0, 255, 0, 1]

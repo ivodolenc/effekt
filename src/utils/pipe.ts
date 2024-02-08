@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { pipe } from 'animer'
+ * import { pipe } from 'effekt'
  *
  * const add3 = (v: number) => v + 3
  * const sub2 = (v: number) => v - 2

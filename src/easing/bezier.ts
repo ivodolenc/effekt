@@ -33,7 +33,7 @@ function subdivide(
  * @example
  *
  * ```ts
- * import { cubicBezier } from 'animer/easing'
+ * import { cubicBezier } from 'effekt/easing'
  *
  * animate('.el', {
  *   ease: cubicBezier(0.33, 1, 0.66, 1),

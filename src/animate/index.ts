@@ -10,7 +10,7 @@ import type { AnimationOptions } from '@/types/animation'
  * @example
  *
  * ```ts
- * import { animate } from 'animer'
+ * import { animate } from 'effekt'
  *
  * animate('.el', {
  *   x: [0, 600, 300],
@@ -19,7 +19,7 @@ import type { AnimationOptions } from '@/types/animation'
  * })
  * ```
  *
- * @see [Repository](https://github.com/ivodolenc/animer)
+ * @see [Repository](https://github.com/ivodolenc/effekt)
  */
 export function animate(
   targets: Targets,

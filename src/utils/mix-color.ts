@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { mixColor } from 'animer'
+ * import { mixColor } from 'effekt'
  *
  * mixColor(0, 100, 0.3) // => 54.772
  * ```

@@ -16,7 +16,7 @@ function getOriginIndex(from: StaggerOrigin, total: number): number {
  * @example
  *
  * ```ts
- * import { stagger } from 'animer'
+ * import { stagger } from 'effekt'
  *
  * animate('.el', {
  *   delayStart: stagger(),

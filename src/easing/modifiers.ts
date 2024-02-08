@@ -8,7 +8,7 @@ import type { EasingModifier } from '@/types/easing'
  * @example
  *
  * ```ts
- * import { easingOut } from 'animer/easing'
+ * import { easingOut } from 'effekt/easing'
  *
  * const easeOut = easingOut(easeIn)
  * ```
@@ -24,7 +24,7 @@ export const easingOut: EasingModifier = (easing) => (progress) =>
  * @example
  *
  * ```ts
- * import { easingInOut } from 'animer/easing'
+ * import { easingInOut } from 'effekt/easing'
  *
  * const easeInOut = easingInOut(easeIn)
  * ```
@@ -40,7 +40,7 @@ export const easingInOut: EasingModifier = (easing) => (progress) =>
  * @example
  *
  * ```ts
- * import { easingOutIn } from 'animer/easing'
+ * import { easingOutIn } from 'effekt/easing'
  *
  * const easeOutIn = easingOutIn(easeIn)
  * ```

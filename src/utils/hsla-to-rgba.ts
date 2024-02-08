@@ -15,7 +15,7 @@ function hueToRgb(p: number, q: number, t: number): number {
  * @example
  *
  * ```ts
- * import { hslaToRgba } from 'animer'
+ * import { hslaToRgba } from 'effekt'
  *
  * hslaToRgba(75, 100, 60, 1) // => [204, 255, 51, 1]
  * ```

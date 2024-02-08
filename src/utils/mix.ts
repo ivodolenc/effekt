@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { mix } from 'animer'
+ * import { mix } from 'effekt'
  *
  * mix(0, 150, 0.5) // => 75
  * ```

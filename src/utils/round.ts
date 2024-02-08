@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { round } from 'animer'
+ * import { round } from 'effekt'
  *
  * round(32.997633923673) // => 33
  * ```

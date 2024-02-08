@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { progress } from 'animer'
+ * import { progress } from 'effekt'
  *
  * progress(0, 100, 30) // => 0.3
  * ```

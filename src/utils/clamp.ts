@@ -4,7 +4,7 @@
  * @example
  *
  * ```ts
- * import { clamp } from 'animer'
+ * import { clamp } from 'effekt'
  *
  * clamp(0, 100, 60) // => 60
  * ```
