@@ -1,11 +1,11 @@
 {
-  "name": "animer",
+  "name": "effekt",
   "version": "0.1.0",
   "author": "Ivo Dolenc",
   "description": "Web animation platform.",
   "license": "MIT",
-  "repository": "ivodolenc/animer",
-  "homepage": "https://github.com/ivodolenc/animer",
+  "repository": "ivodolenc/effekt",
+  "homepage": "https://github.com/ivodolenc/effekt",
   "type": "module",
   "exports": {
     ".": {
@@ -21,7 +21,7 @@
     "dist"
   ],
   "keywords": [
-    "animer",
+    "effekt",
     "animate",
     "animations",
     "web-animations",
@@ -67,7 +67,7 @@
     "eslint": "^8.56.0",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12",
+    "vite": "^5.1.0",
     "vite-node": "^1.2.2"
   }
 }
