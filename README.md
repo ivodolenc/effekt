@@ -1,24 +1,24 @@
-<h1 align="center">Animer</h1>
+<h1 align="center">Effekt</h1>
 
 <p align="center">Web animation platform.</p>
 
 <p align="center">
   <sub>
-    <a href="https://github.com/ivodolenc/animer">Repository</a> | <a href="https://www.npmjs.com/package/animer">Package</a> | <a href="https://github.com/ivodolenc/animer/releases">Releases</a> | <a href="https://github.com/ivodolenc/animer/discussions">Discussions</a> | <a href="">Documentation</a>
+    <a href="https://github.com/ivodolenc/effekt">Repository</a> | <a href="https://www.npmjs.com/package/effekt">Package</a> | <a href="https://github.com/ivodolenc/effekt/releases">Releases</a> | <a href="https://github.com/ivodolenc/effekt/discussions">Discussions</a> | <a href="">Documentation</a>
   </sub>
 </p>
 
-<pre align="center">npm i animer</pre>
+<pre align="center">npm i effekt</pre>
 
 <br>
 
 > [!NOTE]
 >
-> **Animer** is still in _development_ phase and there is a possibility that the API will change before the first stable release.
+> **Effekt** is still in _development_ phase and there is a possibility that the API will change before the first stable release.
 >
-> Any ideas, [suggestions](https://github.com/ivodolenc/animer/discussions) and code [contributions](.github/CONTRIBUTING.md) (PRs) are welcome.
+> Any ideas, [suggestions](https://github.com/ivodolenc/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
 >
-> If you find an issue or bug, please [report](https://github.com/ivodolenc/animer/issues/new/choose) it so that the project can be improved.
+> If you find an issue or bug, please [report](https://github.com/ivodolenc/effekt/issues/new/choose) it so that the project can be improved.
 
 <br>
 
@@ -47,7 +47,7 @@ Read the [docs]() to learn more.
 
 Feel free to ask questions or share new ideas.
 
-Use the official [discussions](https://github.com/ivodolenc/animer/discussions) to get involved.
+Use the official [discussions](https://github.com/ivodolenc/effekt/discussions) to get involved.
 
 ## Contributing
 
