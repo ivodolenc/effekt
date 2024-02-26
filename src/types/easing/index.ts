@@ -1,4 +1,4 @@
-import type { Easing } from '@/types'
+import type { Easing } from '../shared'
 
 export type EasingModifier = (easing: Easing) => Easing
 
