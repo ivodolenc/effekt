@@ -1,8 +1,8 @@
-import type { AnimationDeclarations } from '../../animation'
+import type { AnimationKeyframes } from '../../animation'
 import type { Easing, RGBA } from '../../shared'
 
 type StyleDeclarations = [
-  property: keyof AnimationDeclarations,
+  property: keyof AnimationKeyframes,
   values: (number | RGBA)[],
   unit: string,
   offset: number[],
