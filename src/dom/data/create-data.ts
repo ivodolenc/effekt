@@ -5,13 +5,13 @@ import { rgxIsTransform, rgxIsColor } from '@/utils/regexp'
 import { isNumber, isString, isObject, isArray } from '@/utils/is'
 import type { Easing, RGBA } from '@/types'
 import type { ElementData } from '@/types/dom/data'
-import type { AnimationOptions, AnimationDeclarations } from '@/types/animation'
+import type { AnimationOptions, AnimationKeyframes } from '@/types/animation'
 
 export function createElementData(options: AnimationOptions): ElementData {
   const { ease, ...props } = options
 
   const easing = ease || outQuart
-  const keys = Object.keys(props) as (keyof AnimationDeclarations)[]
+  const keys = Object.keys(props) as (keyof AnimationKeyframes)[]
   const keysLength = keys.length
 
   const data: ElementData = {
