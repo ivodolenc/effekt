@@ -24,3 +24,7 @@ export const defaultData: Omit<
   reverseMode: false,
   reverseTime: 0,
 }
+
+export const readOnly = (): never => {
+  throw new TypeError('Cannot assign to read-only property.')
+}
