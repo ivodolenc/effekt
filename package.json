@@ -35,6 +35,8 @@
   "scripts": {
     "dev": "vite -c .config/vite.config.js playgrounds/browser",
     "dev:node": "vite-node -w playgrounds/node/main.ts",
+    "test": "vitest -c test/vitest.config.ts",
+    "test:utils": "vitest -c test/utils/vitest.config.ts",
     "build": "hyperbundler",
     "build:playground": "vite -c .config/vite.config.js build playgrounds/browser",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c .config/eslint.config.js .",
@@ -68,6 +70,6 @@
     "prettier": "^3.2.5",
     "typescript": "^5.3.3",
     "vite": "^5.1.5",
-    "vite-node": "^1.3.1"
+    "vitest": "^1.3.1"
   }
 }
