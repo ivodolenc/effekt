@@ -1,7 +1,8 @@
+import type { CssVarString } from './'
 import type { UnitString, UnitObject } from './units'
 import type { ColorValues } from './color'
 
-export type OtherValue = number | UnitString | UnitObject
+export type OtherValue = number | UnitString | UnitObject | CssVarString
 export type OtherValues = [OtherValue, OtherValue, ...OtherValue[]]
 
 export interface OtherKeyframes {

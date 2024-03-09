@@ -1,3 +1,4 @@
+import type { CssVarString } from './'
 import type { Easing } from '@/types/shared'
 
 export type UnitString =
@@ -22,7 +23,7 @@ export type UnitString =
   | `${number}turn`
 
 export interface UnitObject {
-  value: number | UnitString
+  value: number | UnitString | CssVarString
   offset?: number
   ease?: Easing
 }

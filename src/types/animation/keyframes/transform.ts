@@ -1,6 +1,7 @@
+import type { CssVarString } from './'
 import type { UnitString, UnitObject } from './units'
 
-export type TransformValue = number | UnitString | UnitObject
+export type TransformValue = number | UnitString | UnitObject | CssVarString
 export type TransformValues = [
   TransformValue,
   TransformValue,

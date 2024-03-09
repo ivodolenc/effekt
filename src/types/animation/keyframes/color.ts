@@ -1,3 +1,4 @@
+import type { CssVarString } from './'
 import type { Easing } from '@/types/shared'
 
 export type HexString = `#${number | string}`
@@ -26,12 +27,12 @@ export type ColorString =
   | HslaString
 
 export interface ColorObject {
-  value: ColorString
+  value: ColorString | CssVarString
   offset?: number
   ease?: Easing
 }
 
-export type ColorValue = ColorString | ColorObject
+export type ColorValue = ColorString | ColorObject | CssVarString
 export type ColorValues = [ColorValue, ColorValue, ...ColorValue[]]
 
 export interface ColorKeyframes {

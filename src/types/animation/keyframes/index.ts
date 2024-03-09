@@ -2,10 +2,7 @@ import type { TransformKeyframes } from './transform'
 import type { ColorKeyframes } from './color'
 import type { OtherKeyframes } from './other'
 
-export * from './units'
-export * from './transform'
-export * from './color'
-export * from './other'
+export type CssVarString = `--${number | string}`
 
 export interface AnimationKeyframes
   extends TransformKeyframes,
