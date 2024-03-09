@@ -4,6 +4,7 @@ import { Driver } from '@/engine'
 import { defaultData, readOnly } from './data'
 import { Animation } from './animation'
 import { setDelay } from './set-delay'
+import { setRepeat } from './set-repeat'
 import type { Targets } from '@/types'
 import type {
   AnimationData,
@@ -32,10 +33,10 @@ export class AnimationController {
       autoplay: options.autoplay ?? true,
       direction: options.direction || 'normal',
       playRate: options.playRate || 1,
-      duration: secToMs(options.duration as number) || 600,
+      duration: secToMs(options.duration || 0.6),
       delayStart: setDelay(options.delayStart),
       delayEnd: setDelay(options.delayEnd),
-      repeat: (options.repeat as number) + 1 || 1,
+      repeat: setRepeat(options.repeat),
     }
     this.#onPlay = options.onPlay
     this.#onPause = options.onPause
