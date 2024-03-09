@@ -11,13 +11,13 @@ import { isNumber } from '@/utils/is'
 import { hexToRgba, hslaToRgba } from '@/utils'
 import type { ParsedValue } from '@/types/dom/data'
 
-export function parseNumber(key: string, value: number): ParsedValue {
+function parseNumber(key: string, value: number): ParsedValue {
   if (rgxPxAll.test(key)) return { value, unit: 'px' }
   if (rgxDegTransform.test(key)) return { value, unit: 'deg' }
   return { value, unit: '' }
 }
 
-export function parseUnit(value: string): ParsedValue {
+function parseUnit(value: string): ParsedValue {
   const split = value.split(rgxDigits)
   const v = parseFloat(split[1])
   const unit = split[2]
@@ -25,7 +25,7 @@ export function parseUnit(value: string): ParsedValue {
   return { value: v, unit }
 }
 
-export function parseColor(value: string): ParsedValue {
+function parseColor(value: string): ParsedValue {
   const unit = ''
 
   if (value.startsWith('#')) {
@@ -51,12 +51,18 @@ export function parseColor(value: string): ParsedValue {
   }
 }
 
+function parseCssVar(key: string, value: string): ParsedValue {
+  const style = window.getComputedStyle(document.documentElement)
+  return parseValue(key, style.getPropertyValue(value))
+}
+
 export function parseValue(key: string, value: number | string): ParsedValue {
   if (isNumber(value)) return parseNumber(key, value)
   else {
     if (rgxDigitsOnly.test(value)) return parseNumber(key, parseFloat(value))
     if (rgxColor.test(value)) return parseColor(value)
     if (rgxUnits.test(value)) return parseUnit(value)
+    if (value.startsWith('--')) return parseCssVar(key, value)
   }
 
   throw new TypeError(`Unsupported value '${value}' in '${key}' property.`)
