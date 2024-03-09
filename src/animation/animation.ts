@@ -3,6 +3,7 @@ import { createElementData } from '@/dom/data/create-data'
 import { frame, Driver } from '@/engine'
 import { defaultData, readOnly } from './data'
 import { setDelay } from './set-delay'
+import { setRepeat } from './set-repeat'
 import { createInterpolation } from './interpolation'
 import type {
   AnimationData,
@@ -22,10 +23,10 @@ export class Animation {
       autoplay: options.autoplay ?? true,
       direction: options.direction || 'normal',
       playRate: options.playRate || 1,
-      duration: secToMs(options.duration as number) || 600,
+      duration: secToMs(options.duration || 0.6),
       delayStart: setDelay(options.delayStart, el.index, el.total),
       delayEnd: setDelay(options.delayEnd, el.index, el.total),
-      repeat: (options.repeat as number) + 1 || 1,
+      repeat: setRepeat(options.repeat),
     }
     this.#data.totalDuration = this.#data.duration * this.#data.repeat
 
