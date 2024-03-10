@@ -33,7 +33,7 @@
     "tween"
   ],
   "scripts": {
-    "dev": "vite -c .config/vite.config.js playgrounds/browser",
+    "dev": "vite -c .config/vite.config.ts playgrounds/browser",
     "dev:node": "vite-node -w playgrounds/node/main.ts",
     "test": "vitest -c test/vitest.config.ts",
     "test:utils": "vitest -c test/utils/vitest.config.ts",
