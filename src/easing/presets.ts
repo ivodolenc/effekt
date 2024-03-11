@@ -1,3 +1,6 @@
+// Inspired by Easing Functions from Jquery Easing, 1.3.0, BSD License, https://github.com/danro/jquery-easing
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 import { easingOut, easingInOut, easingOutIn } from './modifiers'
 import type { Easing } from '@/types'
 

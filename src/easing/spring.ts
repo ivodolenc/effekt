@@ -1,3 +1,6 @@
+// Inspired by Spring Code from Linear Easing Generator, 1.0.0, Apache-2.0 License, https://github.com/jakearchibald/linear-easing-generator
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 import type { Easing } from '@/types'
 import type { SpringOptions } from '@/types/easing'
 

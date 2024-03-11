@@ -1,3 +1,6 @@
+// Inspired by Bezier Easing, 2.1.0, MIT License, https://github.com/gre/bezier-easing
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 import type { Easing } from '@/types'
 
 const subPrecision = 0.0000001
