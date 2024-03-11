@@ -1,3 +1,6 @@
+// Inspired by Stagger from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 import { isNumber } from './is'
 import type { StaggerOptions, StaggerOrigin, DelayFunction } from '@/types'
 
@@ -24,12 +27,39 @@ function getOriginIndex(from: StaggerOrigin, total: number): number {
  */
 export function stagger(
   duration: number = 0.1,
-  { delay = 0, from = 0 }: StaggerOptions = {},
+  options: StaggerOptions = {},
 ): DelayFunction {
+  const { delay = 0, from = 0, ease, grid, axis } = options
+  const { floor, sqrt, abs } = Math
+
   return (i: number, t: number) => {
     const fromIndex = isNumber(from) ? from : getOriginIndex(from, t)
-    const distance = Math.abs(fromIndex - i)
+    const fromCenter = !isNumber(fromIndex) && fromIndex === 'center'
+    let distance = 0
 
-    return delay + duration * distance
+    if (!grid) {
+      distance = abs(fromIndex - i)
+    } else {
+      // Inspired by Stagger Grid Option from Anime.js, 3.2.2, MIT License, https://github.com/juliangarnier/anime
+      // Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+      const fromX = !fromCenter ? fromIndex % grid[0] : (grid[0] - 1) / 2
+      const fromY = !fromCenter ? floor(fromIndex / grid[0]) : (grid[1] - 1) / 2
+      const toX = i % grid[0]
+      const toY = floor(i / grid[0])
+      const distanceX = fromX - toX
+      const distanceY = fromY - toY
+      let value = sqrt(distanceX * distanceX + distanceY * distanceY)
+      if (axis === 'x') value = -distanceX
+      if (axis === 'y') value = -distanceY
+      distance = value
+    }
+
+    let startDelay = duration * distance
+    if (ease) {
+      const maxDelay = t * duration
+      startDelay = ease(startDelay / maxDelay) * maxDelay
+    }
+
+    return delay + startDelay
   }
 }
