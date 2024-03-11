@@ -8,7 +8,7 @@
   </sub>
 </p>
 
-<pre align="center">npm i effekt</pre>
+<pre align="center">npm install effekt</pre>
 
 <br>
 
