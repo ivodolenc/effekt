@@ -5,11 +5,10 @@ import { isNumber } from './is'
 import type { StaggerOptions, StaggerOrigin, DelayFunction } from '@/types'
 
 function getOriginIndex(from: StaggerOrigin, total: number): number {
+  if (isNumber(from)) return from
   if (from === 'first') return 0
-  else {
-    const lastIndex = total - 1
-    return from === 'last' ? lastIndex : lastIndex / 2
-  }
+  const lastIndex = total - 1
+  return from === 'last' ? lastIndex : lastIndex / 2
 }
 
 /**
@@ -29,11 +28,11 @@ export function stagger(
   duration: number = 0.1,
   options: StaggerOptions = {},
 ): DelayFunction {
-  const { delay = 0, from = 0, ease, grid, axis } = options
+  const { delay: startDelay = 0, from = 0, ease, grid, axis } = options
   const { floor, sqrt, abs } = Math
 
   return (i: number, t: number) => {
-    const fromIndex = isNumber(from) ? from : getOriginIndex(from, t)
+    const fromIndex = getOriginIndex(from, t)
     const fromCenter = !isNumber(fromIndex) && fromIndex === 'center'
     let distance = 0
 
@@ -54,12 +53,12 @@ export function stagger(
       distance = value
     }
 
-    let startDelay = duration * distance
+    let delay = duration * distance
     if (ease) {
       const maxDelay = t * duration
-      startDelay = ease(startDelay / maxDelay) * maxDelay
+      delay = ease(delay / maxDelay) * maxDelay
     }
 
-    return delay + startDelay
+    return startDelay + delay
   }
 }
