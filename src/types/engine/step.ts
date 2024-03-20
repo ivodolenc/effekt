@@ -1,6 +1,6 @@
 import type { Schedule, Process, FrameData } from './batcher'
 
-export type StepId = 'read' | 'update'
+export type StepId = 'read' | 'update' | 'render'
 
 export interface Step {
   schedule: Schedule
