@@ -1,4 +1,4 @@
-import type { CssVarString } from './'
+import type { CssVarString } from './css-vars'
 import type { Easing } from '@/types/shared'
 
 export type UnitString =

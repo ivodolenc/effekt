@@ -1,12 +1,17 @@
 import type { AnimationEffect } from './effect'
 import type { AnimationKeyframes } from './keyframes'
 import type { AnimationMethods } from './methods'
+import type { DriverData } from '@/types/engine'
 
-export interface AnimationTarget {
-  value: HTMLElement | SVGElement
-  index: number
-  total: number
-}
+export type AnimationPromise = Promise<DriverData>
+export type AnimationSetProperties = 'currentTime' | 'playRate'
+export type AnimationRunMethods =
+  | 'play'
+  | 'pause'
+  | 'stop'
+  | 'cancel'
+  | 'finish'
+  | 'reverse'
 
 export interface AnimationOptions
   extends AnimationEffect,

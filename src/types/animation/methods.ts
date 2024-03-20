@@ -1,4 +1,4 @@
-import type { AnimationData } from './data'
+import type { DriverData } from '@/types/engine'
 
 export interface AnimationMethods {
   /**
@@ -6,43 +6,43 @@ export interface AnimationMethods {
    *
    * @default undefined
    */
-  onStart?(data: AnimationData): void
+  onStart?(data: DriverData): void
   /**
    * Called every time the animation starts.
    *
    * @default undefined
    */
-  onPlay?(data: AnimationData): void
+  onPlay?(data: DriverData): void
   /**
    * Called every time the animation pauses.
    *
    * @default undefined
    */
-  onPause?(data: AnimationData): void
+  onPause?(data: DriverData): void
   /**
    * Called every time the animation is updated.
    *
    * @default undefined
    */
-  onUpdate?(data: AnimationData): void
+  onUpdate?(data: DriverData): void
   /**
    * Called every time the animation is reversed.
    *
    * @default undefined
    */
-  onReverse?(data: AnimationData): void
+  onReverse?(data: DriverData): void
   /**
    * Called right after the animation stops.
    *
    * @default undefined
    */
-  onStop?(data: AnimationData): void
+  onStop?(data: DriverData): void
   /**
    * Called right after the animation ends.
    *
    * @default undefined
    */
-  onComplete?(data: AnimationData): void
+  onComplete?(data: DriverData): void
   /**
    * Called right after the animation is canceled.
    *

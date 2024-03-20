@@ -1,9 +1,17 @@
-import type { CssVarString } from './'
-import type { UnitString, UnitObject } from './units'
 import type { ColorValues } from './color'
+import type { CssVarString } from './css-vars'
+import type { KeyframesObjectValue } from './value'
+import type { UnitString, UnitObject } from './units'
 
-export type OtherValue = number | UnitString | UnitObject | CssVarString
-export type OtherValues = [OtherValue, OtherValue, ...OtherValue[]]
+export type OtherValue = number | UnitString | CssVarString | UnitObject
+
+export interface OtherObject extends KeyframesObjectValue {
+  values: [OtherValue, OtherValue, ...OtherValue[]]
+}
+
+export type OtherValues =
+  | [OtherValue, OtherValue, ...OtherValue[]]
+  | OtherObject
 
 export interface OtherKeyframes {
   opacity?: OtherValues

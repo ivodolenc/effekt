@@ -1,4 +1,4 @@
-import type { DelayFunction, Easing } from '../shared'
+import type { DelayFunction, Easing } from '@/types/shared'
 
 export type AnimationDirection =
   | 'normal'
