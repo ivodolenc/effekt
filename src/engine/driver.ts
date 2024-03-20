@@ -1,26 +1,30 @@
 import { isNull } from '@/utils/is'
 import { msToSec, secToMs } from '@/utils'
 import { frame, cancelFrame, state } from './frame'
-import type { AnimationData } from '@/types/animation'
-import type { DriverOptions, FrameData } from '@/types'
+import type { DriverOptions, DriverData, FrameData } from '@/types'
 
 export class Driver {
-  #data: AnimationData
+  #data: DriverData
   #isRunning: boolean = false
+  #reverseEase: boolean = true
   #onUpdate?: DriverOptions['onUpdate']
+  #onRender?: DriverOptions['onRender']
   #onComplete?: DriverOptions['onComplete']
 
-  constructor(data: AnimationData, options: DriverOptions = {}) {
+  constructor(data: DriverData, options: DriverOptions = {}) {
     this.#data = data
     this.#onUpdate = options.onUpdate
+    this.#onRender = options.onRender
     this.#onComplete = options.onComplete
 
+    if (options.onRead) frame.read(options.onRead)
     if (this.#data.autoplay) this.play()
   }
 
   #startDriver(): void {
     if (!this.#isRunning) {
       frame.update(this.#tick, true)
+      this.#render(true)
       this.#isRunning = true
     }
   }
@@ -28,14 +32,18 @@ export class Driver {
   #stopDriver(): void {
     if (this.#isRunning) {
       cancelFrame(this.#tick)
+      if (this.#onRender) cancelFrame(this.#onRender)
       this.#isRunning = false
     }
   }
 
-  #tick = ({ timestamp, delta }: FrameData) => {
-    this.#data.delta = delta
-    this.#data.timestamp = timestamp
+  #render(keepAlive = false): void {
+    if (this.#onRender) frame.render(this.#onRender, keepAlive)
+  }
 
+  #tick = ({ timestamp, delta }: FrameData) => {
+    this.#data.timestamp = timestamp
+    this.#data.delta = delta
     let time = 0
 
     if (!isNull(this.#data.pauseTime)) {
@@ -87,6 +95,7 @@ export class Driver {
     const iterationIsOdd = currentIteration % 2
     const repeatIsOdd = this.#data.repeat % 2
     const direction = this.#data.direction
+    this.#data.reverseEase = false
 
     if (
       this.#data.playRate < 0 ||
@@ -95,6 +104,7 @@ export class Driver {
       (direction === 'alternate-reverse' && !iterationIsOdd)
     ) {
       this.#data.totalProgress = 0
+      this.#data.reverseEase = this.#reverseEase
 
       if (direction === 'alternate' && repeatIsOdd) {
         this.#data.totalProgress = 1
@@ -119,6 +129,7 @@ export class Driver {
     ) {
       this.#data.playState = 'finished'
       this.#stopDriver()
+      this.#render()
       this.#onComplete?.()
     }
   }
@@ -126,6 +137,7 @@ export class Driver {
   #setPlayRateProgress(rate: number): void {
     if (rate < 0) this.#data.totalProgress = 0
     if (rate > 0) this.#data.totalProgress = 1
+    this.#data.playRate = rate
   }
 
   now(): number {
@@ -152,35 +164,41 @@ export class Driver {
     this.#data.playState = 'paused'
     this.#stopDriver()
     this.#data.pauseTime = this.#data.time
+    this.#render()
   }
 
   stop(): void {
     this.#data.playState = 'idle'
     this.#stopDriver()
+    this.#render()
   }
 
   cancel(): void {
     this.#data.playState = 'idle'
     this.#stopDriver()
     this.currentTime = 0
+    this.#render()
   }
 
   finish(): void {
     this.#data.playState = 'finished'
     this.#stopDriver()
     this.currentTime = msToSec(this.#data.totalDuration)
+    this.#render()
   }
 
   reverse(): void {
+    this.#reverseEase = !this.#reverseEase
+
     if (this.#data.playRate === 0 || this.#data.progress === 0) return
     if (this.#data.playRate > 0) {
-      this.#data.direction = 'reverse'
+      // this.#data.direction = 'reverse'
       this.#data.totalProgress = 0
-      this.playRate = -1
+      this.playRate = -1 * Math.abs(this.playRate)
     } else if (this.#data.playRate < 0) {
-      this.#data.direction = 'normal'
+      // this.#data.direction = 'normal'
       this.#data.totalProgress = 1
-      this.playRate = 1
+      this.playRate = 1 * Math.abs(this.playRate)
     }
   }
 
@@ -213,11 +231,9 @@ export class Driver {
     }
     if (rate !== 0 && !this.#isRunning) {
       this.#setPlayRateProgress(rate)
-      this.#data.playRate = rate
       this.play()
       return
     }
     this.#setPlayRateProgress(rate)
-    this.#data.playRate = rate
   }
 }
