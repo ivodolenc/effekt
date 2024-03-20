@@ -1,3 +1,6 @@
+// Inspired by Is Utils from Hypernym Utils, 2.3.0, MIT License, https://github.com/hypernym-studio/utils
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 export const toString = (v: any): string =>
   Object.prototype.toString.call(v).slice(8, -1)
 
