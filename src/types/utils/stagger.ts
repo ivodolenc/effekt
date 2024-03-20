@@ -1,4 +1,4 @@
-import { Easing } from '../shared'
+import type { Easing } from '@/types/shared'
 
 export type StaggerOrigin = 'first' | 'center' | 'last' | number
 
