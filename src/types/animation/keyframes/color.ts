@@ -36,7 +36,7 @@ export interface ColorObjectValue {
 export type ColorValue = ColorString | ColorObjectValue | CssVarString
 
 export interface ColorObject extends KeyframesObjectValue {
-  values: [ColorValue, ColorValue, ...ColorValue[]]
+  value: [ColorValue, ColorValue, ...ColorValue[]]
 }
 
 export type ColorValues =

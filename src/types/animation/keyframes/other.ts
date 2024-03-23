@@ -6,7 +6,7 @@ import type { UnitString, UnitObject } from './units'
 export type OtherValue = number | UnitString | CssVarString | UnitObject
 
 export interface OtherObject extends KeyframesObjectValue {
-  values: [OtherValue, OtherValue, ...OtherValue[]]
+  value: [OtherValue, OtherValue, ...OtherValue[]]
 }
 
 export type OtherValues =

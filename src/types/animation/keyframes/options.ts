@@ -1,14 +1,16 @@
 import type { AnimationOptions } from '@/types/animation'
 import type { Easing, RGBA, DelayFunction } from '@/types/shared'
 
-export interface KeyframesOptions {
+export interface KeyframeOptions {
   type: 'transform' | 'color' | 'other'
   key: string
-  values: (number | RGBA)[]
+  value: (number | RGBA)[]
   units: Set<string>
   offset: number[]
-  duration?: number
+  autoplay?: boolean
   direction?: AnimationOptions['direction']
+  playRate?: number
+  duration?: number
   delayStart?: number | DelayFunction
   delayEnd?: number | DelayFunction
   repeat?: number

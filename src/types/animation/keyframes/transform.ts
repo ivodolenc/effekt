@@ -5,7 +5,7 @@ import type { UnitString, UnitObject } from './units'
 export type TransformValue = number | UnitString | CssVarString | UnitObject
 
 export interface TransformObject extends KeyframesObjectValue {
-  values: [TransformValue, TransformValue, ...TransformValue[]]
+  value: [TransformValue, TransformValue, ...TransformValue[]]
 }
 
 export type TransformValues =
