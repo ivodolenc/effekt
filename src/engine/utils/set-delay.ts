@@ -10,8 +10,5 @@ export function setDelay(
   if (delay && !isUndefined(index) && !isUndefined(total)) {
     return isFunction(delay) ? secToMs(delay(index, total)) : secToMs(delay)
   }
-  if (delay && isUndefined(index) && isUndefined(total)) {
-    return isFunction(delay) ? secToMs(delay(0, 1)) : secToMs(delay)
-  }
   return 0
 }

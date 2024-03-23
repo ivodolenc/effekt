@@ -6,7 +6,8 @@ import type { DriverOptions, DriverData, FrameData } from '@/types'
 export class Driver {
   #data: DriverData
   #isRunning: boolean = false
-  #reverseEase: boolean = true
+  #reversePlayRate: boolean = false
+  #reversePlayRateTime: number = 0
   #onUpdate?: DriverOptions['onUpdate']
   #onRender?: DriverOptions['onRender']
   #onComplete?: DriverOptions['onComplete']
@@ -49,9 +50,9 @@ export class Driver {
     if (!isNull(this.#data.pauseTime)) {
       time = this.#data.pauseTime
     } else if (this.#data.playRate < 0) {
-      if (!this.#data.reverseMode) {
-        this.#data.reverseMode = true
-        this.#data.reverseTime = timestamp
+      if (!this.#reversePlayRate) {
+        this.#reversePlayRate = true
+        this.#reversePlayRateTime = timestamp
         this.#data.startTime =
           this.#data.progress === 0
             ? timestamp * this.#data.playRate
@@ -60,16 +61,16 @@ export class Driver {
 
       time = timestamp - this.#data.startTime / this.#data.playRate
     } else if (this.#data.playRate > 0) {
-      if (this.#data.reverseMode) {
-        this.#data.reverseMode = false
+      if (this.#reversePlayRate) {
+        this.#reversePlayRate = false
         this.#data.startTime =
           this.#data.progress === 0
-            ? (timestamp - this.#data.reverseTime) * 2 + this.#data.initTime
-            : this.#data.reverseTime -
+            ? (timestamp - this.#reversePlayRateTime) * 2 + this.#data.initTime
+            : this.#reversePlayRateTime -
               (this.#data.totalDuration -
                 timestamp -
                 this.#data.time +
-                this.#data.reverseTime)
+                this.#reversePlayRateTime)
       }
 
       time = (timestamp - this.#data.startTime) * this.#data.playRate
@@ -95,7 +96,6 @@ export class Driver {
     const iterationIsOdd = currentIteration % 2
     const repeatIsOdd = this.#data.repeat % 2
     const direction = this.#data.direction
-    this.#data.reverseEase = false
 
     if (
       this.#data.playRate < 0 ||
@@ -104,7 +104,6 @@ export class Driver {
       (direction === 'alternate-reverse' && !iterationIsOdd)
     ) {
       this.#data.totalProgress = 0
-      this.#data.reverseEase = this.#reverseEase
 
       if (direction === 'alternate' && repeatIsOdd) {
         this.#data.totalProgress = 1
@@ -188,17 +187,19 @@ export class Driver {
   }
 
   reverse(): void {
-    this.#reverseEase = !this.#reverseEase
+    if (
+      this.#data.playRate === 0 ||
+      this.#data.progress === 0 ||
+      this.#data.progress === 1
+    )
+      return
 
-    if (this.#data.playRate === 0 || this.#data.progress === 0) return
     if (this.#data.playRate > 0) {
-      // this.#data.direction = 'reverse'
-      this.#data.totalProgress = 0
-      this.playRate = -1 * Math.abs(this.playRate)
+      this.playRate = 1
+      this.playRate *= -1
     } else if (this.#data.playRate < 0) {
-      // this.#data.direction = 'normal'
-      this.#data.totalProgress = 1
-      this.playRate = 1 * Math.abs(this.playRate)
+      this.playRate = -1
+      this.playRate *= 1
     }
   }
 

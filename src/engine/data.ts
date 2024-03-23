@@ -1,9 +1,11 @@
 import { secToMs } from '@/utils'
-import { setDelay } from './set-delay'
-import { setRepeat } from './set-repeat'
+import { setDelay } from './utils/set-delay'
+import { setRepeat } from './utils/set-repeat'
 import type { DriverData, DriverDataOptions } from '@/types'
 
 export function createDriverData(options: DriverDataOptions = {}) {
+  const { el } = options
+
   const data: DriverData = {
     delta: 0,
     timestamp: 0,
@@ -14,24 +16,19 @@ export function createDriverData(options: DriverDataOptions = {}) {
     startTime: 0,
     pauseTime: null,
     totalDuration: 600,
+    maxDuration: 600,
     progress: 0,
     totalProgress: 1,
-    reverseMode: false,
-    reverseTime: 0,
-    reverseEase: false,
     autoplay: options.autoplay ?? true,
     direction: options.direction || 'normal',
     playRate: options.playRate || 1,
     duration: secToMs(options.duration || 0.6),
-    delayStart: setDelay(
-      options.delayStart,
-      options.el?.index,
-      options.el?.total,
-    ),
-    delayEnd: setDelay(options.delayEnd, options.el?.index, options.el?.total),
+    delayStart: setDelay(options.delayStart, el?.index, el?.total),
+    delayEnd: setDelay(options.delayEnd, el?.index, el?.total),
     repeat: setRepeat(options.repeat),
   }
   data.totalDuration = data.duration * data.repeat
+  data.maxDuration = data.totalDuration + data.delayStart + data.delayEnd
 
   return data
 }
