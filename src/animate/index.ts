@@ -1,6 +1,5 @@
 import { AnimationController } from '@/animation'
-import type { Targets } from '@/types'
-import type { AnimationOptions } from '@/types/animation'
+import type { Targets, AnimationOptions } from '@/types'
 
 /**
  * Creates a new `AnimationController` instance.
