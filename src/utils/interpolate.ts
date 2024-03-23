@@ -1,3 +1,6 @@
+// Inspired by Interpolate from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
+// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+
 import { progress } from './progress'
 import { createMixers } from './mixers'
 import type { Mix, Easing } from '@/types'
