@@ -17,11 +17,9 @@ export interface DriverData {
   startTime: number
   pauseTime: number | null
   totalDuration: number
+  maxDuration: number
   progress: number
   totalProgress: number
-  reverseMode: boolean
-  reverseTime: number
-  reverseEase: boolean
 }
 
 export interface DriverDataOptions {
