@@ -1,67 +1,95 @@
-import { secToMs } from '@/utils'
-import { createElementData } from '@/dom/data/create-data'
-import { frame, Driver } from '@/engine'
-import { defaultData, readOnly } from './data'
-import { setDelay } from './set-delay'
-import { setRepeat } from './set-repeat'
-import { createInterpolation } from './interpolation'
+import { Keyframe } from './keyframe'
+import { generateKeyframes } from './utils'
+import { msToSec } from '@/utils'
+import { Driver, createDriverData } from '@/engine'
 import type {
-  AnimationData,
+  DriverData,
   AnimationTarget,
   AnimationOptions,
-} from '@/types/animation'
-import type { ElementData } from '@/types/dom/data'
+  AnimationSetProperties,
+  AnimationRunMethods,
+  KeyframeOptions,
+} from '@/types'
 
 export class Animation {
-  #data: AnimationData
-  #elementData!: ElementData
+  #data: DriverData
   #driver: Driver
+  #el: HTMLElement | SVGElement
+  #keyframes: Keyframe[] = []
+  #keyframeOptions!: KeyframeOptions[]
 
   constructor(el: AnimationTarget, options: AnimationOptions) {
-    this.#data = {
-      ...defaultData,
-      autoplay: options.autoplay ?? true,
-      direction: options.direction || 'normal',
-      playRate: options.playRate || 1,
-      duration: secToMs(options.duration || 0.6),
-      delayStart: setDelay(options.delayStart, el.index, el.total),
-      delayEnd: setDelay(options.delayEnd, el.index, el.total),
-      repeat: setRepeat(options.repeat),
-    }
-    this.#data.totalDuration = this.#data.duration * this.#data.repeat
+    this.#el = el.value
+    this.#keyframeOptions = generateKeyframes(options)
+    const keyframesLength = this.#keyframeOptions.length
+    const duration = []
 
-    frame.read(() => {
-      this.#elementData = createElementData(options)
+    for (let i = 0; i < keyframesLength; i++) {
+      const k = new Keyframe(el, this.#keyframeOptions[i])
+      duration.push(k.data.maxDuration)
+      this.#keyframes.push(k)
+    }
+
+    this.#data = createDriverData({
+      autoplay: options.autoplay,
+      direction: options.direction,
+      duration: msToSec(Math.max(...duration)),
+      playRate: options.playRate,
     })
 
-    const onUpdateDriver = () => {
-      createInterpolation(el.value, this.#elementData, this.#data.progress)
-    }
+    this.#setInitialCssVars()
 
-    this.#driver = new Driver(this.#data, { onUpdate: onUpdateDriver })
+    this.#driver = new Driver(this.#data)
+  }
+
+  #setInitialCssVars(): void {
+    if (this.#keyframeOptions.some((k) => k.type === 'transform')) {
+      const vars = ['p', 'skX', 'skY']
+      vars.forEach((v) => this.#el.style.setProperty(`--${v}`, ' '))
+
+      const axis = ['X', 'Y', 'Z']
+      axis.forEach((key) => {
+        const vars = ['t', 'r', 's']
+        vars.forEach((v) => this.#el.style.setProperty(`--${v}${key}`, ' '))
+      })
+    }
+  }
+
+  #set(name: AnimationSetProperties, value: number): void {
+    this.#keyframes.forEach((k) => (k[name] = value))
+  }
+
+  #run(name: AnimationRunMethods): void {
+    this.#keyframes.forEach((method) => method[name]())
   }
 
   play(): void {
+    this.#run('play')
     this.#driver.play()
   }
 
   pause(): void {
+    this.#run('pause')
     this.#driver.pause()
   }
 
   stop(): void {
+    this.#run('stop')
     this.#driver.stop()
   }
 
   cancel(): void {
+    this.#run('cancel')
     this.#driver.cancel()
   }
 
   finish(): void {
+    this.#run('finish')
     this.#driver.finish()
   }
 
   reverse(): void {
+    this.#run('reverse')
     this.#driver.reverse()
   }
 
@@ -69,6 +97,7 @@ export class Animation {
     return this.#driver.currentTime
   }
   set currentTime(time) {
+    this.#set('currentTime', time)
     this.#driver.currentTime = time
   }
 
@@ -76,27 +105,28 @@ export class Animation {
     return this.#driver.playRate
   }
   set playRate(rate) {
+    this.#set('playRate', rate)
     this.#driver.playRate = rate
   }
 
-  get playState(): Readonly<AnimationData['playState']> {
+  get playState(): Readonly<DriverData['playState']> {
     return this.#data.playState
   }
   set playState(v) {
-    readOnly()
+    return
   }
 
   get progress(): number {
     return this.#data.progress
   }
   set progress(v) {
-    readOnly()
+    return
   }
 
-  get data(): Readonly<AnimationData> {
+  get data(): Readonly<DriverData> {
     return this.#data
   }
   set data(v) {
-    readOnly()
+    return
   }
 }
