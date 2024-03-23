@@ -13,8 +13,8 @@ export function generateKeyframes(
     direction,
     playRate,
     duration,
-    delayStart,
-    delayEnd,
+    delay,
+    endDelay,
     repeat,
     ease,
     ...props
@@ -32,8 +32,8 @@ export function generateKeyframes(
       direction,
       playRate,
       duration,
-      delayStart,
-      delayEnd,
+      delay,
+      endDelay,
       repeat,
       ease,
     })
