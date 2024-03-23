@@ -78,7 +78,7 @@ export class Driver {
 
     this.#data.time = time
 
-    time = Math.max(time - this.#data.delayStart, 0)
+    time = Math.max(time - this.#data.delay, 0)
 
     if (this.#data.playState === 'finished' && isNull(this.#data.pauseTime)) {
       time = this.#data.totalDuration
@@ -124,7 +124,7 @@ export class Driver {
     if (
       isNull(this.#data.pauseTime) &&
       (this.#data.playState === 'finished' ||
-        time >= this.#data.totalDuration + this.#data.delayEnd)
+        time >= this.#data.totalDuration + this.#data.endDelay)
     ) {
       this.#data.playState = 'finished'
       this.#stopDriver()

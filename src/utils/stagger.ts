@@ -20,7 +20,7 @@ function getOriginIndex(from: StaggerOrigin, total: number): number {
  * import { stagger } from 'effekt'
  *
  * animate('.el', {
- *   delayStart: stagger(),
+ *   delay: stagger(),
  * })
  * ```
  */

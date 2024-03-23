@@ -6,7 +6,7 @@ export interface KeyframesObjectValue {
   ease?: Easing | Easing[]
   offset?: number[]
   direction?: AnimationOptions['direction']
-  delayStart?: number | DelayFunction
-  delayEnd?: number | DelayFunction
+  delay?: number | DelayFunction
+  endDelay?: number | DelayFunction
   repeat?: number
 }

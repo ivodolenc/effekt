@@ -11,8 +11,8 @@ export interface KeyframeOptions {
   direction?: AnimationOptions['direction']
   playRate?: number
   duration?: number
-  delayStart?: number | DelayFunction
-  delayEnd?: number | DelayFunction
+  delay?: number | DelayFunction
+  endDelay?: number | DelayFunction
   repeat?: number
   ease?: Easing | Easing[]
 }

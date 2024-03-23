@@ -8,8 +8,8 @@ export interface DriverData {
   playRate: number
   duration: number
   repeat: number
-  delayStart: number
-  delayEnd: number
+  delay: number
+  endDelay: number
   delta: number
   timestamp: number
   time: number
@@ -28,7 +28,7 @@ export interface DriverDataOptions {
   direction?: DriverData['direction']
   playRate?: number
   duration?: number
-  delayStart?: number | DelayFunction
-  delayEnd?: number | DelayFunction
+  delay?: number | DelayFunction
+  endDelay?: number | DelayFunction
   repeat?: number
 }

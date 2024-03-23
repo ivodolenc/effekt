@@ -23,12 +23,12 @@ export function createDriverData(options: DriverDataOptions = {}) {
     direction: options.direction || 'normal',
     playRate: options.playRate || 1,
     duration: secToMs(options.duration || 0.6),
-    delayStart: setDelay(options.delayStart, el?.index, el?.total),
-    delayEnd: setDelay(options.delayEnd, el?.index, el?.total),
+    delay: setDelay(options.delay, el?.index, el?.total),
+    endDelay: setDelay(options.endDelay, el?.index, el?.total),
     repeat: setRepeat(options.repeat),
   }
   data.totalDuration = data.duration * data.repeat
-  data.maxDuration = data.totalDuration + data.delayStart + data.delayEnd
+  data.maxDuration = data.totalDuration + data.delay + data.endDelay
 
   return data
 }

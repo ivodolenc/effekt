@@ -58,7 +58,7 @@ export interface AnimationEffect {
    *
    * @default 0
    */
-  delayStart?: number | DelayFunction
+  delay?: number | DelayFunction
   /**
    * Specifies the animation `end` delay in `seconds`.
    *
@@ -66,7 +66,7 @@ export interface AnimationEffect {
    *
    * @default 0
    */
-  delayEnd?: number | DelayFunction
+  endDelay?: number | DelayFunction
   /**
    * Specifies the mathematical function used in the interpolation between the `start` and `end` keyframes.
    *
