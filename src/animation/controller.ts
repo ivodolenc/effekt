@@ -1,93 +1,69 @@
-import { secToMs } from '@/utils'
-import { getElements } from '@/dom/get-elements'
-import { Driver } from '@/engine'
-import { defaultData, readOnly } from './data'
 import { Animation } from './animation'
-import { setDelay } from './set-delay'
-import { setRepeat } from './set-repeat'
-import type { Targets } from '@/types'
+import { Driver, createDriverData } from '@/engine'
+import { msToSec, getElements } from '@/utils'
 import type {
-  AnimationData,
+  Targets,
   AnimationOptions,
-  AnimationPromise,
-  ControllerMethods,
+  DriverData,
   ControllerProperties,
-} from '@/types/animation'
+  ControllerMethods,
+  AnimationPromise,
+} from '@/types'
 
 export class AnimationController {
-  #animations: Animation[] = []
-  #data: AnimationData
+  #data: DriverData
   #driver: Driver
-  #resolve?: (value: AnimationData) => void
-  #reject?: (value: any) => void
+  #animations: Animation[] = []
   #onPlay: AnimationOptions['onPlay']
   #onPause: AnimationOptions['onPause']
   #onStop: AnimationOptions['onStop']
-  #onReverse: AnimationOptions['onReverse']
+  #resolve?: (value: DriverData) => void
+  #reject?: (value: any) => void
 
   constructor(targets: Targets, options: AnimationOptions) {
-    const { onStart, onUpdate, onComplete, onCancel } = options
-
-    this.#data = {
-      ...defaultData,
-      autoplay: options.autoplay ?? true,
-      direction: options.direction || 'normal',
-      playRate: options.playRate || 1,
-      duration: secToMs(options.duration || 0.6),
-      delayStart: setDelay(options.delayStart),
-      delayEnd: setDelay(options.delayEnd),
-      repeat: setRepeat(options.repeat),
-    }
     this.#onPlay = options.onPlay
     this.#onPause = options.onPause
     this.#onStop = options.onStop
-    this.#onReverse = options.onReverse
 
     const elements = getElements(targets)
     const elsLength = elements.length
-    const delayStart = []
-    const delayEnd = []
+    const duration = []
 
     for (let i = 0; i < elsLength; i++) {
       const el = elements[i]
-      const animation = new Animation(
+      const a = new Animation(
         { value: el, index: i, total: elsLength },
         options,
       )
-      delayStart.push(animation.data.delayStart)
-      delayEnd.push(animation.data.delayEnd)
-      this.#animations.push(animation)
+      duration.push(a.data.maxDuration)
+      this.#animations.push(a)
     }
 
-    const maxDelays = Math.max(...delayStart) + Math.max(...delayEnd)
-    this.#data.totalDuration =
-      this.#data.duration * this.#data.repeat + maxDelays
+    this.#data = createDriverData({
+      autoplay: options.autoplay,
+      direction: options.direction,
+      duration: msToSec(Math.max(...duration)),
+      playRate: options.playRate,
+    })
 
-    onStart?.(this.#data)
+    options.onStart?.(this.#data)
 
-    const onUpdateDriver = () => {
-      onUpdate?.(this.#data)
-    }
-
-    const onCompleteDriver = () => {
+    const onComplete = () => {
       this.#resolve?.(this.#data)
     }
 
-    this.#driver = new Driver(this.#data, {
-      onUpdate: onUpdate && onUpdateDriver,
-      onComplete: onCompleteDriver,
-    })
+    this.#driver = new Driver(this.#data, { onComplete })
 
     this.finished
       .then(() => {
         this.#data.playState = 'finished'
         this.#data.promiseState = 'fulfilled'
-        onComplete?.(this.#data)
+        options.onComplete?.(this.#data)
       })
       .catch((err) => {
         this.#data.playState = 'idle'
         this.#data.promiseState = 'rejected'
-        onCancel?.(err)
+        options.onCancel?.(err)
       })
   }
 
@@ -138,7 +114,6 @@ export class AnimationController {
   reverse(): void {
     this.#run('reverse')
     this.#driver.reverse()
-    this.#onReverse?.(this.#data)
   }
 
   getAnimations(): Animation[] {
@@ -151,8 +126,7 @@ export class AnimationController {
     const animLength = this.#animations.length
 
     for (let i = 0; i < animLength; i++) {
-      const { data } = this.#animations[index]
-      const timing = data.delayStart + data.totalDuration + data.delayEnd
+      const timing = this.#animations[index].data.maxDuration
       if (now < timing) break
       else index++
     }
@@ -177,24 +151,24 @@ export class AnimationController {
     this.#driver.playRate = rate
   }
 
-  get playState(): Readonly<AnimationData['playState']> {
+  get playState(): Readonly<DriverData['playState']> {
     return this.#data.playState
   }
   set playState(v) {
-    readOnly()
+    return
   }
 
   get progress(): number {
     return this.#data.progress
   }
   set progress(v) {
-    readOnly()
+    return
   }
 
-  get data(): Readonly<AnimationData> {
+  get data(): Readonly<DriverData> {
     return this.#data
   }
   set data(v) {
-    readOnly()
+    return
   }
 }
