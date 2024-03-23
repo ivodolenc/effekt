@@ -34,7 +34,8 @@ export interface AnimationEffect {
    * The value can be positive, negative, or 0. Positive values play the animation normally,
    * negative values reverse the animation, and 0 pauses the animation.
    *
-   * The positive value is a scaling factor, so for example a value of 2 would double the playback rate.
+   * A positive value is a scaling factor, so for example a value of 2 would double
+   * the playback rate and 0.5 would slow it in half.
    *
    * @default 1
    */
@@ -54,7 +55,7 @@ export interface AnimationEffect {
   /**
    * Specifies the animation `start` delay in `seconds`.
    *
-   * For example, `0.3` means the animation will wait that long before starting.
+   * For example, 0.3 means the animation will wait that long before starting.
    *
    * @default 0
    */
@@ -62,7 +63,7 @@ export interface AnimationEffect {
   /**
    * Specifies the animation `end` delay in `seconds`.
    *
-   * For example, `0.3` means that the animation will wait that long before it ends completely.
+   * For example, 0.3 means that the animation will wait that long before it ends completely.
    *
    * @default 0
    */
