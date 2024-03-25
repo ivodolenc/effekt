@@ -3,7 +3,7 @@ import type { AnimationKeyframes } from './keyframes'
 import type { AnimationMethods } from './methods'
 import type { DriverData } from '@/types/engine'
 
-export type AnimationPromise = Promise<DriverData>
+export type AnimationPromise = Promise<Readonly<DriverData>>
 export type AnimationSetProperties = 'currentTime' | 'playRate'
 export type AnimationRunMethods =
   | 'play'
