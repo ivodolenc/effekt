@@ -6,47 +6,47 @@ export interface AnimationMethods {
    *
    * @default undefined
    */
-  onStart?(data: DriverData): void
+  onStart?(data: Readonly<DriverData>): void
   /**
    * Called every time the animation starts.
    *
    * @default undefined
    */
-  onPlay?(data: DriverData): void
+  onPlay?(data: Readonly<DriverData>): void
   /**
    * Called every time the animation pauses.
    *
    * @default undefined
    */
-  onPause?(data: DriverData): void
+  onPause?(data: Readonly<DriverData>): void
   /**
    * Called every time the animation is updated.
    *
    * @default undefined
    */
-  onUpdate?(data: DriverData): void
+  onUpdate?(data: Readonly<DriverData>): void
   /**
    * Called every time the animation is reversed.
    *
    * @default undefined
    */
-  onReverse?(data: DriverData): void
+  onReverse?(data: Readonly<DriverData>): void
   /**
    * Called right after the animation stops.
    *
    * @default undefined
    */
-  onStop?(data: DriverData): void
+  onStop?(data: Readonly<DriverData>): void
   /**
    * Called right after the animation ends.
    *
    * @default undefined
    */
-  onComplete?(data: DriverData): void
+  onComplete?(data: Readonly<DriverData>): void
   /**
    * Called right after the animation is canceled.
    *
    * @default undefined
    */
-  onCancel?(error: any): void
+  onCancel?(data: Readonly<DriverData>, error: any): void
 }
