@@ -20,6 +20,7 @@ export interface DriverData {
   maxDuration: number
   progress: number
   totalProgress: number
+  isReverse: boolean
 }
 
 export interface DriverDataOptions {
