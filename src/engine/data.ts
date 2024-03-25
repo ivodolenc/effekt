@@ -19,6 +19,7 @@ export function createDriverData(options: DriverDataOptions = {}) {
     maxDuration: 600,
     progress: 0,
     totalProgress: 1,
+    isReverse: false,
     autoplay: options.autoplay ?? true,
     direction: options.direction || 'normal',
     playRate: options.playRate || 1,

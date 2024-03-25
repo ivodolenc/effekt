@@ -8,17 +8,14 @@ export class Driver {
   #isRunning: boolean = false
   #reversePlayRate: boolean = false
   #reversePlayRateTime: number = 0
-  #onUpdate?: DriverOptions['onUpdate']
   #onRender?: DriverOptions['onRender']
   #onComplete?: DriverOptions['onComplete']
 
   constructor(data: DriverData, options: DriverOptions = {}) {
     this.#data = data
-    this.#onUpdate = options.onUpdate
     this.#onRender = options.onRender
     this.#onComplete = options.onComplete
 
-    if (options.onRead) frame.read(options.onRead)
     if (this.#data.autoplay) this.play()
   }
 
@@ -77,7 +74,6 @@ export class Driver {
     }
 
     this.#data.time = time
-
     time = Math.max(time - this.#data.delay, 0)
 
     if (this.#data.playState === 'finished' && isNull(this.#data.pauseTime)) {
@@ -87,10 +83,9 @@ export class Driver {
     const progress = time / this.#data.duration
 
     let currentIteration = Math.floor(progress)
-
     let iterationProgress = progress % 1.0
-    if (!iterationProgress && progress >= 1) iterationProgress = 1
 
+    if (!iterationProgress && progress >= 1) iterationProgress = 1
     iterationProgress === 1 && currentIteration--
 
     const iterationIsOdd = currentIteration % 2
@@ -103,6 +98,7 @@ export class Driver {
       (direction === 'alternate' && iterationIsOdd) ||
       (direction === 'alternate-reverse' && !iterationIsOdd)
     ) {
+      this.#data.isReverse = true
       this.#data.totalProgress = 0
 
       if (direction === 'alternate' && repeatIsOdd) {
@@ -112,14 +108,14 @@ export class Driver {
       }
 
       iterationProgress = 1 - iterationProgress
+    } else {
+      this.#data.isReverse = false
     }
 
     this.#data.progress =
       time >= this.#data.totalDuration
         ? this.#data.totalProgress
         : Math.min(iterationProgress, 1)
-
-    this.#onUpdate?.()
 
     if (
       isNull(this.#data.pauseTime) &&
@@ -196,10 +192,10 @@ export class Driver {
 
     if (this.#data.playRate > 0) {
       this.playRate = 1
-      this.playRate *= -1
+      this.playRate = -1
     } else if (this.#data.playRate < 0) {
       this.playRate = -1
-      this.playRate *= 1
+      this.playRate = 1
     }
   }
 
