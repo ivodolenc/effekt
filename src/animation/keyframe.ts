@@ -14,10 +14,15 @@ export class Keyframe {
 
     const onRender = () => {
       this.#createInterpolation(options)(this.#data.progress)
+      this.onRender()
+    }
+
+    const onComplete = () => {
+      this.onComplete()
     }
 
     this.#data = createDriverData({ el, ...dataOptions })
-    this.#driver = new Driver(this.#data, { onRender })
+    this.#driver = new Driver(this.#data, { onRender, onComplete })
   }
 
   #createInterpolation(
@@ -39,10 +44,10 @@ export class Keyframe {
         if (key.startsWith('p')) tVar = `p`
         if (key.startsWith('sk')) tVar = `sk${key[key.length - 1]}`
 
-        this.#el.style.setProperty(`--${tVar}`, tValue)
+        this.#el.style.setProperty(`--t-${tVar}`, tValue)
 
         const transform =
-          'var(--tX) var(--tY) var(--tZ) var(--rX) var(--rY) var(--rZ) var(--sX) var(--sY) var(--sZ) var(--skX) var(--skY) var(--p)'
+          'var(--t-tX) var(--t-tY) var(--t-tZ) var(--t-rX) var(--t-rY) var(--t-rZ) var(--t-sX) var(--t-sY) var(--t-sZ) var(--t-skX) var(--t-skY) var(--t-p)'
 
         return setStyle(this.#el, 'transform', transform)
       }
@@ -68,6 +73,10 @@ export class Keyframe {
       }
     }
   }
+
+  onRender(): void {}
+
+  onComplete(): void {}
 
   play(): void {
     this.#driver.play()
@@ -107,10 +116,7 @@ export class Keyframe {
     this.#driver.playRate = rate
   }
 
-  get data(): Readonly<DriverData> {
+  get data(): DriverData {
     return this.#data
-  }
-  set data(v) {
-    return
   }
 }
