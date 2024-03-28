@@ -2,6 +2,7 @@ import type { ColorValues } from './color'
 import type { CssVarString } from './css-vars'
 import type { KeyframesObjectValue } from './value'
 import type { UnitString, UnitObject } from './units'
+import type { ShadowValues } from './shadow'
 
 export type OtherValue = number | UnitString | CssVarString | UnitObject
 
@@ -41,6 +42,8 @@ export interface OtherKeyframes {
   letterSpacing?: OtherValues
   borderRadius?: OtherValues
   borderWidth?: OtherValues
+  textShadow?: ShadowValues
+  boxShadow?: ShadowValues
   strokeDashoffset?: OtherValues
   fill?: ColorValues
 }

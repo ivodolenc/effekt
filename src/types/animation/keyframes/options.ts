@@ -2,7 +2,7 @@ import type { AnimationOptions } from '@/types/animation'
 import type { Easing, RGBA, DelayFunction } from '@/types/shared'
 
 export interface KeyframeOptions {
-  type: 'transform' | 'color' | 'other'
+  type: 'transform' | 'color' | 'other' | 'filter'
   key: string
   value: (number | RGBA)[]
   units: Set<string>
