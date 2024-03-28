@@ -5,8 +5,8 @@ import { pipe } from './pipe'
 import { clamp } from './clamp'
 import { mix } from './mix'
 import { mixColor } from './mix-color'
-import { isArray } from './is'
-import type { Mix, Mixer, Easing, RGBA } from '@/types'
+import { isNumber, isArray } from './is'
+import type { Mix, Mixer, MixerType, Easing, RGBA } from '@/types'
 
 function mixerNumber(from: number, to: number): Mix<number> {
   return (p) => mix(from, to, p)
@@ -47,8 +47,38 @@ function mixerColor(from: RGBA, to: RGBA): Mix<RGBA> {
   }
 }
 
-function getMixerType<T>(value: T, color: boolean = false): Mixer<any> {
-  if (color) return mixerColor
+function mixerShadow(
+  from: (number | RGBA)[],
+  to: (number | RGBA)[],
+): Mix<(number | RGBA)[]> {
+  const fromLength = from.length
+
+  return (p: number) => {
+    const mixed: Mix<number | RGBA>[] = []
+    const output: (number | RGBA)[] = []
+
+    for (let i = 0; i < fromLength; i++) {
+      if (isNumber(from[i])) {
+        mixed.push((p) => mix(from[i] as number, to[i] as number, p))
+      } else {
+        mixed.push((p) => mixerColor(from[i] as RGBA, to[i] as RGBA)(p))
+      }
+
+      output[i] = mixed[i](p)
+    }
+
+    return output
+  }
+}
+
+function getMixerType<T>(
+  value: T,
+  options: {
+    type?: MixerType
+  } = {},
+): Mixer<any> {
+  if (options.type === 'color') return mixerColor
+  if (options.type === 'shadow') return mixerShadow
   if (isArray(value)) return mixerArray
   return mixerNumber
 }
@@ -57,13 +87,13 @@ export function createMixers<T>(
   values: T[],
   options: {
     ease?: Easing | Easing[]
-    color?: boolean
+    type?: MixerType
   } = {},
 ): Mix<T>[] {
-  const { ease, color } = options
+  const { ease, type } = options
   const mixers: Mix<T>[] = []
   const mixersLength = values.length - 1
-  const getMixer = getMixerType(values[0], color)
+  const getMixer = getMixerType(values[0], { type })
 
   for (let i = 0; i < mixersLength; i++) {
     let mixer = getMixer(values[i], values[i + 1])

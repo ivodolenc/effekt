@@ -3,7 +3,7 @@
 
 import { progress } from './progress'
 import { createMixers } from './mixers'
-import type { Mix, Easing } from '@/types'
+import type { Mix, InterpolateOptions } from '@/types'
 
 /**
  * Creates a linear interpolation from a series of `values`
@@ -23,10 +23,7 @@ import type { Mix, Easing } from '@/types'
 export function interpolate<T>(
   values: T[],
   offset: number[],
-  options: {
-    ease?: Easing | Easing[]
-    color?: boolean
-  } = {},
+  options: InterpolateOptions = {},
 ): Mix<T> {
   const offsetLength = offset.length
   const lastOffsetIndex = offsetLength - 1
