@@ -1,4 +1,4 @@
-import { rgxIsTransform, rgxIsColor } from '@/utils/regexp'
+import { rgxIsTransform, rgxIsColor, rgxIsFilter } from '@/utils/regexp'
 import { isArray, isObject } from '@/utils/is'
 import { outQuart } from '@/easing'
 import { calcOffset } from './calc-offset'
@@ -56,6 +56,12 @@ export function parseKeyframe(
   }
 
   if (rgxIsColor.test(key)) keyframe.type = 'color'
+
+  if (rgxIsFilter.test(key)) {
+    keyframe.type = 'filter'
+    keyframe.key = key.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
+    if (key.startsWith('opa')) keyframe.key = 'opacity'
+  }
 
   if (isArray(value)) {
     const valueLength = value.length

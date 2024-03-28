@@ -6,6 +6,7 @@ import {
   rgxPxAll,
   rgxDegTransform,
   rgxColor,
+  rgxShadow,
 } from '@/utils/regexp'
 import { isNumber } from '@/utils/is'
 import { hexToRgba, hslaToRgba } from '@/utils'
@@ -21,7 +22,6 @@ function parseUnit(value: string): ParsedValue {
   const split = value.split(rgxDigits)
   const v = parseFloat(split[1])
   const unit = split[2]
-
   return { value: v, unit }
 }
 
@@ -56,11 +56,31 @@ function parseCssVar(key: string, value: string): ParsedValue {
   return parseValue(key, style.getPropertyValue(value))
 }
 
+function parseShadow(value: string): ParsedValue {
+  const split = value.split(' ')
+  const length = split.length
+  const values = []
+  const units = []
+
+  for (let i = 0; i < length; i++) {
+    const v = split[i]
+    const parsed = rgxColor.test(v) ? parseColor(v) : parseUnit(v)
+    values.push(parsed.value)
+    units.push(parsed.unit)
+  }
+
+  return {
+    value: values as any,
+    unit: units[0],
+  }
+}
+
 export function parseValue(key: string, value: number | string): ParsedValue {
   if (isNumber(value)) return parseNumber(key, value)
   else {
     if (rgxDigitsOnly.test(value)) return parseNumber(key, parseFloat(value))
     if (rgxColor.test(value)) return parseColor(value)
+    if (rgxShadow.test(key)) return parseShadow(value)
     if (rgxUnits.test(value)) return parseUnit(value)
     if (value.startsWith('--')) return parseCssVar(key, value)
   }

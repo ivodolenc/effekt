@@ -1,3 +1,5 @@
+import { isNumber } from '@/utils/is'
+import { rgxShadow } from '@/utils/regexp'
 import { interpolate, setStyle } from '@/utils'
 import { Driver, createDriverData } from '@/engine'
 import type { AnimationTarget, DriverData, KeyframeOptions } from '@/types'
@@ -38,18 +40,12 @@ export class Keyframe {
         const interpolator = interpolate(value, offset, { ease })(progress)
         const v = `${interpolator}${unit}`
 
-        let tVar = `${key[0]}${key[key.length - 1]}`
+        let tName = `${key[0]}${key[1]}${key[key.length - 1]}`
         const tValue = `${key}(${v})`
 
-        if (key.startsWith('p')) tVar = `p`
-        if (key.startsWith('sk')) tVar = `sk${key[key.length - 1]}`
+        if (key.startsWith('p')) tName = `pe`
 
-        this.#el.style.setProperty(`--t-${tVar}`, tValue)
-
-        const transform =
-          'var(--t-tX) var(--t-tY) var(--t-tZ) var(--t-rX) var(--t-rY) var(--t-rZ) var(--t-sX) var(--t-sY) var(--t-sZ) var(--t-skX) var(--t-skY) var(--t-p)'
-
-        return setStyle(this.#el, 'transform', transform)
+        return this.#el.style.setProperty(`--t-${tName}`, tValue)
       }
 
       if (type === 'color') {
@@ -57,7 +53,7 @@ export class Keyframe {
 
         const interpolator = interpolate(value, offset, {
           ease,
-          color: true,
+          type: 'color',
         })(progress)
 
         return setStyle(this.#el, key, `rgba(${interpolator})`)
@@ -67,9 +63,59 @@ export class Keyframe {
         const { key, value, units, ease, offset } = options
 
         const [unit] = units
+
+        if (rgxShadow.test(key)) {
+          const interpolator = interpolate(
+            value as (number | number[])[][],
+            offset,
+            { ease, type: 'shadow' },
+          )(progress)
+          const iLength = interpolator.length
+          let shadow = ''
+
+          for (let i = 0; i < iLength; i++) {
+            const val = interpolator[i]
+            if (isNumber(val)) shadow += `${val}${unit || 'px'} `
+            else shadow += `rgba(${val})`
+          }
+
+          return setStyle(this.#el, key, shadow.trimEnd())
+        }
+
         const interpolator = interpolate(value, offset, { ease })(progress)
 
         return setStyle(this.#el, key, `${interpolator}${unit}`)
+      }
+
+      if (type === 'filter') {
+        const { key, value, units, ease, offset } = options
+
+        const [unit] = units
+        const fName = `${key[0]}${key[1]}`
+
+        if (rgxShadow.test(key)) {
+          const interpolator = interpolate(
+            value as (number | number[])[][],
+            offset,
+            { ease, type: 'shadow' },
+          )(progress)
+          const iLength = interpolator.length
+          let v = ''
+
+          for (let i = 0; i < iLength; i++) {
+            const val = interpolator[i]
+            if (isNumber(val)) v += `${val}${unit || 'px'} `
+            else v += `rgba(${val})`
+          }
+          const fValue = `${key}(${v.trimEnd()})`
+
+          return this.#el.style.setProperty(`--f-${fName}`, fValue)
+        }
+
+        const interpolator = interpolate(value, offset, { ease })(progress)
+        const fValue = `${key}(${interpolator}${unit})`
+
+        return this.#el.style.setProperty(`--f-${fName}`, fValue)
       }
     }
   }
