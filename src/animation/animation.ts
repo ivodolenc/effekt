@@ -31,14 +31,36 @@ export class Animation {
 
   #setInitialCssVars(): void {
     if (this.#keyframes.some((k) => k.type === 'transform')) {
-      const vars = ['p', 'skX', 'skY']
-      vars.forEach((v) => this.#el.style.setProperty(`--t-${v}`, ' '))
+      let transform = ''
+
+      const vars = ['pe', 'skX', 'skY']
+      vars.forEach((v) => {
+        transform += `var(--t-${v}) `
+        this.#el.style.setProperty(`--t-${v}`, ' ')
+      })
 
       const axis = ['X', 'Y', 'Z']
       axis.forEach((key) => {
-        const vars = ['t', 'r', 's']
-        vars.forEach((v) => this.#el.style.setProperty(`--t-${v}${key}`, ' '))
+        const vars = ['tr', 'ro', 'sc']
+        vars.forEach((v) => {
+          transform += `var(--t-${v}${key}) `
+          this.#el.style.setProperty(`--t-${v}${key}`, ' ')
+        })
       })
+
+      this.#el.style.transform = transform
+    }
+
+    if (this.#keyframes.some((k) => k.type === 'filter')) {
+      let filter = ''
+      const vars = ['bl', 'br', 'co', 'dr', 'gr', 'hu', 'in', 'op', 'sa', 'se']
+
+      vars.forEach((v) => {
+        filter += `var(--f-${v}) `
+        this.#el.style.setProperty(`--f-${v}`, ' ')
+      })
+
+      this.#el.style.filter = filter
     }
   }
 
