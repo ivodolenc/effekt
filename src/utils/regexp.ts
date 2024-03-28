@@ -30,3 +30,8 @@ export const rgxIsTransform = composeRegex(
 )
 
 export const rgxPxAll = composeRegex(rgxPxTransform, rgxPxOther)
+
+export const rgxShadow = /shadow/i
+
+export const rgxIsFilter =
+  /(blur|bright|contrast|dropShadow|gray|hue|invert|opacityFilter|saturate|sepia)/i
