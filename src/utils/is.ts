@@ -9,9 +9,6 @@ export const isNumber = (v: any): v is number =>
 
 export const isString = (v: any): v is string => typeof v === 'string'
 
-export const isStringEmpty = (v: any): v is string =>
-  isString(v) && v.trim().length === 0
-
 export const isNull = (v: any): v is null => v === null
 
 export const isUndefined = (v: any): v is undefined => typeof v === 'undefined'
