@@ -1,5 +1,5 @@
 import { Animation } from './animation'
-import { getAnimation } from './utils'
+import { generateKeyframes, getAnimation } from './utils'
 import { getElements } from '@/utils'
 import type {
   Targets,
@@ -28,12 +28,13 @@ export class AnimationController {
 
     const elements = getElements(targets)
     const elsLength = elements.length
+    const keyframes = generateKeyframes(options)
 
     for (let i = 0; i < elsLength; i++) {
       const el = elements[i]
       const a = new Animation(
         { value: el, index: i, total: elsLength },
-        options,
+        keyframes,
       )
       this.#animations.push(a)
     }
@@ -42,7 +43,7 @@ export class AnimationController {
 
     this.#animation.onComplete(() => this.#resolve?.(this.data))
     if (options.onUpdate) {
-      this.#animation.onRender(() => options.onUpdate?.(this.data))
+      this.#animation.onRender(() => options.onUpdate?.(this.data, elements))
     }
 
     options.onStart?.(this.data)
@@ -51,11 +52,13 @@ export class AnimationController {
       .then(() => {
         this.#animation.data.playState = 'finished'
         this.#animation.data.promiseState = 'fulfilled'
+        this.#animation.revert3d(elements)
         options.onComplete?.(this.data)
       })
       .catch((err) => {
         this.#animation.data.playState = 'idle'
         this.#animation.data.promiseState = 'rejected'
+        this.#animation.revert3d(elements)
         options.onCancel?.(this.data, err)
       })
   }

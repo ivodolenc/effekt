@@ -1,28 +1,33 @@
 import { Keyframe } from './keyframe'
-import { generateKeyframes, getAnimation } from './utils'
+import { getAnimation } from './utils'
 import type {
   DriverData,
   AnimationTarget,
-  AnimationOptions,
   AnimationSetProperties,
   AnimationRunMethods,
-  KeyframeOptions,
+  KeyframesGenerator,
 } from '@/types'
 
 export class Animation {
   #animation!: Keyframe
   #animations: Keyframe[] = []
-  #keyframes!: KeyframeOptions[]
+  #keyframes!: KeyframesGenerator
   #el: HTMLElement | SVGElement
+  #force3d: boolean
+  #revert3d: boolean = false
+  #revert3dZ: boolean = false
 
-  constructor(el: AnimationTarget, options: AnimationOptions) {
+  constructor(el: AnimationTarget, keyframes: KeyframesGenerator) {
     this.#el = el.value
-    this.#keyframes = generateKeyframes(options)
-    const keyframesLength = this.#keyframes.length
+    this.#force3d = keyframes.force3d
+
+    this.#keyframes = keyframes
+    const keyframesLength = keyframes.options.length
 
     for (let i = 0; i < keyframesLength; i++) {
-      const k = new Keyframe(el, this.#keyframes[i])
-      this.#animations.push(k)
+      const options = keyframes.options[i]
+      const keyframe = new Keyframe(el, options)
+      this.#animations.push(keyframe)
     }
 
     this.#animation = getAnimation(this.#animations)
@@ -30,7 +35,9 @@ export class Animation {
   }
 
   #setInitialCssVars(): void {
-    if (this.#keyframes.some((k) => k.type === 'transform')) {
+    const { hasTransform, hasFilter, hasTranslateZ } = this.#keyframes
+
+    if (hasTransform) {
       let transform = ''
 
       const vars = ['pe', 'skX', 'skY']
@@ -48,10 +55,20 @@ export class Animation {
         })
       })
 
+      if (this.#force3d) {
+        this.#revert3d = true
+        if (!hasTranslateZ) {
+          this.#revert3dZ = true
+          this.#el.style.setProperty(`--t-trZ`, 'translateZ(0)')
+        }
+        this.#el.style.willChange = hasFilter
+          ? 'transform, filter'
+          : 'transform'
+      }
       this.#el.style.transform = transform
     }
 
-    if (this.#keyframes.some((k) => k.type === 'filter')) {
+    if (hasFilter) {
       let filter = ''
       const vars = ['bl', 'br', 'co', 'dr', 'gr', 'hu', 'in', 'op', 'sa', 'se']
 
@@ -60,6 +77,12 @@ export class Animation {
         this.#el.style.setProperty(`--f-${v}`, ' ')
       })
 
+      if (this.#force3d) {
+        this.#revert3d = true
+        this.#el.style.willChange = hasTransform
+          ? 'transform, filter'
+          : 'filter'
+      }
       this.#el.style.filter = filter
     }
   }
@@ -70,6 +93,15 @@ export class Animation {
 
   #run(name: AnimationRunMethods): void {
     this.#animations.forEach((method) => method[name]())
+  }
+
+  revert3d(elements: (HTMLElement | SVGElement)[]): void {
+    if (this.#revert3d) {
+      elements.forEach((el) => {
+        if (this.#revert3dZ) el.style.setProperty(`--t-trZ`, ' ')
+        el.style.willChange = 'auto'
+      })
+    }
   }
 
   onRender(callback: () => void): void {
