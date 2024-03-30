@@ -24,7 +24,10 @@ export interface AnimationMethods {
    *
    * @default undefined
    */
-  onUpdate?(data: Readonly<DriverData>): void
+  onUpdate?(
+    data: Readonly<DriverData>,
+    elements: (HTMLElement | SVGElement)[],
+  ): void
   /**
    * Called every time the animation is reversed.
    *
