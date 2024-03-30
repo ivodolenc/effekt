@@ -74,4 +74,14 @@ export interface AnimationEffect {
    * @default outQuart
    */
   ease?: Easing | Easing[]
+  /**
+   * Specifies `transform` rendering mode.
+   *
+   * By default, it automatically activates GPU acceleration by applying 3D transforms instead of 2D.
+   *
+   * When the animation ends or is canceled, the mode reverts back to its initial state to conserve GPU memory.
+   *
+   * @default true
+   */
+  force3d?: boolean
 }
