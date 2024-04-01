@@ -27,15 +27,11 @@ export class AnimationController {
     this.#onReverse = options.onReverse
 
     const elements = getElements(targets)
-    const elsLength = elements.length
     const keyframes = generateKeyframes(options)
 
-    for (let i = 0; i < elsLength; i++) {
+    for (let i = 0, l = elements.length; i < l; i++) {
       const el = elements[i]
-      const a = new Animation(
-        { value: el, index: i, total: elsLength },
-        keyframes,
-      )
+      const a = new Animation({ value: el, index: i, total: l }, keyframes)
       this.#animations.push(a)
     }
 

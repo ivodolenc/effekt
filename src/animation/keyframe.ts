@@ -70,10 +70,9 @@ export class Keyframe {
             offset,
             { ease, type: 'shadow' },
           )(progress)
-          const iLength = interpolator.length
           let shadow = ''
 
-          for (let i = 0; i < iLength; i++) {
+          for (let i = 0, l = interpolator.length; i < l; i++) {
             const val = interpolator[i]
             if (isNumber(val)) shadow += `${val}${unit || 'px'} `
             else shadow += `rgba(${val})`
@@ -99,10 +98,9 @@ export class Keyframe {
             offset,
             { ease, type: 'shadow' },
           )(progress)
-          const iLength = interpolator.length
           let v = ''
 
-          for (let i = 0; i < iLength; i++) {
+          for (let i = 0, l = interpolator.length; i < l; i++) {
             const val = interpolator[i]
             if (isNumber(val)) v += `${val}${unit || 'px'} `
             else v += `rgba(${val})`

@@ -58,11 +58,10 @@ function parseCssVar(key: string, value: string): ParsedValue {
 
 function parseShadow(value: string): ParsedValue {
   const split = value.split(' ')
-  const length = split.length
   const values = []
   const units = []
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0, l = split.length; i < l; i++) {
     const v = split[i]
     const parsed = rgxColor.test(v) ? parseColor(v) : parseUnit(v)
     values.push(parsed.value)

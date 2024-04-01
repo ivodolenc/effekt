@@ -20,11 +20,9 @@ export class Animation {
   constructor(el: AnimationTarget, keyframes: KeyframesGenerator) {
     this.#el = el.value
     this.#force3d = keyframes.force3d
-
     this.#keyframes = keyframes
-    const keyframesLength = keyframes.options.length
 
-    for (let i = 0; i < keyframesLength; i++) {
+    for (let i = 0, l = keyframes.options.length; i < l; i++) {
       const options = keyframes.options[i]
       const keyframe = new Keyframe(el, options)
       this.#animations.push(keyframe)

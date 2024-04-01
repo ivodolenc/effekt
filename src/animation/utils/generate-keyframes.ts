@@ -23,7 +23,6 @@ export function generateKeyframes(
 
   const force3d = f3d ?? true
   const keys = Object.keys(props) as (keyof AnimationKeyframes)[]
-  const keysLength = keys.length
 
   const keyframeOptions: KeyframesGenerator['options'] = []
   let hasTransform = false
@@ -41,7 +40,7 @@ export function generateKeyframes(
     ease,
   }
 
-  for (let i = 0; i < keysLength; i++) {
+  for (let i = 0, l = keys.length; i < l; i++) {
     const key = keys[i]
     const value = props[key]
 
