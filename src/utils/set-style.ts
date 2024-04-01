@@ -20,10 +20,7 @@ export function setStyle(
 ): string {
   const p = property as any
 
-  if (!isUndefined(el.style[p])) {
-    return (el.style[p] = value)
-  }
+  if (!isUndefined(el.style[p])) return (el.style[p] = value)
 
-  const id = el.id || el.classList[0] || el.tagName
-  throw new TypeError(`Unsupported '${property}' property in '${id}' target.`)
+  throw new TypeError(`Unsupported '${property}' property.`)
 }

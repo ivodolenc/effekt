@@ -36,9 +36,8 @@ export function stagger(
     const fromCenter = !isNumber(fromIndex) && fromIndex === 'center'
     let distance = 0
 
-    if (!grid) {
-      distance = abs(fromIndex - i)
-    } else {
+    if (!grid) distance = abs(fromIndex - i)
+    else {
       // Inspired by Stagger Grid Option from Anime.js, 3.2.2, MIT License, https://github.com/juliangarnier/anime
       // Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
       const fromX = !fromCenter ? fromIndex % grid[0] : (grid[0] - 1) / 2

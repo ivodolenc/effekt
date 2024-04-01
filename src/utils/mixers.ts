@@ -13,17 +13,13 @@ function mixerNumber(from: number, to: number): Mix<number> {
 }
 
 function mixerArray(from: number[], to: number[]): Mix<number[]> {
-  const fromLength = from.length
-
   return (p: number) => {
     const mixed: Mix<number>[] = []
     const output: number[] = []
-
-    for (let i = 0; i < fromLength; i++) {
+    for (let i = 0, l = from.length; i < l; i++) {
       mixed.push((p) => mix(from[i], to[i], p))
       output[i] = mixed[i](p)
     }
-
     return output
   }
 }
@@ -51,19 +47,16 @@ function mixerShadow(
   from: (number | RGBA)[],
   to: (number | RGBA)[],
 ): Mix<(number | RGBA)[]> {
-  const fromLength = from.length
-
   return (p: number) => {
     const mixed: Mix<number | RGBA>[] = []
     const output: (number | RGBA)[] = []
 
-    for (let i = 0; i < fromLength; i++) {
+    for (let i = 0, l = from.length; i < l; i++) {
       if (isNumber(from[i])) {
         mixed.push((p) => mix(from[i] as number, to[i] as number, p))
       } else {
         mixed.push((p) => mixerColor(from[i] as RGBA, to[i] as RGBA)(p))
       }
-
       output[i] = mixed[i](p)
     }
 
@@ -92,17 +85,14 @@ export function createMixers<T>(
 ): Mix<T>[] {
   const { ease, type } = options
   const mixers: Mix<T>[] = []
-  const mixersLength = values.length - 1
   const getMixer = getMixerType(values[0], { type })
 
-  for (let i = 0; i < mixersLength; i++) {
+  for (let i = 0, l = values.length - 1; i < l; i++) {
     let mixer = getMixer(values[i], values[i + 1])
-
     if (ease) {
       const easing = isArray(ease) ? ease[i] : ease
       mixer = pipe(easing, mixer)
     }
-
     mixers.push(mixer)
   }
 
