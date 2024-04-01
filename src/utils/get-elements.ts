@@ -1,5 +1,18 @@
 import { isElement, isValidElement, isString } from '@/utils/is'
-import type { Targets } from '@/types'
+import type { Targets, ParsedElements } from '@/types'
+
+function parseElements(
+  elements: (Element | null)[] | NodeListOf<Element> | null,
+): ParsedElements {
+  const els: (HTMLElement | SVGElement)[] = []
+  if (elements) {
+    for (let i = 0, l = elements.length; i < l; i++) {
+      const el = elements[i]
+      if (isValidElement(el)) els.push(el)
+    }
+  }
+  return els
+}
 
 /**
  * Gets a parsed list of DOM elements.
@@ -12,31 +25,15 @@ import type { Targets } from '@/types'
  * getElements('.class')
  * ```
  */
-export function getElements(targets: Targets): (HTMLElement | SVGElement)[] {
-  const els: (HTMLElement | SVGElement)[] = []
-
+export function getElements(targets: Targets): ParsedElements {
   if (isElement(targets)) {
     if (isValidElement(targets)) return [targets]
   } else if (isString(targets)) {
-    const list = document.querySelectorAll(targets)
-    if (list.length) {
-      const length = list.length
-      for (let i = 0; i < length; i++) {
-        const el = list[i]
-        if (isValidElement(el)) els.push(el)
-      }
-      return els
-    }
-
-    throw new TypeError(`Target '${targets}' is not found.`)
-  } else if (targets) {
-    const length = targets.length
-    for (let i = 0; i < length; i++) {
-      const el = targets[i]
-      if (isValidElement(el)) els.push(el)
-    }
-    return els
+    const els = parseElements(document.querySelectorAll(targets))
+    if (els.length) return els
+  } else {
+    const els = parseElements(targets)
+    if (els.length) return els
   }
-
-  throw new TypeError(`Some of the targets were not found.`)
+  throw new TypeError(`Animation target not found.`)
 }

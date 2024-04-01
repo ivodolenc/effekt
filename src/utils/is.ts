@@ -29,5 +29,5 @@ export const isSvgElement = (v: any): v is SVGElement => v instanceof SVGElement
 
 export const isValidElement = (v: any): v is HTMLElement | SVGElement => {
   if (v && (isHtmlElement(v) || isSvgElement(v))) return true
-  throw new TypeError('Target is not supported.')
+  return false
 }
