@@ -22,7 +22,7 @@ export default defineConfig({
     {
       // main iife minified
       input: './src/index.ts',
-      output: './dist/index.iife.min.js',
+      output: './dist/index.iife.js',
       plugins: { esbuild: { minify: true } },
       format: 'iife',
       name: 'Effekt',
@@ -31,7 +31,7 @@ export default defineConfig({
     {
       // main umd minified
       input: './src/index.ts',
-      output: './dist/index.umd.min.js',
+      output: './dist/index.umd.js',
       plugins: { esbuild: { minify: true } },
       format: 'umd',
       name: 'Effekt',
@@ -46,6 +46,28 @@ export default defineConfig({
       // easing esm
       input: './src/easing/index.ts',
       output: './dist/easing/index.mjs',
+    },
+    {
+      // easing esm minified
+      input: './src/easing/index.ts',
+      output: './dist/easing/index.min.mjs',
+      plugins: { esbuild: { minify: true } },
+    },
+    {
+      // easing iife minified
+      input: './src/easing/index.ts',
+      output: './dist/easing/index.iife.js',
+      plugins: { esbuild: { minify: true } },
+      format: 'iife',
+      name: 'EffektEasing',
+    },
+    {
+      // easing umd minified
+      input: './src/easing/index.ts',
+      output: './dist/easing/index.umd.js',
+      plugins: { esbuild: { minify: true } },
+      format: 'umd',
+      name: 'EffektEasing',
     },
     {
       // easing types
