@@ -4,17 +4,30 @@ import { frame, cancelFrame, state } from './frame'
 import type { DriverOptions, DriverData, FrameData } from '@/types'
 
 export class Driver {
-  #data: DriverData
+  #dataKey = {}
+  #renderKey = {}
+  #completeKey = {}
+  #dataMap: WeakMap<object, DriverData> = new WeakMap()
+  #onRender?: WeakMap<object, DriverOptions['onRender']>
+  #onComplete?: WeakMap<object, DriverOptions['onComplete']>
   #isRunning: boolean = false
   #reversePlayRate: boolean = false
   #reversePlayRateTime: number = 0
-  #onRender?: DriverOptions['onRender']
-  #onComplete?: DriverOptions['onComplete']
 
   constructor(data: DriverData, options: DriverOptions = {}) {
-    this.#data = data
-    this.#onRender = options.onRender
-    this.#onComplete = options.onComplete
+    const { onRender, onComplete } = options
+
+    this.#dataMap.set(this.#dataKey, data)
+
+    if (onRender) {
+      this.#onRender = new WeakMap()
+      this.#onRender.set(this.#renderKey, onRender)
+    }
+
+    if (onComplete) {
+      this.#onComplete = new WeakMap()
+      this.#onComplete.set(this.#completeKey, onComplete)
+    }
 
     if (this.#data.autoplay) this.play()
   }
@@ -30,13 +43,15 @@ export class Driver {
   #stopDriver(): void {
     if (this.#isRunning) {
       cancelFrame(this.#tick)
-      if (this.#onRender) cancelFrame(this.#onRender)
+      if (this.#onRender) cancelFrame(this.#onRender.get(this.#renderKey)!)
       this.#isRunning = false
     }
   }
 
   #render(keepAlive = false): void {
-    if (this.#onRender) frame.render(this.#onRender, keepAlive)
+    if (this.#onRender) {
+      frame.render(this.#onRender.get(this.#renderKey)!, keepAlive)
+    }
   }
 
   #tick = ({ timestamp, delta }: FrameData) => {
@@ -125,7 +140,7 @@ export class Driver {
       this.#data.playState = 'finished'
       this.#stopDriver()
       this.#render()
-      this.#onComplete?.()
+      this.#onComplete?.get(this.#completeKey)?.()
     }
   }
 
@@ -157,9 +172,7 @@ export class Driver {
 
   pause(): void {
     this.#data.playState = 'paused'
-    this.#stopDriver()
     this.#data.pauseTime = this.#data.time
-    this.#render()
   }
 
   stop(): void {
@@ -197,6 +210,10 @@ export class Driver {
       this.playRate = -1
       this.playRate = 1
     }
+  }
+
+  get #data(): DriverData {
+    return this.#dataMap.get(this.#dataKey)!
   }
 
   get currentTime(): number {
