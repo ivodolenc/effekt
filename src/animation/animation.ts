@@ -11,78 +11,14 @@ import type {
 export class Animation {
   #animation!: Keyframe
   #animations: Keyframe[] = []
-  #keyframes!: KeyframesGenerator
-  #el: HTMLElement | SVGElement
-  #force3d: boolean
-  #revert3d: boolean = false
-  #revert3dZ: boolean = false
 
   constructor(el: AnimationTarget, keyframes: KeyframesGenerator) {
-    this.#el = el.value
-    this.#force3d = keyframes.force3d
-    this.#keyframes = keyframes
-
     for (let i = 0, l = keyframes.options.length; i < l; i++) {
       const options = keyframes.options[i]
-      const keyframe = new Keyframe(el, options)
+      const keyframe = new Keyframe(el, options, keyframes.force3d)
       this.#animations.push(keyframe)
     }
-
     this.#animation = getAnimation(this.#animations)
-    this.#setInitialCssVars()
-  }
-
-  #setInitialCssVars(): void {
-    const { hasTransform, hasFilter, hasTranslateZ } = this.#keyframes
-
-    if (hasTransform) {
-      let transform = ''
-
-      const vars = ['pe', 'skX', 'skY']
-      vars.forEach((v) => {
-        transform += `var(--t-${v}) `
-        this.#el.style.setProperty(`--t-${v}`, ' ')
-      })
-
-      const axis = ['X', 'Y', 'Z']
-      axis.forEach((key) => {
-        const vars = ['tr', 'ro', 'sc']
-        vars.forEach((v) => {
-          transform += `var(--t-${v}${key}) `
-          this.#el.style.setProperty(`--t-${v}${key}`, ' ')
-        })
-      })
-
-      if (this.#force3d) {
-        this.#revert3d = true
-        if (!hasTranslateZ) {
-          this.#revert3dZ = true
-          this.#el.style.setProperty(`--t-trZ`, 'translateZ(0)')
-        }
-        this.#el.style.willChange = hasFilter
-          ? 'transform, filter'
-          : 'transform'
-      }
-      this.#el.style.transform = transform
-    }
-
-    if (hasFilter) {
-      let filter = ''
-      const vars = ['bl', 'br', 'co', 'dr', 'gr', 'hu', 'in', 'op', 'sa', 'se']
-
-      vars.forEach((v) => {
-        filter += `var(--f-${v}) `
-        this.#el.style.setProperty(`--f-${v}`, ' ')
-      })
-
-      if (this.#force3d) {
-        this.#revert3d = true
-        this.#el.style.willChange = hasTransform
-          ? 'transform, filter'
-          : 'filter'
-      }
-      this.#el.style.filter = filter
-    }
   }
 
   #set(name: AnimationSetProperties, value: number): void {
@@ -90,16 +26,7 @@ export class Animation {
   }
 
   #run(name: AnimationRunMethods): void {
-    this.#animations.forEach((method) => method[name]())
-  }
-
-  revert3d(elements: (HTMLElement | SVGElement)[]): void {
-    if (this.#revert3d) {
-      elements.forEach((el) => {
-        if (this.#revert3dZ) el.style.setProperty(`--t-trZ`, ' ')
-        el.style.willChange = 'auto'
-      })
-    }
+    this.#animations.forEach((k) => k[name]())
   }
 
   onRender(callback: () => void): void {

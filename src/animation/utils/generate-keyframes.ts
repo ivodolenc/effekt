@@ -23,11 +23,7 @@ export function generateKeyframes(
 
   const force3d = f3d ?? true
   const keys = Object.keys(props) as (keyof AnimationKeyframes)[]
-
   const keyframeOptions: KeyframesGenerator['options'] = []
-  let hasTransform = false
-  let hasFilter = false
-  let hasTranslateZ = false
 
   const driverOptions = {
     autoplay,
@@ -43,16 +39,8 @@ export function generateKeyframes(
   for (let i = 0, l = keys.length; i < l; i++) {
     const key = keys[i]
     const value = props[key]
-
     const keyframe = parseKeyframe(key, value, driverOptions)
-
-    if (keyframe) {
-      const { type, key } = keyframe
-      keyframeOptions.push(keyframe)
-      if (type === 'transform') hasTransform = true
-      if (type === 'filter') hasFilter = true
-      if (key === 'translateZ') hasTranslateZ = true
-    }
+    if (keyframe) keyframeOptions.push(keyframe)
   }
 
   if (!keyframeOptions.length) keyframeOptions.push(driverOptions as any)
@@ -60,8 +48,5 @@ export function generateKeyframes(
   return {
     options: keyframeOptions,
     force3d,
-    hasTransform,
-    hasFilter,
-    hasTranslateZ,
   }
 }

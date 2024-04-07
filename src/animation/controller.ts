@@ -48,13 +48,11 @@ export class AnimationController {
       .then(() => {
         this.#animation.data.playState = 'finished'
         this.#animation.data.promiseState = 'fulfilled'
-        this.#animation.revert3d(elements)
         options.onComplete?.(this.data)
       })
       .catch((err) => {
         this.#animation.data.playState = 'idle'
         this.#animation.data.promiseState = 'rejected'
-        this.#animation.revert3d(elements)
         options.onCancel?.(this.data, err)
       })
   }
@@ -64,7 +62,7 @@ export class AnimationController {
   }
 
   #run(name: ControllerMethods): void {
-    this.#animations.forEach((method) => method[name]())
+    this.#animations.forEach((a) => a[name]())
   }
 
   finished: AnimationPromise = new Promise((resolve, reject): void => {
