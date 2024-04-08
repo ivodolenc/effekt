@@ -18,8 +18,6 @@ const filters: WeakMap<
   }
 > = new WeakMap()
 
-const willChange: WeakMap<HTMLElement | SVGElement, string[]> = new WeakMap()
-
 export class Keyframe {
   #dataKey = {}
   #dataMap: WeakMap<object, DriverData> = new WeakMap()
@@ -40,7 +38,6 @@ export class Keyframe {
       filter: false,
       filterShadow: false,
     }
-    willChange.set(el.value, [])
 
     if (type === 'transform') {
       is.transform = true
@@ -50,7 +47,7 @@ export class Keyframe {
         if (key !== 'translateZ') {
           transforms.get(this.#el)!.translateZ = `translateZ(0)`
         }
-        willChange.get(el.value)!.push('transform')
+        el.value.style.willChange = 'transform'
       }
     }
     if (type === 'color') {
@@ -62,12 +59,8 @@ export class Keyframe {
     }
     if (type === 'filter') {
       is.filter = true
-      filters.set(this.#el, {})
       if (rgxShadow.test(key)) is.filterShadow = true
-      if (force3d) willChange.get(el.value)!.push('filter')
-    }
-    if (force3d) {
-      el.value.style.willChange = willChange.get(el.value)!.join(', ')
+      filters.set(this.#el, {})
     }
 
     const onRender = () => {
