@@ -1,4 +1,4 @@
 export interface DriverOptions {
-  onRender?: () => void
-  onComplete?: () => void
+  onRender?: VoidFunction
+  onComplete?: VoidFunction
 }

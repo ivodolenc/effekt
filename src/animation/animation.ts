@@ -14,8 +14,7 @@ export class Animation {
 
   constructor(el: AnimationTarget, keyframes: KeyframesGenerator) {
     for (let i = 0, l = keyframes.options.length; i < l; i++) {
-      const options = keyframes.options[i]
-      const keyframe = new Keyframe(el, options, keyframes.force3d)
+      const keyframe = new Keyframe(el, keyframes.options[i], keyframes.force3d)
       this.#animations.push(keyframe)
     }
     this.#animation = getAnimation(this.#animations)
@@ -29,11 +28,11 @@ export class Animation {
     this.#animations.forEach((k) => k[name]())
   }
 
-  onRender(callback: () => void): void {
+  onRender(callback: VoidFunction): void {
     this.#animation.onRender = callback
   }
 
-  onComplete(callback: () => void): void {
+  onComplete(callback: VoidFunction): void {
     this.#animation.onComplete = callback
   }
 
