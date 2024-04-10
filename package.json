@@ -2,7 +2,7 @@
   "name": "effekt",
   "version": "0.1.0",
   "author": "Ivo Dolenc",
-  "description": "Web animation platform.",
+  "description": "Universal web animation platform.",
   "license": "MIT",
   "repository": "ivodolenc/effekt",
   "homepage": "https://github.com/ivodolenc/effekt",
@@ -27,10 +27,12 @@
     "web-animations",
     "javascript",
     "typescript",
+    "universal",
     "animation",
     "platform",
     "engine",
-    "tween"
+    "tween",
+    "web"
   ],
   "scripts": {
     "dev": "vite -c .config/vite.config.ts playgrounds/browser",
@@ -62,11 +64,11 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.8.1",
-    "@hypernym/eslint-config": "^2.0.5",
-    "@hypernym/prettier-config": "^2.0.4",
-    "@hypernym/tsconfig": "^1.2.0",
-    "@types/node": "^20.12.5",
+    "@hypernym/bundler": "^0.9.0",
+    "@hypernym/eslint-config": "^3.0.0",
+    "@hypernym/prettier-config": "^3.0.0",
+    "@hypernym/tsconfig": "^2.0.0",
+    "@types/node": "^20.12.7",
     "eslint": "^9.0.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.4",
