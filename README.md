@@ -1,6 +1,6 @@
 <h1 align="center">Effekt</h1>
 
-<p align="center">Web animation platform.</p>
+<p align="center">Universal web animation platform.</p>
 
 <p align="center">
   <sub>
@@ -27,11 +27,13 @@
 - Free & Open-source
 - Lightweight & Powerful
 - Supports ESM, IIFE & UMD
+- Framework independent
 - Written in TypeScript
 - Test-covered codebase
 - Fully tree-shakeable
 - No dependencies
 - Super easy to use
+- API friendly
 
 ## Playground
 
@@ -49,9 +51,9 @@ Feel free to ask questions or share new ideas.
 
 Use the official [discussions](https://github.com/ivodolenc/effekt/discussions) to get involved.
 
-## Contributing
+## Contribution
 
-Check out the [guide](.github/CONTRIBUTING.md) for more info.
+Check out the quick [guide](.github/CONTRIBUTING.md) for more info.
 
 ## License
 
