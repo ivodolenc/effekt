@@ -1,4 +1,5 @@
 import type { DelayFunction } from '@/types/shared'
+import type { AnimationTarget } from '@/types/animation'
 
 export interface DriverData {
   autoplay: boolean
@@ -24,7 +25,7 @@ export interface DriverData {
 }
 
 export interface DriverDataOptions {
-  el?: { index: number; total: number }
+  el?: AnimationTarget
   autoplay?: boolean
   direction?: DriverData['direction']
   playRate?: number
