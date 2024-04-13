@@ -2,25 +2,30 @@ import { isNumber } from '@/utils/is'
 import { rgxShadow } from '@/utils/regexp'
 import { interpolate, setStyle } from '@/utils'
 import { Driver, createDriverData } from '@/engine'
-import type { AnimationTarget, DriverData, KeyframeOptions } from '@/types'
+import type {
+  AnimationTarget,
+  DriverData,
+  KeyframeOptions,
+  KeyframeTypeData,
+} from '@/types'
 
 const transforms: WeakMap<
-  HTMLElement | SVGElement,
+  AnimationTarget['value'],
   {
     [key: string]: string
   }
 > = new WeakMap()
 
 const filters: WeakMap<
-  HTMLElement | SVGElement,
+  AnimationTarget['value'],
   {
     [key: string]: string
   }
 > = new WeakMap()
 
 export class Keyframe {
-  #dataKey = {}
-  #dataMap: WeakMap<object, DriverData> = new WeakMap()
+  #dataMap: WeakMap<AnimationTarget['value'], DriverData> = new WeakMap()
+  #typeMap: WeakMap<AnimationTarget['value'], KeyframeTypeData> = new WeakMap()
   #driver: Driver
   #el: HTMLElement | SVGElement
 
@@ -28,19 +33,18 @@ export class Keyframe {
     const { type, key, value, units, ease, offset, ...dataOptions } = options
 
     this.#el = el.value
-    this.#dataMap.set(this.#dataKey, createDriverData({ el, ...dataOptions }))
-
-    const is = {
+    this.#dataMap.set(this.#el, createDriverData({ el, ...dataOptions }))
+    this.#typeMap.set(this.#el, {
       transform: false,
       color: false,
       other: false,
       otherShadow: false,
       filter: false,
       filterShadow: false,
-    }
+    })
 
     if (type === 'transform') {
-      is.transform = true
+      this.#type.transform = true
       transforms.set(this.#el, {})
 
       if (force3d) {
@@ -51,27 +55,27 @@ export class Keyframe {
       }
     }
     if (type === 'color') {
-      is.color = true
+      this.#type.color = true
     }
     if (type === 'other') {
-      is.other = true
-      if (rgxShadow.test(key)) is.otherShadow = true
+      this.#type.other = true
+      if (rgxShadow.test(key)) this.#type.otherShadow = true
     }
     if (type === 'filter') {
-      is.filter = true
-      if (rgxShadow.test(key)) is.filterShadow = true
+      this.#type.filter = true
+      if (rgxShadow.test(key)) this.#type.filterShadow = true
       filters.set(this.#el, {})
     }
 
     const onRender = () => {
-      if (is.transform) {
+      if (this.#type.transform) {
         this.#createTransform(options)
         this.#animateMap('transform', transforms)
       }
-      if (is.color) this.#animateColor(options)
-      if (is.other) this.#animateOther(options, is.otherShadow)
-      if (is.filter) {
-        this.#createFilter(options, is.filterShadow)
+      if (this.#type.color) this.#animateColor(options)
+      if (this.#type.other) this.#animateOther(options, this.#type.otherShadow)
+      if (this.#type.filter) {
+        this.#createFilter(options, this.#type.filterShadow)
         this.#animateMap('filter', filters)
       }
 
@@ -211,6 +215,14 @@ export class Keyframe {
     this.#driver.reverse()
   }
 
+  get #data(): DriverData {
+    return this.#dataMap.get(this.#el)!
+  }
+
+  get #type(): KeyframeTypeData {
+    return this.#typeMap.get(this.#el)!
+  }
+
   get currentTime(): number {
     return this.#driver.currentTime
   }
@@ -223,10 +235,6 @@ export class Keyframe {
   }
   set playRate(rate) {
     this.#driver.playRate = rate
-  }
-
-  get #data(): DriverData {
-    return this.#dataMap.get(this.#dataKey)!
   }
 
   get data(): DriverData {
