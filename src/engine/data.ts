@@ -1,14 +1,14 @@
 import { secToMs } from '@/utils'
 import { setDelay } from './utils/set-delay'
 import { setRepeat } from './utils/set-repeat'
-import type { DriverData, DriverDataOptions } from '@/types'
+import type { DriverData, DriverDataOptions, AnimationTarget } from '@/types'
 
 export function createDriverData(options: DriverDataOptions = {}): DriverData {
   const { el } = options
-  const key = {}
-  const data: WeakMap<object, DriverData> = new WeakMap()
 
-  data.set(key, {
+  const data: WeakMap<AnimationTarget['value'], DriverData> = new WeakMap()
+
+  data.set(el!.value, {
     delta: 0,
     timestamp: 0,
     playState: 'idle',
@@ -31,7 +31,7 @@ export function createDriverData(options: DriverDataOptions = {}): DriverData {
     repeat: setRepeat(options.repeat),
   })
 
-  const d = data.get(key)!
+  const d = data.get(el!.value)!
   d.totalDuration = d.duration * d.repeat
   d.maxDuration = d.totalDuration + d.delay + d.endDelay
 

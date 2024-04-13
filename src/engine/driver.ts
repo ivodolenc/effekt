@@ -4,9 +4,7 @@ import { frame, cancelFrame, state } from './frame'
 import type { DriverOptions, DriverData, FrameData } from '@/types'
 
 export class Driver {
-  #dataKey = {}
-  #renderKey = {}
-  #completeKey = {}
+  #mapKey = {}
   #dataMap: WeakMap<object, DriverData> = new WeakMap()
   #onRender?: WeakMap<object, DriverOptions['onRender']>
   #onComplete?: WeakMap<object, DriverOptions['onComplete']>
@@ -17,16 +15,16 @@ export class Driver {
   constructor(data: DriverData, options: DriverOptions = {}) {
     const { onRender, onComplete } = options
 
-    this.#dataMap.set(this.#dataKey, data)
+    this.#dataMap.set(this.#mapKey, data)
 
     if (onRender) {
       this.#onRender = new WeakMap()
-      this.#onRender.set(this.#renderKey, onRender)
+      this.#onRender.set(this.#mapKey, onRender)
     }
 
     if (onComplete) {
       this.#onComplete = new WeakMap()
-      this.#onComplete.set(this.#completeKey, onComplete)
+      this.#onComplete.set(this.#mapKey, onComplete)
     }
 
     if (this.#data.autoplay) this.play()
@@ -43,14 +41,14 @@ export class Driver {
   #stopDriver(): void {
     if (this.#isRunning) {
       cancelFrame(this.#tick)
-      if (this.#onRender) cancelFrame(this.#onRender.get(this.#renderKey)!)
+      if (this.#onRender) cancelFrame(this.#onRender.get(this.#mapKey)!)
       this.#isRunning = false
     }
   }
 
   #render(keepAlive = false): void {
     if (this.#onRender) {
-      frame.render(this.#onRender.get(this.#renderKey)!, keepAlive)
+      frame.render(this.#onRender.get(this.#mapKey)!, keepAlive)
     }
   }
 
@@ -140,7 +138,7 @@ export class Driver {
       this.#data.playState = 'finished'
       this.#stopDriver()
       this.#render()
-      this.#onComplete?.get(this.#completeKey)?.()
+      this.#onComplete?.get(this.#mapKey)?.()
     }
   }
 
@@ -213,7 +211,7 @@ export class Driver {
   }
 
   get #data(): DriverData {
-    return this.#dataMap.get(this.#dataKey)!
+    return this.#dataMap.get(this.#mapKey)!
   }
 
   get currentTime(): number {
