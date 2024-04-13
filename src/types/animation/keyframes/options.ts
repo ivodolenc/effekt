@@ -16,3 +16,12 @@ export interface KeyframeOptions {
   repeat?: number
   ease?: Easing | Easing[]
 }
+
+export interface KeyframeTypeData {
+  transform: boolean
+  color: boolean
+  other: boolean
+  otherShadow: boolean
+  filter: boolean
+  filterShadow: boolean
+}
