@@ -3,7 +3,7 @@ import { msToSec } from '@/utils'
 import { observe } from '../observe'
 import type { ProgressTimeline } from '@/types/interaction'
 
-export function setAnimationTimeline<T>(
+export function attachTimeline<T>(
   controller: AnimationController,
   timeline: ProgressTimeline<T>,
 ): VoidFunction {

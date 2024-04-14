@@ -5,7 +5,7 @@ import { isFunction } from '@/utils/is'
 import { AnimationController } from '@/animation'
 import { getScrollTimeline } from './timeline'
 import { observe } from '../observe'
-import { setAnimationTimeline } from '../utils'
+import { attachTimeline } from '../utils'
 import type { OnScroll, ScrollOptions } from '@/types/interaction'
 
 /**
@@ -28,5 +28,5 @@ export function scroll(
   const timeline = getScrollTimeline(options)
 
   if (isFunction(onScroll)) return observe(onScroll, timeline)
-  else return setAnimationTimeline(onScroll, timeline)
+  else return attachTimeline(onScroll, timeline)
 }
