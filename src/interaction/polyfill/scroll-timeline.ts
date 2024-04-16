@@ -169,15 +169,9 @@ export class ScrollTimeline implements ST {
   get source(): HTMLElement {
     return timelineDataMap.get(this)!.source!
   }
-  set source(el) {
-    updateSource(this, el)
-  }
 
   get axis(): TimelineAxis {
     return timelineDataMap.get(this)!.axis
-  }
-  set axis(axis) {
-    timelineDataMap.get(this)!.axis = axis
   }
 
   get phase(): TimelinePhase {
@@ -197,7 +191,7 @@ export class ScrollTimeline implements ST {
     return 'active'
   }
 
-  get currentTime(): { value: number } | null {
+  get currentTime(): number | null {
     const unresolved = null
     const container = this.source
 
@@ -213,8 +207,11 @@ export class ScrollTimeline implements ST {
     const scrollPos = directionAwareScrollOffset(container, axis)
     const maxScrollPos = calculateMaxScrollOffset(container, axis)
 
-    return maxScrollPos > 0
-      ? { value: (100 * scrollPos) / maxScrollPos }
-      : { value: 100 }
+    return maxScrollPos > 0 ? (100 * scrollPos) / maxScrollPos : 100
+  }
+
+  get progress(): number {
+    const percentage = this.currentTime === null ? 0 : this.currentTime
+    return percentage / 100
   }
 }

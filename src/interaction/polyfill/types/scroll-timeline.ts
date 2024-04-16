@@ -11,5 +11,6 @@ export declare class ScrollTimeline {
   source: HTMLElement
   axis: TimelineAxis
   phase: TimelinePhase
-  currentTime: { value: number } | null
+  currentTime: number | null
+  progress: number
 }
