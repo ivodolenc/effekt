@@ -15,6 +15,10 @@
     "./easing": {
       "types": "./dist/types/easing/index.d.ts",
       "import": "./dist/easing/index.mjs"
+    },
+    "./interaction": {
+      "types": "./dist/types/interaction/index.d.ts",
+      "import": "./dist/interaction/index.mjs"
     }
   },
   "files": [
@@ -25,14 +29,14 @@
     "animate",
     "animations",
     "web-animations",
+    "interaction",
     "javascript",
     "typescript",
     "universal",
     "animation",
     "platform",
     "engine",
-    "tween",
-    "web"
+    "tween"
   ],
   "scripts": {
     "dev": "vite -c .config/vite.config.ts playgrounds/browser",
@@ -64,15 +68,15 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.9.0",
-    "@hypernym/eslint-config": "^3.0.0",
-    "@hypernym/prettier-config": "^3.0.0",
+    "@hypernym/bundler": "^0.9.1",
+    "@hypernym/eslint-config": "^3.0.1",
+    "@hypernym/prettier-config": "^3.0.1",
     "@hypernym/tsconfig": "^2.0.0",
-    "@types/node": "^20.12.7",
-    "eslint": "^9.0.0",
+    "@types/node": "^20.12.12",
+    "eslint": "^9.3.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
-    "vite": "^5.2.9",
-    "vitest": "^1.5.0"
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
   }
 }
