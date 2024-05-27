@@ -3,24 +3,41 @@ import { version, homepage } from './package.json'
 
 const banner = `/*! effekt ${version} | ${homepage} | MIT License | Ivo Dolenc (c) 2024 */\n`
 
+function replacePath(
+  path: RegExp | string,
+  replace: string,
+): (id: string) => string {
+  return (id) => {
+    if (id.match(path)) return replace
+    return id
+  }
+}
+
 export default defineConfig({
   alias: true,
   entries: [
+    // ------------------
+    // * Main
+    // ------------------
     {
-      // main esm
+      // esm
       input: './src/index.ts',
       output: './dist/index.mjs',
+      externals: [/^@\/easing/],
+      paths: (id) => replacePath(/^@\/easing/, './easing/index.mjs')(id),
       banner,
     },
     {
-      // main esm minified
+      // esm minified
       input: './src/index.ts',
       output: './dist/index.min.mjs',
       plugins: { esbuild: { minify: true } },
+      externals: [/^@\/easing/],
+      paths: (id) => replacePath(/^@\/easing/, './easing/index.mjs')(id),
       banner,
     },
     {
-      // main iife minified
+      // iife minified
       input: './src/index.ts',
       output: './dist/index.iife.js',
       plugins: { esbuild: { minify: true } },
@@ -29,7 +46,7 @@ export default defineConfig({
       banner,
     },
     {
-      // main umd minified
+      // umd minified
       input: './src/index.ts',
       output: './dist/index.umd.js',
       plugins: { esbuild: { minify: true } },
@@ -38,23 +55,31 @@ export default defineConfig({
       banner,
     },
     {
-      // main types
+      // types
       types: './src/types/index.ts',
       output: './dist/types/index.d.ts',
     },
+
+    // ------------------
+    // * Easing
+    // ------------------
     {
-      // easing esm
+      // esm
       input: './src/easing/index.ts',
       output: './dist/easing/index.mjs',
+      externals: [/^@\/utils/],
+      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
     },
     {
-      // easing esm minified
+      // esm minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.min.mjs',
       plugins: { esbuild: { minify: true } },
+      externals: [/^@\/utils/],
+      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
     },
     {
-      // easing iife minified
+      // iife minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.iife.js',
       plugins: { esbuild: { minify: true } },
@@ -62,7 +87,7 @@ export default defineConfig({
       name: 'EffektEasing',
     },
     {
-      // easing umd minified
+      // umd minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.umd.js',
       plugins: { esbuild: { minify: true } },
@@ -70,9 +95,53 @@ export default defineConfig({
       name: 'EffektEasing',
     },
     {
-      // easing types
+      // types
       types: './src/types/easing/index.ts',
       output: './dist/types/easing/index.d.ts',
+      externals: ['@/types'],
+      paths: (id) => replacePath(/^@\/types/, '../index.ts')(id),
+    },
+
+    // ------------------
+    // * Interaction
+    // ------------------
+    {
+      // esm
+      input: './src/interaction/in-view/index.ts',
+      output: './dist/interaction/index.mjs',
+      externals: [/^@\/utils/],
+      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
+    },
+    {
+      // esm minified
+      input: './src/interaction/in-view/index.ts',
+      output: './dist/interaction/index.min.mjs',
+      plugins: { esbuild: { minify: true } },
+      externals: [/^@\/utils/],
+      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
+    },
+    {
+      // iife minified
+      input: './src/interaction/index.ts',
+      output: './dist/interaction/index.iife.js',
+      plugins: { esbuild: { minify: true } },
+      format: 'iife',
+      name: 'EffektInteraction',
+    },
+    {
+      // umd minified
+      input: './src/interaction/index.ts',
+      output: './dist/interaction/index.umd.js',
+      plugins: { esbuild: { minify: true } },
+      format: 'umd',
+      name: 'EffektInteraction',
+    },
+    {
+      // types
+      types: './src/types/interaction/index.ts',
+      output: './dist/types/interaction/index.d.ts',
+      externals: ['@/types'],
+      paths: (id) => replacePath(/^@\/types/, '../index.ts')(id),
     },
   ],
 })
