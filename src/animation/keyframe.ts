@@ -83,7 +83,7 @@ export class Keyframe {
     }
 
     const onComplete = () => {
-      if (force3d) {
+      if (this.#type.transform && force3d) {
         if (key !== 'translateZ') {
           transforms.get(this.#el)!.translateZ = ``
         }
