@@ -1,1 +1,1 @@
-export * from './scroll'
+export * from './in-view'
