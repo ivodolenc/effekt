@@ -1,10 +1,16 @@
+<p align="center">
+  <img src=".assets/cover.gif" alt="Effekt" />
+</p>
+
 <h1 align="center">Effekt</h1>
 
-<p align="center">Universal web animation platform.</p>
+<h3 align="center">Universal web animation platform.</h3>
+
+<p align="center">An open-source and framework independent JavaScript library designed for modern devs.</p>
 
 <p align="center">
   <sub>
-    <a href="https://github.com/ivodolenc/effekt">Repository</a> | <a href="https://www.npmjs.com/package/effekt">Package</a> | <a href="https://github.com/ivodolenc/effekt/releases">Releases</a> | <a href="https://github.com/ivodolenc/effekt/discussions">Discussions</a> | <a href="">Documentation</a>
+    <a href="https://github.com/ivodolenc/effekt">Repository</a> | <a href="https://www.npmjs.com/package/effekt">Package</a> | <a href="https://github.com/ivodolenc/effekt/releases">Releases</a> | <a href="https://github.com/ivodolenc/effekt/discussions">Discussions</a>
   </sub>
 </p>
 
