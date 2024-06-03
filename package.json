@@ -72,7 +72,7 @@
     "@hypernym/eslint-config": "^3.0.1",
     "@hypernym/prettier-config": "^3.0.1",
     "@hypernym/tsconfig": "^2.0.0",
-    "@types/node": "^20.13.0",
+    "@types/node": "^20.14.0",
     "eslint": "^9.4.0",
     "prettier": "^3.3.0",
     "typescript": "^5.4.5",
