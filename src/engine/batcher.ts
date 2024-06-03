@@ -11,7 +11,7 @@ import type {
   RenderBatcher,
 } from '@/types'
 
-export const stepsOrder: StepId[] = ['read', 'update', 'render']
+const stepsOrder: StepId[] = ['read', 'update', 'render']
 
 const maxElapsed = 40
 
