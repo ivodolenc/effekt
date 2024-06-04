@@ -3,6 +3,8 @@ import type { RGBA } from '@/types'
 /**
  * Converts `hex` to `rgba` color format.
  *
+ * @example
+ *
  * ```ts
  * import { hexToRgba } from 'effekt'
  *
