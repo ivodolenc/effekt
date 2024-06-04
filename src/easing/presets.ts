@@ -13,10 +13,11 @@ const sine: Easing = (p) => 1 - Math.cos((p * Math.PI) / 2)
 const circ: Easing = (p) => 1 - Math.sqrt(1 - p * p)
 const back: Easing = (p) => p * p * (3 * p - 2)
 const bounce: Easing = (p) => {
+  const noop = () => {}
   const { pow } = Math
-  let pow2, noop
+  let pow2
   let b = 4
-  while (p < ((pow2 = pow(2, --b)) - 1) / 11) noop
+  while (p < ((pow2 = pow(2, --b)) - 1) / 11) noop()
   return 1 / pow(4, 3 - b) - 7.5625 * pow((pow2 * 3 - 2) / 22 - p, 2)
 }
 const elastic = (amplitude = 1, period = 0.5): Easing => {

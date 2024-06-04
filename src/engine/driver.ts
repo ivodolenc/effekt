@@ -99,7 +99,7 @@ export class Driver {
     let iterationProgress = progress % 1.0
 
     if (!iterationProgress && progress >= 1) iterationProgress = 1
-    iterationProgress === 1 && currentIteration--
+    if (iterationProgress === 1) currentIteration--
 
     const iterationIsOdd = currentIteration % 2
     const repeatIsOdd = this.#data.repeat % 2
