@@ -44,7 +44,7 @@ The main goal is to simplify front-end animation via the JavaScript API.
 
 ## Exports
 
-Check out the full [API](./04-api.md) reference for more info.
+Check out the full [API](./api.md) reference for more info.
 
 ### Core
 
