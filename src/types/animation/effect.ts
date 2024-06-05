@@ -43,7 +43,7 @@ export interface AnimationEffect {
   /**
    * Specifies the duration of the animation in `seconds`.
    *
-   * @default 1
+   * @default 0.6
    */
   duration?: number
   /**
