@@ -1,8 +1,12 @@
 # API Reference
 
+Explore the complete API structure and learn how to use **Effekt**.
+
 > [!NOTE]
 >
-> There is a possibility that the API will change before the first stable release so keep that in mind. Currently, it is not recommended to use it in production.
+> There is a possibility that the API will change before the first stable release so keep that in mind.
+>
+> Currently, it is not recommended to use it in production.
 
 ## Core
 
@@ -239,15 +243,27 @@ setStyle(el, 'background', 'rgba(255, 255, 255, 1)')
 Creates a `stagger` animation effect.
 
 ```ts
-import { stagger } from 'effekt'
+import { animate, stagger } from 'effekt'
 
 animate('.el', {
   delay: stagger(),
 })
 ```
 
+```ts
+import { animate, stagger } from 'effekt'
+
+animate('.el', {
+  delay: stagger(0.3, {
+    grid: [9, 6],
+    from: 'center',
+  }),
+})
+```
+
 </details>
 
+<br>
 <br>
 
 ## Easing
@@ -260,6 +276,7 @@ animate('.el', {
 Creates a `cubic-bezier` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { cubicBezier } from 'effekt/easing'
 
 animate('.el', {
@@ -277,6 +294,7 @@ animate('.el', {
 Creates a `steps` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { steps } from 'effekt/easing'
 
 animate('.el', {
@@ -294,6 +312,7 @@ animate('.el', {
 Creates a `spring` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { spring } from 'effekt/easing'
 
 animate('.el', {
@@ -313,6 +332,7 @@ animate('.el', {
 Creates a `linear` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { linear } from 'effekt/easing'
 
 animate('.el', {
@@ -330,6 +350,7 @@ animate('.el', {
 Creates a `inQuad` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inQuad } from 'effekt/easing'
 
 animate('.el', {
@@ -347,6 +368,7 @@ animate('.el', {
 Creates a `outQuad` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outQuad } from 'effekt/easing'
 
 animate('.el', {
@@ -364,6 +386,7 @@ animate('.el', {
 Creates a `inOutQuad` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutQuad } from 'effekt/easing'
 
 animate('.el', {
@@ -381,6 +404,7 @@ animate('.el', {
 Creates a `outInQuad` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInQuad } from 'effekt/easing'
 
 animate('.el', {
@@ -398,6 +422,7 @@ animate('.el', {
 Creates a `inCubic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inCubic } from 'effekt/easing'
 
 animate('.el', {
@@ -415,6 +440,7 @@ animate('.el', {
 Creates a `outCubic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outCubic } from 'effekt/easing'
 
 animate('.el', {
@@ -432,6 +458,7 @@ animate('.el', {
 Creates a `inOutCubic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutCubic } from 'effekt/easing'
 
 animate('.el', {
@@ -449,6 +476,7 @@ animate('.el', {
 Creates a `outInCubic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInCubic } from 'effekt/easing'
 
 animate('.el', {
@@ -466,6 +494,7 @@ animate('.el', {
 Creates a `inQuart` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inQuart } from 'effekt/easing'
 
 animate('.el', {
@@ -483,6 +512,7 @@ animate('.el', {
 Creates a `outQuart` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outQuart } from 'effekt/easing'
 
 animate('.el', {
@@ -500,6 +530,7 @@ animate('.el', {
 Creates a `inOutQuart` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutQuart } from 'effekt/easing'
 
 animate('.el', {
@@ -517,6 +548,7 @@ animate('.el', {
 Creates a `outInQuart` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInQuart } from 'effekt/easing'
 
 animate('.el', {
@@ -534,6 +566,7 @@ animate('.el', {
 Creates a `inQuint` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inQuint } from 'effekt/easing'
 
 animate('.el', {
@@ -551,6 +584,7 @@ animate('.el', {
 Creates a `outQuint` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outQuint } from 'effekt/easing'
 
 animate('.el', {
@@ -568,6 +602,7 @@ animate('.el', {
 Creates a `inOutQuint` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutQuint } from 'effekt/easing'
 
 animate('.el', {
@@ -585,6 +620,7 @@ animate('.el', {
 Creates a `outInQuint` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInQuint } from 'effekt/easing'
 
 animate('.el', {
@@ -602,6 +638,7 @@ animate('.el', {
 Creates a `inExpo` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inExpo } from 'effekt/easing'
 
 animate('.el', {
@@ -619,6 +656,7 @@ animate('.el', {
 Creates a `outExpo` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outExpo } from 'effekt/easing'
 
 animate('.el', {
@@ -636,6 +674,7 @@ animate('.el', {
 Creates a `inOutExpo` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutExpo } from 'effekt/easing'
 
 animate('.el', {
@@ -653,6 +692,7 @@ animate('.el', {
 Creates a `outInExpo` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInExpo } from 'effekt/easing'
 
 animate('.el', {
@@ -670,6 +710,7 @@ animate('.el', {
 Creates a `inSine` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inSine } from 'effekt/easing'
 
 animate('.el', {
@@ -687,6 +728,7 @@ animate('.el', {
 Creates a `outSine` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outSine } from 'effekt/easing'
 
 animate('.el', {
@@ -704,6 +746,7 @@ animate('.el', {
 Creates a `inOutSine` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutSine } from 'effekt/easing'
 
 animate('.el', {
@@ -721,6 +764,7 @@ animate('.el', {
 Creates a `outInSine` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInSine } from 'effekt/easing'
 
 animate('.el', {
@@ -738,6 +782,7 @@ animate('.el', {
 Creates a `inCirc` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inCirc } from 'effekt/easing'
 
 animate('.el', {
@@ -755,6 +800,7 @@ animate('.el', {
 Creates a `outCirc` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outCirc } from 'effekt/easing'
 
 animate('.el', {
@@ -772,6 +818,7 @@ animate('.el', {
 Creates a `inOutCirc` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutCirc } from 'effekt/easing'
 
 animate('.el', {
@@ -789,6 +836,7 @@ animate('.el', {
 Creates a `outInCirc` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInCirc } from 'effekt/easing'
 
 animate('.el', {
@@ -806,6 +854,7 @@ animate('.el', {
 Creates a `inBack` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inBack } from 'effekt/easing'
 
 animate('.el', {
@@ -823,6 +872,7 @@ animate('.el', {
 Creates a `outBack` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outBack } from 'effekt/easing'
 
 animate('.el', {
@@ -840,6 +890,7 @@ animate('.el', {
 Creates a `inOutBack` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutBack } from 'effekt/easing'
 
 animate('.el', {
@@ -857,6 +908,7 @@ animate('.el', {
 Creates a `outInBack` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInBack } from 'effekt/easing'
 
 animate('.el', {
@@ -874,6 +926,7 @@ animate('.el', {
 Creates a `inBounce` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inBounce } from 'effekt/easing'
 
 animate('.el', {
@@ -891,6 +944,7 @@ animate('.el', {
 Creates a `outBounce` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outBounce } from 'effekt/easing'
 
 animate('.el', {
@@ -908,6 +962,7 @@ animate('.el', {
 Creates a `inOutBounce` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutBounce } from 'effekt/easing'
 
 animate('.el', {
@@ -925,6 +980,7 @@ animate('.el', {
 Creates a `outInBounce` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInBounce } from 'effekt/easing'
 
 animate('.el', {
@@ -942,6 +998,7 @@ animate('.el', {
 Creates a `inElastic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inElastic } from 'effekt/easing'
 
 animate('.el', {
@@ -959,6 +1016,7 @@ animate('.el', {
 Creates a `outElastic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outElastic } from 'effekt/easing'
 
 animate('.el', {
@@ -976,6 +1034,7 @@ animate('.el', {
 Creates a `inOutElastic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { inOutElastic } from 'effekt/easing'
 
 animate('.el', {
@@ -993,6 +1052,7 @@ animate('.el', {
 Creates a `outInElastic` easing effect.
 
 ```ts
+import { animate } from 'effekt'
 import { outInElastic } from 'effekt/easing'
 
 animate('.el', {
@@ -1014,6 +1074,7 @@ Creates a `reverse` easing modifier.
 Turns `ease-in` into `ease-out` effect.
 
 ```ts
+import { animate } from 'effekt'
 import { easingOut } from 'effekt/easing'
 
 const easeOut = easingOut(easeIn)
@@ -1031,6 +1092,7 @@ Creates a `mirror` easing modifier.
 Turns `ease-in` into `ease-in-out` effect.
 
 ```ts
+import { animate } from 'effekt'
 import { easingInOut } from 'effekt/easing'
 
 const easeInOut = easingInOut(easeIn)
@@ -1048,6 +1110,7 @@ Creates a `reverse-mirror` easing modifier.
 Turns `ease-in` into `ease-out-in` effect.
 
 ```ts
+import { animate } from 'effekt'
 import { easingOutIn } from 'effekt/easing'
 
 const easeOutIn = easingOutIn(easeIn)
@@ -1055,6 +1118,7 @@ const easeOutIn = easingOutIn(easeIn)
 
 </details>
 
+<br>
 <br>
 
 ## Interaction
@@ -1067,6 +1131,7 @@ const easeOutIn = easingOutIn(easeIn)
 Triggers a callback when the specified elements enter and leave the viewport.
 
 ```ts
+import { animate } from 'effekt'
 import { inView } from 'effekt/interaction'
 
 inView('.el', ({ target }) => {
