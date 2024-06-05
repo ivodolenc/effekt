@@ -32,8 +32,6 @@ export default defineConfig({
       input: './src/index.ts',
       output: './dist/index.min.mjs',
       plugins: { esbuild: { minify: true } },
-      externals: [/^@\/easing/],
-      paths: (id) => replacePath(/^@\/easing/, './easing/index.mjs')(id),
       banner,
     },
     {
@@ -75,8 +73,6 @@ export default defineConfig({
       input: './src/easing/index.ts',
       output: './dist/easing/index.min.mjs',
       plugins: { esbuild: { minify: true } },
-      externals: [/^@\/utils/],
-      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
     },
     {
       // iife minified
@@ -117,8 +113,6 @@ export default defineConfig({
       input: './src/interaction/in-view/index.ts',
       output: './dist/interaction/index.min.mjs',
       plugins: { esbuild: { minify: true } },
-      externals: [/^@\/utils/],
-      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
     },
     {
       // iife minified
