@@ -62,7 +62,7 @@ Check out the full [API](./api.md) reference for more info.
 
 - Optional
 - Import: `effekt/interaction`
-- Size: `~600B` minified
+- Size: `~900B` minified
 
 <br>
 
