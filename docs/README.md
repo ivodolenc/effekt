@@ -8,7 +8,7 @@
 
 ## Table Of Contents
 
-- [Introduction](01-introduction.md)
-- [Installation](02-installation.md)
-- [Usage](03-usage.md)
-- [API](04-api.md)
+- [Introduction](introduction.md)
+- [Installation](installation.md)
+- [Animation](animation.md)
+- [API](api.md)
