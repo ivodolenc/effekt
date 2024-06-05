@@ -2,13 +2,15 @@
 
 Follow simple guides and learn how to integrate **Effekt** into your project.
 
-## npm
+## Quick Start
 
 Install `effekt` package via npm.
 
 ```sh
 npm install effekt
 ```
+
+After installation, import `effekt` into your project.
 
 ```ts
 // unminified esm
@@ -18,7 +20,9 @@ import { animate } from 'effekt'
 
 ## CDN
 
-Here are some examples of how to integrate `Effekt` with a CDN, but feel free to download the scripts manually and serve them yourself.
+Here are some examples of how to integrate **Effekt** from a CDN via a script tag.
+
+Also, it is possible to download files manually and serve them accordingly.
 
 ### script module - esm
 
