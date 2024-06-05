@@ -264,7 +264,6 @@ animate('.el', {
 </details>
 
 <br>
-<br>
 
 ## Easing
 
@@ -1118,7 +1117,6 @@ const easeOutIn = easingOutIn(easeIn)
 
 </details>
 
-<br>
 <br>
 
 ## Interaction
