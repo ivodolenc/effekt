@@ -22,7 +22,7 @@
 
 > [!NOTE]
 >
-> **Effekt** is still in development phase and there is a possibility that the [API](./docs/04-api.md) will change before the first stable release.
+> **Effekt** is still in development phase and there is a possibility that the [API](./docs/api.md) will change before the first stable release.
 >
 > Any ideas, [suggestions](https://github.com/ivodolenc/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
 >
@@ -54,10 +54,6 @@
 - No dependencies
 - Super easy to use
 - API friendly
-
-## Playground
-
-Explore the interactive [demo]().
 
 ## Documentation
 
