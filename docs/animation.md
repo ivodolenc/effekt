@@ -24,7 +24,7 @@ animate('.el', {
 List of animatable properties:
 
 ```ts
-{
+interface TransformKeyframes {
   x: TransformValues
   y: TransformValues
   z: TransformValues
@@ -64,7 +64,7 @@ animate('.el', {
 List of animatable properties:
 
 ```ts
-{
+interface FilterKeyframes {
   blur: FilterValues
   brightness: FilterValues
   contrast: FilterValues
@@ -99,7 +99,7 @@ animate('.el', {
 List of animatable properties:
 
 ```ts
-{
+interface ColorKeyframes {
   color: ColorValues
   background: ColorValues
   backgroundColor: ColorValues
@@ -135,7 +135,7 @@ animate('.el', {
 List of animatable properties:
 
 ```ts
-{
+interface OtherKeyframes {
   opacity: OtherValues
   width: OtherValues
   minWidth: OtherValues
@@ -814,7 +814,7 @@ setTimeout(() => {
 Each animation instance provides a detailed status.
 
 ```ts
-{
+interface AnimationData {
   autoplay: boolean
   direction: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse'
   playState: 'finished' | 'idle' | 'paused' | 'running'
