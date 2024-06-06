@@ -105,8 +105,11 @@ export default defineConfig({
       // esm
       input: './src/interaction/in-view/index.ts',
       output: './dist/interaction/index.mjs',
-      externals: [/^@\/utils/],
-      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
+      externals: ['@/utils'],
+      paths: (id) => {
+        if (id.endsWith('@/utils')) return '../index.mjs'
+        return id
+      },
     },
     {
       // esm minified
