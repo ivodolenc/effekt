@@ -8,7 +8,15 @@ A super-friendly API and first-class TypeScript support provide an amazing devel
 
 The library follows modern practices and supports ESM as well as minified script-based formats. This allows flexible development without any bundlers so it will work seamlessly on a simple website, no-code web editors, or advanced node projects.
 
-The main goal is to simplify front-end animation via the JavaScript API.
+## Motivation
+
+Front-end animation can be quite challenging, especially when you're trying to build something advanced.
+
+Currently there are several giants such as Framer Motion, Gsap, Animejs that provide a fantastic animation experience, but may not be for everyone's project. The reason could be framework lock-in, license type, bundle size, learning curve or maybe some other reasons.
+
+This motivated and encouraged the creation of **Effekt**, a universal free animation platform available to all developers who want to build awesome animations. **Effekt** is inspired by other great work and supplemented with its own ideas and features that will make the development process even easier.
+
+Of course, the library is open to feedback and improvements. The main goal is to simplify front-end animation via the JavaScript API.
 
 ## Core Concepts
 
