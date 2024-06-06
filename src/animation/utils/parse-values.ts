@@ -77,11 +77,11 @@ function parseShadow(value: string): ParsedValue {
 export function parseValue(key: string, value: number | string): ParsedValue {
   if (isNumber(value)) return parseNumber(key, value)
   else {
+    if (value.startsWith('--')) return parseCssVar(key, value)
     if (rgxDigitsOnly.test(value)) return parseNumber(key, parseFloat(value))
     if (rgxColor.test(value)) return parseColor(value)
     if (rgxShadow.test(key)) return parseShadow(value)
     if (rgxUnits.test(value)) return parseUnit(value)
-    if (value.startsWith('--')) return parseCssVar(key, value)
   }
 
   throw new TypeError(`Unsupported value '${value}' in '${key}' property.`)
