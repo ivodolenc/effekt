@@ -43,6 +43,7 @@
     "dev:node": "vite-node -w playgrounds/node/main.ts",
     "test": "vitest -c test/vitest.config.ts",
     "test:utils": "vitest -c test/utils/vitest.config.ts",
+    "test:easing": "vitest -c test/easing/vitest.config.ts",
     "build": "hyperbundler",
     "build:play": "vite -c .config/vite.config.js build playgrounds/browser",
     "preview:play": "vite -c .config/vite.config.js preview playgrounds/browser",
