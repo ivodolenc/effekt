@@ -74,10 +74,11 @@
     "@hypernym/prettier-config": "^3.0.1",
     "@hypernym/tsconfig": "^2.0.0",
     "@types/node": "^20.14.2",
-    "eslint": "^9.4.0",
-    "prettier": "^3.3.1",
+    "eslint": "^9.5.0",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.3.2",
     "typescript": "^5.4.5",
-    "vite": "^5.2.13",
+    "vite": "^5.3.1",
     "vitest": "^1.6.0"
   }
 }
