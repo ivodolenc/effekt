@@ -36,7 +36,7 @@
 
 <p align="center">
   <a title="Hypernym Studio" href="https://github.com/hypernym-studio">
-    <img alt="Hypernym Studio" width="244" src=".assets/hypernym-studio_logo.svg">
+    <img alt="Hypernym Studio" width="244" src=".assets/hypernym-logo.svg">
   </a>
 </p>
 
