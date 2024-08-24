@@ -74,7 +74,7 @@
     "@hypernym/prettier-config": "^3.0.1",
     "@hypernym/tsconfig": "^2.0.0",
     "@types/node": "^22.5.0",
-    "eslint": "^9.9.0",
+    "eslint": "^9.9.1",
     "jsdom": "^24.1.1",
     "prettier": "^3.3.2",
     "typescript": "^5.5.4",
