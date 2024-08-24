@@ -1,5 +1,5 @@
-// Inspired by Frameloop Batcher from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
-// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+// Inspired by Frameloop Batcher from Framer Motion, 11.3.30, MIT License, https://github.com/framer/motion
+// Rewritten and adapted to Effekt, 0.2.0, MIT License, https://github.com/ivodolenc/effekt
 
 import { createRenderStep } from './step'
 import type {
@@ -25,19 +25,19 @@ export function createRenderBatcher(
   let useDefaultElapsed = true
 
   const state: FrameData = {
-    delta: 0,
-    timestamp: 0,
+    delta: 0.0,
+    timestamp: 0.0,
     isProcessing: false,
   }
 
+  const flagRunNextFrame = () => (runNextFrame = true)
+
   const steps = stepsOrder.reduce((acc, key) => {
-    acc[key] = createRenderStep(() => (runNextFrame = true))
+    acc[key] = createRenderStep(flagRunNextFrame)
     return acc
   }, {} as Steps)
 
-  const processStep = (stepId: StepId): void => {
-    steps[stepId].process(state)
-  }
+  const { read, update, render } = steps
 
   const processBatch = (): void => {
     const timestamp = performance.now()
@@ -50,7 +50,11 @@ export function createRenderBatcher(
 
     state.timestamp = timestamp
     state.isProcessing = true
-    stepsOrder.forEach(processStep)
+
+    read.process(state)
+    update.process(state)
+    render.process(state)
+
     state.isProcessing = false
 
     if (runNextFrame && allowKeepAlive) {
@@ -74,8 +78,11 @@ export function createRenderBatcher(
     return acc
   }, {} as Batcher)
 
-  const cancel = (process: Process): void =>
-    stepsOrder.forEach((key) => steps[key].cancel(process))
+  const cancel = (process: Process): void => {
+    for (let i = 0; i < stepsOrder.length; i++) {
+      steps[stepsOrder[i]].cancel(process)
+    }
+  }
 
   return { schedule, cancel, state }
 }

@@ -1,43 +1,31 @@
-// Inspired by Frameloop Step from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
-// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+// Inspired by Frameloop Step from Framer Motion, 11.3.30, MIT License, https://github.com/framer/motion
+// Rewritten and adapted to Effekt, 0.2.0, MIT License, https://github.com/ivodolenc/effekt
 
-import type { Step, Process } from '@/types'
-
-class Queue {
-  order: Process[] = []
-  scheduled: Set<Process> = new Set()
-
-  add(process: Process): true | undefined {
-    if (!this.scheduled.has(process)) {
-      this.scheduled.add(process)
-      this.order.push(process)
-      return true
-    }
-  }
-
-  remove(process: Process): void {
-    const index = this.order.indexOf(process)
-    if (index !== -1) {
-      this.order.splice(index, 1)
-      this.scheduled.delete(process)
-    }
-  }
-
-  clear(): void {
-    this.order.length = 0
-    this.scheduled.clear()
-  }
-}
+import type { Step, Process, FrameData } from '@/types'
 
 export function createRenderStep(runNextFrame: () => void): Step {
-  let thisFrame = new Queue()
-  let nextFrame = new Queue()
-  let numToRun = 0
+  let thisFrame = new Set<Process>()
+  let nextFrame = new Set<Process>()
 
   let isProcessing = false
   let flushNextFrame = false
 
   const toKeepAlive = new WeakSet<Process>()
+
+  let latestFrameData: FrameData = {
+    delta: 0.0,
+    timestamp: 0.0,
+    isProcessing: false,
+  }
+
+  function triggerCallback(callback: Process) {
+    if (toKeepAlive.has(callback)) {
+      step.schedule(callback)
+      runNextFrame()
+    }
+
+    callback(latestFrameData)
+  }
 
   const step: Step = {
     schedule: (callback, keepAlive = false, immediate = false) => {
@@ -46,18 +34,19 @@ export function createRenderStep(runNextFrame: () => void): Step {
 
       if (keepAlive) toKeepAlive.add(callback)
 
-      if (queue.add(callback) && addToCurrentFrame && isProcessing) {
-        numToRun = thisFrame.order.length
-      }
+      if (!queue.has(callback)) queue.add(callback)
+
       return callback
     },
 
     cancel: (callback) => {
-      nextFrame.remove(callback)
+      nextFrame.delete(callback)
       toKeepAlive.delete(callback)
     },
 
     process: (frameData) => {
+      latestFrameData = frameData
+
       if (isProcessing) {
         flushNextFrame = true
         return
@@ -65,21 +54,10 @@ export function createRenderStep(runNextFrame: () => void): Step {
 
       isProcessing = true
       ;[thisFrame, nextFrame] = [nextFrame, thisFrame]
+
       nextFrame.clear()
-      numToRun = thisFrame.order.length
 
-      if (numToRun) {
-        for (let i = 0; i < numToRun; i++) {
-          const callback = thisFrame.order[i]
-
-          callback(frameData)
-
-          if (toKeepAlive.has(callback)) {
-            step.schedule(callback)
-            runNextFrame()
-          }
-        }
-      }
+      thisFrame.forEach(triggerCallback)
 
       isProcessing = false
 
