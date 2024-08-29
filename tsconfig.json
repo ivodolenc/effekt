@@ -1,11 +1,11 @@
 {
   "extends": "@hypernym/tsconfig",
   "include": [
-    ".config/**/*",
     "src/**/*",
     "test/**/*",
     "playgrounds/**/*",
     "bundler.config.ts",
-    "prettier.config.js"
+    "prettier.config.js",
+    "eslint.config.js"
   ]
 }
