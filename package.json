@@ -24,6 +24,9 @@
   "files": [
     "dist"
   ],
+  "workspaces": [
+    "playgrounds/*"
+  ],
   "keywords": [
     "effekt",
     "animate",
@@ -39,14 +42,12 @@
     "tween"
   ],
   "scripts": {
-    "dev": "vite -c .config/vite.config.ts playgrounds/browser",
-    "dev:node": "vite-node -w playgrounds/node/main.ts",
+    "dev:vite": "npm run dev -w @playground/vite",
+    "dev:sveltekit": "npm run dev -w @playground/sveltekit",
     "test": "vitest -c test/vitest.config.ts",
     "test:utils": "vitest -c test/utils/vitest.config.ts",
     "test:easing": "vitest -c test/easing/vitest.config.ts",
     "build": "hyperbundler",
-    "build:play": "vite -c .config/vite.config.js build playgrounds/browser",
-    "preview:play": "vite -c .config/vite.config.js preview playgrounds/browser",
     "lint": "eslint -c .config/eslint.config.js .",
     "lint:fix": "eslint -c .config/eslint.config.js --fix .",
     "format": "prettier --config .config/prettier.config.js --write .",
@@ -69,16 +70,15 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.9.2",
-    "@hypernym/eslint-config": "^3.0.2",
-    "@hypernym/prettier-config": "^3.0.1",
-    "@hypernym/tsconfig": "^2.0.0",
-    "@types/node": "^22.5.0",
+    "@hypernym/bundler": "^0.9.3",
+    "@hypernym/eslint-config": "^3.2.0",
+    "@hypernym/prettier-config": "^3.1.0",
+    "@hypernym/tsconfig": "^2.1.0",
+    "@types/node": "^22.5.1",
     "eslint": "^9.9.1",
-    "jsdom": "^24.1.1",
-    "prettier": "^3.3.2",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.3",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2",
     "vitest": "^2.0.5"
   }
 }
