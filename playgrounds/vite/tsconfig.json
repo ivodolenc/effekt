@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+    "strict": true,
+    "allowJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@": ["../../src"],
+      "@/*": ["../../src/*"],
+      "@effekt": ["../../src"],
+      "@effekt/*": ["../../src/*"]
+    }
+  },
+  "include": [
+    "../../src/**/*",
+    "src/**/*",
+    "vite.config.ts",
+    "prettier.config.js",
+    "eslint.config.js"
+  ]
+}
