@@ -1,95 +1,41 @@
 {
-  "name": "effekt",
-  "version": "0.2.0",
+  "name": "effekt-workspace",
+  "version": "0.0.0",
   "author": "Ivo Dolenc",
-  "description": "Universal web animation platform.",
-  "license": "MIT",
-  "repository": "ivodolenc/effekt",
-  "homepage": "https://github.com/ivodolenc/effekt",
+  "private": true,
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.mjs"
-    },
-    "./easing": {
-      "types": "./dist/types/easing/index.d.ts",
-      "import": "./dist/easing/index.mjs"
-    },
-    "./interaction": {
-      "types": "./dist/types/interaction/index.d.ts",
-      "import": "./dist/interaction/index.mjs"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "workspaces": [
-    "playgrounds/*"
-  ],
-  "keywords": [
-    "effekt",
-    "animate",
-    "animations",
-    "web-animations",
-    "interaction",
-    "javascript",
-    "typescript",
-    "universal",
-    "animation",
-    "platform",
-    "engine",
-    "tween"
-  ],
   "scripts": {
-    "build": "hyperbundler",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier --write . '!playgrounds'",
-    "check": "ncu",
-    "update": "ncu -u -i",
-    "test": "vitest -c test/vitest.config.ts",
-    "test:utils": "vitest -c test/utils/vitest.config.ts",
-    "test:easing": "vitest -c test/easing/vitest.config.ts",
-    "check:vite": "npm run check -w @playground/vite",
-    "update:vite": "npm run update -w @playground/vite",
-    "dev:vite": "npm run dev -w @playground/vite",
-    "lint:vite": "npm run lint -w @playground/vite",
-    "format:vite": "npm run format -w @playground/vite",
-    "check:sveltekit": "npm run check -w @playground/sveltekit",
-    "update:sveltekit": "npm run update -w @playground/sveltekit",
-    "sync:sveltekit": "npm run sync -w @playground/sveltekit",
-    "dev:sveltekit": "npm run dev -w @playground/sveltekit",
-    "lint:sveltekit": "npm run lint -w @playground/sveltekit",
-    "format:sveltekit": "npm run format -w @playground/sveltekit",
-    "prepublishOnly": "npm run build"
+    "format:root": "prettier --write . '!playgrounds' '!packages'",
+    "format:effekt": "pnpm --filter effekt run format",
+    "lint:effekt": "pnpm --filter effekt run lint",
+    "test:effekt": "pnpm --filter effekt run test",
+    "test:utils:effekt": "pnpm --filter effekt run test:utils",
+    "test:easing:effekt": "pnpm --filter effekt run test:easing",
+    "check:effekt": "pnpm --filter effekt run check",
+    "update:effekt": "pnpm --filter effekt run update",
+    "build:effekt": "pnpm --filter effekt run build",
+    "prepublishOnly": "pnpm run build:effekt",
+    "sync:sveltekit": "pnpm --filter @playground/sveltekit run sync",
+    "dev:sveltekit": "pnpm --filter @playground/sveltekit run dev",
+    "format:sveltekit": "pnpm --filter @playground/sveltekit run format",
+    "lint:sveltekit": "pnpm --filter @playground/sveltekit run lint",
+    "dev:vite": "pnpm --filter @playground/vite run dev",
+    "format:vite": "pnpm --filter @playground/vite run format",
+    "lint:vite": "pnpm --filter @playground/vite run lint"
   },
   "sideEffects": false,
+  "packageManager": "pnpm@9.9.0",
   "engines": {
-    "node": ">=20.0.0"
-  },
-  "peerDependencies": {
-    "@types/node": ">=20.0.0",
-    "typescript": ">=5.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@types/node": {
-      "optional": true
-    },
-    "typescript": {
-      "optional": true
-    }
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.9.3",
     "@hypernym/eslint-config": "^3.2.0",
     "@hypernym/prettier-config": "^3.1.0",
     "@hypernym/tsconfig": "^2.1.0",
-    "@types/node": "^22.5.1",
+    "@types/node": "^22.5.2",
     "eslint": "^9.9.1",
-    "jsdom": "^25.0.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "typescript": "^5.5.4"
   }
 }

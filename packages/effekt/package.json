@@ -1,0 +1,70 @@
+{
+  "name": "effekt",
+  "version": "0.2.0",
+  "author": "Ivo Dolenc",
+  "description": "Universal web animation platform.",
+  "license": "MIT",
+  "repository": "ivodolenc/effekt",
+  "homepage": "https://github.com/ivodolenc/effekt",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./easing": {
+      "types": "./dist/types/easing/index.d.ts",
+      "import": "./dist/easing/index.mjs"
+    },
+    "./interaction": {
+      "types": "./dist/types/interaction/index.d.ts",
+      "import": "./dist/interaction/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "effekt",
+    "animate",
+    "animations",
+    "web-animations",
+    "interaction",
+    "javascript",
+    "typescript",
+    "universal",
+    "animation",
+    "platform",
+    "engine",
+    "tween"
+  ],
+  "scripts": {
+    "build": "hyperbundler",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "test": "vitest -c test/vitest.config.ts",
+    "test:utils": "vitest -c test/utils/vitest.config.ts",
+    "test:easing": "vitest -c test/easing/vitest.config.ts",
+    "check": "ncu",
+    "update": "ncu -u -i"
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/node": ">=20.0.0",
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/node": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@hypernym/bundler": "^0.9.3",
+    "jsdom": "^25.0.0",
+    "vitest": "^2.0.5"
+  }
+}
