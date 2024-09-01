@@ -10,7 +10,7 @@
 
 ## Packages
 
-- [`effekt`](./packages/effekt/README.md)
+- [`effekt`](./packages/effekt)
 
 ## Community
 
