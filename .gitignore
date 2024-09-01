@@ -4,5 +4,4 @@ node_modules
 .private
 .cache
 .env
-.npmrc
 dist
