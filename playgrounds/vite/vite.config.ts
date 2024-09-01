@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [tailwindcss()],
   resolve: {
     alias: {
-      '@': resolve('../../src'),
-      '@effekt': resolve('../../src'),
+      '@': resolve('../../packages/effekt/src'),
+      '#effekt': resolve('../../packages/effekt/src'),
     },
   },
 })

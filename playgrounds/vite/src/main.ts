@@ -1,4 +1,4 @@
-import { animate } from '@effekt'
+import { animate } from '#effekt'
 
 animate('.box', {
   x: [0, 300],

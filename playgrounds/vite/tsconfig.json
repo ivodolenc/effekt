@@ -1,25 +1,14 @@
 {
+  "extends": "@hypernym/tsconfig",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "skipLibCheck": true,
-    "strict": true,
-    "allowJs": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
     "paths": {
-      "@": ["../../src"],
-      "@/*": ["../../src/*"],
-      "@effekt": ["../../src"],
-      "@effekt/*": ["../../src/*"]
+      "#effekt": ["../../packages/effekt/src"],
+      "#effekt/*": ["../../packages/effekt/src/*"]
     }
   },
   "include": [
-    "../../src/**/*",
+    "../../packages/effekt/src/**/*",
     "src/**/*",
     "vite.config.ts",
     "prettier.config.js",
