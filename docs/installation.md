@@ -4,13 +4,19 @@ Follow simple guides and learn how to integrate **Effekt** into your project.
 
 ## Quick Start
 
-Install `effekt` package via npm.
+Install `effekt` package:
 
 ```sh
+# via pnpm
+pnpm add effekt
+```
+
+```sh
+# via npm
 npm install effekt
 ```
 
-After installation, import `effekt` into your project.
+After installation, import `effekt` into your project:
 
 ```ts
 // unminified esm

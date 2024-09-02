@@ -10,7 +10,7 @@
 
 <br>
 
-<pre align="center">npm install effekt</pre>
+<pre align="center">pnpm add effekt</pre>
 
 <br>
 
