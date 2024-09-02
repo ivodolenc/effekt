@@ -12,8 +12,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2(eslint-plugin-svelte@2.43.0(eslint@9.9.1)(svelte@5.0.0-next.242))(eslint@9.9.1)(svelte-eslint-parser@0.41.0(svelte@5.0.0-next.242))(typescript@5.5.4)
       '@hypernym/prettier-config':
-        specifier: ^3.1.0
-        version: 3.1.0(prettier@3.3.3)
+        specifier: ^3.2.0
+        version: 3.2.0(prettier-plugin-svelte@3.2.6(prettier@3.3.3)(svelte@5.0.0-next.242))(prettier@3.3.3)
       '@hypernym/tsconfig':
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.5.4)
@@ -468,11 +468,15 @@ packages:
       typescript:
         optional: true
 
-  '@hypernym/prettier-config@3.1.0':
-    resolution: {integrity: sha512-/yRFxOPddUVmunc8cFEpq/urf7lBFR0eLADZN2Y1m+gtIrox0J2IiwT93uNZWlqEeCdqlqcXFeuHG4RBhraOUw==}
-    engines: {node: '>=20.0.0'}
+  '@hypernym/prettier-config@3.2.0':
+    resolution: {integrity: sha512-o/yaFKuplq9F5t9xs8vROs9tDC+MfS0nGQAisxeZjkkf0WhQyfKWKiTrJQHu/WqFpUuUwiWMOEp7xPipN/8rdg==}
+    engines: {node: '>=20.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       prettier: '>=3.0.0'
+      prettier-plugin-svelte: '>=3.2.3'
+    peerDependenciesMeta:
+      prettier-plugin-svelte:
+        optional: true
 
   '@hypernym/spinner@0.2.0':
     resolution: {integrity: sha512-o76BXcG4lSjBAEb6X9VhS7CWZwQFuWR9ghz/8YjcKtBlnbdx4g30clWua9c6JzdREo8T4ac9Q7+djM+AcU7mlQ==}
@@ -2174,9 +2178,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@hypernym/prettier-config@3.1.0(prettier@3.3.3)':
+  '@hypernym/prettier-config@3.2.0(prettier-plugin-svelte@3.2.6(prettier@3.3.3)(svelte@5.0.0-next.242))(prettier@3.3.3)':
     dependencies:
       prettier: 3.3.3
+    optionalDependencies:
+      prettier-plugin-svelte: 3.2.6(prettier@3.3.3)(svelte@5.0.0-next.242)
 
   '@hypernym/spinner@0.2.0': {}
 
