@@ -1,6 +1,5 @@
-import { isNumber } from '@/utils/is'
 import { rgxShadow } from '@/utils/regexp'
-import { interpolate, setStyle } from '@/utils'
+import { isNumber, interpolate, setStyle } from '@/utils'
 import { Driver, createDriverData } from '@/engine'
 import type {
   AnimationTarget,

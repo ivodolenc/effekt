@@ -1,5 +1,10 @@
-import { isElement, isValidElement, isString } from '@/utils/is'
+import { isElement, isHtmlElement, isSvgElement, isString } from './is'
 import type { Targets, ParsedElements } from '@/types'
+
+const isValidElement = (v: any): v is HTMLElement | SVGElement => {
+  if (v && (isHtmlElement(v) || isSvgElement(v))) return true
+  return false
+}
 
 function parseElements(
   elements: (Element | null)[] | NodeListOf<Element> | null,

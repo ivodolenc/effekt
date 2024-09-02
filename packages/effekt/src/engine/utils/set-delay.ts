@@ -1,5 +1,4 @@
-import { secToMs } from '@/utils'
-import { isFunction, isUndefined } from '@/utils/is'
+import { isFunction, isUndefined, secToMs } from '@/utils'
 import type { DelayFunction } from '@/types'
 
 export function setDelay(

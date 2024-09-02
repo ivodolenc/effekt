@@ -1,5 +1,5 @@
 import { rgxIsTransform, rgxIsColor, rgxIsFilter } from '@/utils/regexp'
-import { isArray, isObject } from '@/utils/is'
+import { isArray, isObject } from '@/utils'
 import { outQuart } from '@/easing'
 import { calcOffset } from './calc-offset'
 import { parseValue } from './parse-values'
