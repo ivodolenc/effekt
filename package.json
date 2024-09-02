@@ -14,7 +14,7 @@
     "check:effekt": "pnpm --filter effekt check",
     "update:effekt": "pnpm --filter effekt update",
     "build:effekt": "pnpm --filter effekt build",
-    "publish:effekt": "pnpm --filter effekt publish",
+    "publish:effekt": "pnpm --filter effekt publish:effekt",
     "sync:sveltekit": "pnpm --filter @playground/sveltekit sync",
     "dev:sveltekit": "pnpm --filter @playground/sveltekit dev",
     "format:sveltekit": "pnpm --filter @playground/sveltekit format",
