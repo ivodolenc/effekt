@@ -8,8 +8,7 @@ import {
   rgxColor,
   rgxShadow,
 } from '@/utils/regexp'
-import { isNumber } from '@/utils/is'
-import { hexToRgba, hslaToRgba } from '@/utils'
+import { isNumber, hexToRgba, hslaToRgba } from '@/utils'
 import type { ParsedValue } from '@/types'
 
 function parseNumber(key: string, value: number): ParsedValue {

@@ -1,3 +1,4 @@
+export * from './is'
 export * from './time'
 export * from './round'
 export * from './clamp'

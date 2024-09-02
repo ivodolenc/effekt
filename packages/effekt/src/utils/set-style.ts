@@ -1,4 +1,4 @@
-import { isUndefined } from '@/utils/is'
+import { isUndefined } from './is'
 
 /**
  * Sets the individual CSS style for the element.

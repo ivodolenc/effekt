@@ -1,8 +1,7 @@
 // Inspired by InView from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
 // Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
 
-import { getElements } from '@/utils'
-import { isFunction } from '@/utils/is'
+import { isFunction, getElements } from '@/utils'
 import type { Targets } from '@/types'
 import type { InViewOptions, InViewCallback } from '@/types/interaction'
 

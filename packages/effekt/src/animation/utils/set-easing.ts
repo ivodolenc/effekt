@@ -1,5 +1,5 @@
 import { outQuart } from '@/easing'
-import { isArray } from '@/utils/is'
+import { isArray } from '@/utils'
 import type { KeyframeOptions, Easing } from '@/types'
 
 export function setEasing(

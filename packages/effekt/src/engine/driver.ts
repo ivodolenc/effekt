@@ -1,5 +1,4 @@
-import { isNull } from '@/utils/is'
-import { msToSec, secToMs } from '@/utils'
+import { isNull, msToSec, secToMs } from '@/utils'
 import { frame, cancelFrame, state } from './frame'
 import type { DriverOptions, DriverData, FrameData } from '@/types'
 
