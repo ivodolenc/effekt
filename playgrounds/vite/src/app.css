@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 body {
-  @apply bg-black;
+  @apply bg-black text-white;
 }
 
 .box {
