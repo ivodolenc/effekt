@@ -47,7 +47,9 @@
     "test:utils": "vitest -c test/utils/vitest.config.ts",
     "test:easing": "vitest -c test/easing/vitest.config.ts",
     "check": "ncu",
-    "update": "ncu -u -i"
+    "update": "ncu -u -i",
+    "prepublishOnly": "pnpm build",
+    "publish": "npm publish"
   },
   "sideEffects": false,
   "peerDependencies": {
