@@ -46,8 +46,6 @@
     "test": "vitest -c test/vitest.config.ts",
     "test:utils": "vitest -c test/utils/vitest.config.ts",
     "test:easing": "vitest -c test/easing/vitest.config.ts",
-    "check": "ncu",
-    "update": "ncu -u -i",
     "publish:effekt": "npm run build && npm publish"
   },
   "sideEffects": false,

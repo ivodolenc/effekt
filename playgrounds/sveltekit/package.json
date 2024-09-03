@@ -10,21 +10,19 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "check": "ncu",
-    "update": "ncu -u -i"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.4",
     "@sveltejs/kit": "^2.5.25",
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
-    "@tailwindcss/vite": "^4.0.0-alpha.20",
+    "@tailwindcss/vite": "^4.0.0-alpha.21",
     "eslint-plugin-svelte": "^2.43.0",
     "globals": "^15.9.0",
     "prettier-plugin-svelte": "^3.2.6",
-    "svelte": "^5.0.0-next.238",
+    "svelte": "^5.0.0-next.243",
     "svelte-eslint-parser": "^0.41.0",
-    "tailwindcss": "^4.0.0-alpha.20",
+    "tailwindcss": "^4.0.0-alpha.21",
     "vite": "^5.4.2"
   }
 }

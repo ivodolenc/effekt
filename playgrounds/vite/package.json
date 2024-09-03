@@ -9,13 +9,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "check": "ncu",
-    "update": "ncu -u -i"
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.0-alpha.20",
-    "tailwindcss": "^4.0.0-alpha.20",
+    "@tailwindcss/vite": "^4.0.0-alpha.21",
+    "tailwindcss": "^4.0.0-alpha.21",
     "vite": "^5.4.2"
   }
 }
