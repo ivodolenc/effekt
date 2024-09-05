@@ -8,6 +8,19 @@ const toString = (v: any): string =>
   Object.prototype.toString.call(v).slice(8, -1)
 
 /**
+ * Checks if the code is running in the browser.
+ *
+ * @example
+ *
+ * ```ts
+ * import { isBrowser } from 'effekt'
+ *
+ * isBrowser // => true
+ * ```
+ */
+export const isBrowser: boolean = typeof window !== 'undefined'
+
+/**
  * Returns a boolean if the given value is a `number`.
  *
  * @example
