@@ -1,0 +1,21 @@
+{
+  "name": "@playground/nuxt",
+  "version": "0.0.0",
+  "author": "Ivo Dolenc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "npx nuxi prepare",
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0-alpha.22",
+    "eslint-plugin-vue": "^9.28.0",
+    "nuxt": "^3.13.1",
+    "tailwindcss": "^4.0.0-alpha.22"
+  }
+}

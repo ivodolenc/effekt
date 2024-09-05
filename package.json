@@ -20,7 +20,13 @@
     "sync:sveltekit": "pnpm --filter @playground/sveltekit sync",
     "dev:sveltekit": "pnpm --filter @playground/sveltekit dev",
     "format:sveltekit": "pnpm --filter @playground/sveltekit format",
-    "lint:sveltekit": "pnpm --filter @playground/vite lint",
+    "lint:sveltekit": "pnpm --filter @playground/sveltekit lint",
+    "sync:nuxt": "pnpm --filter @playground/nuxt sync",
+    "check:nuxt": "taze --cwd playgrounds/nuxt",
+    "update:nuxt": "taze --cwd playgrounds/nuxt --interactive",
+    "dev:nuxt": "pnpm --filter @playground/nuxt dev",
+    "format:nuxt": "pnpm --filter @playground/nuxt format",
+    "lint:nuxt": "pnpm --filter @playground/nuxt lint",
     "check:vite": "taze --cwd playgrounds/vite",
     "update:vite": "taze --cwd playgrounds/vite --interactive",
     "dev:vite": "pnpm --filter @playground/vite dev",
@@ -35,12 +41,13 @@
     "pnpm": ">=9.0.0"
   },
   "devDependencies": {
-    "@hypernym/eslint-config": "^3.3.3",
+    "@hypernym/eslint-config": "^3.4.0",
     "@hypernym/prettier-config": "^3.2.0",
     "@hypernym/tsconfig": "^2.1.0",
-    "@types/node": "^22.5.2",
+    "@types/node": "^22.5.4",
     "eslint": "^9.9.1",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3"
   }
 }
