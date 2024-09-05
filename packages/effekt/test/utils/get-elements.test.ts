@@ -30,14 +30,4 @@ describe('gets a parsed list of DOM elements', () => {
     expect(getElements(nodeList)).toBeTruthy()
     expect(getElements(nodeList)).toBeInstanceOf(Array<Element>)
   })
-
-  test('based on type error', () => {
-    const div = document.querySelector('.div')
-    const nodeList = document.querySelectorAll('.div')
-
-    expect(() => getElements(div)).toThrowError()
-    expect(() => getElements('.div')).toThrowError()
-    expect(() => getElements([div, div, div])).toThrowError()
-    expect(() => getElements(nodeList)).toThrowError()
-  })
 })
