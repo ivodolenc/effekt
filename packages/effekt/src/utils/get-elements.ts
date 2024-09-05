@@ -1,4 +1,10 @@
-import { isElement, isHtmlElement, isSvgElement, isString } from './is'
+import {
+  isBrowser,
+  isElement,
+  isHtmlElement,
+  isSvgElement,
+  isString,
+} from './is'
 import type { Targets, ParsedElements } from '@/types'
 
 const isValidElement = (v: any): v is HTMLElement | SVGElement => {
@@ -31,6 +37,7 @@ function parseElements(
  * ```
  */
 export function getElements(targets: Targets): ParsedElements {
+  if (!isBrowser) return []
   if (isElement(targets)) {
     if (isValidElement(targets)) return [targets]
   } else if (isString(targets)) {
@@ -40,5 +47,6 @@ export function getElements(targets: Targets): ParsedElements {
     const els = parseElements(targets)
     if (els.length) return els
   }
-  throw new TypeError(`Animation target not found.`)
+  console.warn('Effekt: The specified elements were not found in the DOM.')
+  return []
 }
