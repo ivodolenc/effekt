@@ -16,10 +16,8 @@ const stepsOrder: StepId[] = ['read', 'update', 'render']
 const maxElapsed = 40
 
 export function createRenderBatcher(
-  scheduleNextBatch: (
-    callback: FrameRequestCallback,
-  ) => void = requestAnimationFrame,
-  allowKeepAlive: boolean = true,
+  scheduleNextBatch: (callback: FrameRequestCallback) => void,
+  allowKeepAlive: boolean,
 ): RenderBatcher {
   let runNextFrame = false
   let useDefaultElapsed = true
