@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="../../.assets/icon.png" width="110" />
+</p>
+
 <h1 align="center">Effekt</h1>
 
 <p align="center">An open-source and framework independent JavaScript library designed for modern devs.</p>
@@ -45,6 +49,7 @@
 - Written in TypeScript
 - Test-covered codebase
 - Fully tree-shakeable
+- SSR-ready
 - No dependencies
 - Super easy to use
 - API friendly
