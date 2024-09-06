@@ -6,7 +6,7 @@ export function validateUnits(
 ): void {
   if (units.size > 1) {
     throw new TypeError(
-      `All units of '${key}' property must be of the same type.`,
+      `Effekt: All units of '${key}' property must be of the same type.`,
     )
   }
 }

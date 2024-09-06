@@ -17,10 +17,7 @@ export function setStyle(
   el: HTMLElement | SVGElement,
   property: string,
   value: string,
-): string {
+): string | void {
   const p = property as any
-
   if (!isUndefined(el.style[p])) return (el.style[p] = value)
-
-  throw new TypeError(`Unsupported '${property}' property.`)
 }
