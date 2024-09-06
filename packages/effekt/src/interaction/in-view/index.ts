@@ -1,7 +1,7 @@
 // Inspired by InView from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
 // Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
 
-import { isFunction, getElements } from '@/utils'
+import { isFunction, noop, getElements } from '@/utils'
 import type { Targets } from '@/types'
 import type { InViewOptions, InViewCallback } from '@/types/interaction'
 
@@ -26,6 +26,7 @@ export function inView(
   { root, margin, threshold }: InViewOptions = {},
 ): VoidFunction {
   const elements = getElements(targets)
+  if (!elements.length) return noop
 
   const activeIntersections: WeakMap<Element, InViewCallback> = new WeakMap()
 
