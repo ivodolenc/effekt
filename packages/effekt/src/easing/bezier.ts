@@ -36,6 +36,7 @@ function subdivide(
  * @example
  *
  * ```ts
+ * import { animate } from 'effekt'
  * import { cubicBezier } from 'effekt/easing'
  *
  * animate('.el', {

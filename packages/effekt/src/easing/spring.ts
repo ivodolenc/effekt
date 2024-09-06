@@ -10,6 +10,7 @@ import type { SpringOptions } from '@/types/easing'
  * @example
  *
  * ```ts
+ * import { animate } from 'effekt'
  * import { spring } from 'effekt/easing'
  *
  * animate('.el', {

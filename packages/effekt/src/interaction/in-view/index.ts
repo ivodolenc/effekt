@@ -11,6 +11,7 @@ import type { InViewOptions, InViewCallback } from '@/types/interaction'
  * @example
  *
  * ```ts
+ * import { animate } from 'effekt'
  * import { inView } from 'effekt/interaction'
  *
  * inView('.el', ({ target }) => {

@@ -33,7 +33,7 @@ function parseElements(
  * ```ts
  * import { getElements } from 'effekt'
  *
- * getElements('.class')
+ * getElements('.class') // => [el]
  * ```
  */
 export function getElements(targets: Targets): ParsedElements {
