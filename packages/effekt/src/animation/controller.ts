@@ -11,6 +11,7 @@ import type {
 } from '@/types'
 
 export class AnimationController {
+  #isRunning: boolean = false
   #animation!: Animation
   #animations: Animation[] = []
   #onPlay: AnimationOptions['onPlay']
@@ -27,6 +28,10 @@ export class AnimationController {
     this.#onReverse = options.onReverse
 
     const elements = getElements(targets)
+
+    if (!elements.length) return
+    else this.#isRunning = true
+
     const keyframes = generateKeyframes(options)
 
     for (let i = 0, l = elements.length; i < l; i++) {
@@ -71,51 +76,62 @@ export class AnimationController {
   })
 
   play(): void {
+    if (!this.#isRunning) return
     this.#run('play')
     this.#onPlay?.(this.data)
   }
 
   pause(): void {
+    if (!this.#isRunning) return
     this.#run('pause')
     this.#onPause?.(this.data)
   }
 
   stop(): void {
+    if (!this.#isRunning) return
     this.#run('stop')
     this.#reject?.(false)
     this.#onStop?.(this.data)
   }
 
   cancel(): void {
+    if (!this.#isRunning) return
     this.#run('cancel')
     this.#reject?.(false)
   }
 
   finish(): void {
+    if (!this.#isRunning) return
     this.#run('finish')
     this.#resolve?.(this.data)
   }
 
   reverse(): void {
+    if (!this.#isRunning) return
     this.#run('reverse')
     this.#onReverse?.(this.data)
   }
 
   get currentTime(): number {
+    if (!this.#isRunning) return 0
     return this.#animation.currentTime
   }
   set currentTime(time) {
+    if (!this.#isRunning) return
     this.#set('currentTime', time)
   }
 
   get playRate(): number {
+    if (!this.#isRunning) return 1
     return this.#animation.playRate
   }
   set playRate(rate) {
+    if (!this.#isRunning) return
     this.#set('playRate', rate)
   }
 
   get data(): Readonly<DriverData> {
+    if (!this.#isRunning) return Object.freeze({} as DriverData)
     return Object.freeze({ ...this.#animation.data })
   }
 }
