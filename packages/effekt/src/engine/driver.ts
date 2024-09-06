@@ -1,5 +1,5 @@
 import { isNull, msToSec, secToMs } from '@/utils'
-import { frame, cancelFrame, state } from './frame'
+import { frame, cancelFrame, frameData } from './frame'
 import type { DriverOptions, DriverData, FrameData } from '@/types'
 
 export class Driver {
@@ -148,7 +148,7 @@ export class Driver {
   }
 
   now(): number {
-    return state.isProcessing ? state.timestamp : performance.now()
+    return frameData.isProcessing ? frameData.timestamp : performance.now()
   }
 
   play(): void {
