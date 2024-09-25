@@ -13,9 +13,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.0.0-alpha.23",
     "eslint-plugin-vue": "^9.28.0",
-    "nuxt": "^3.13.2",
-    "tailwindcss": "4.0.0-alpha.23"
+    "nuxt": "^3.13.2"
   }
 }
