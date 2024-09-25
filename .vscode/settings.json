@@ -1,6 +1,13 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.validate": ["javascript", "typescript", "svelte", "vue"],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "svelte",
+    "vue",
+    "javascriptreact",
+    "typescriptreact"
+  ],
   "eslint.workingDirectories": [{ "mode": "auto" }]
 }
