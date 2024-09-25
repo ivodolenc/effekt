@@ -1,16 +1,3 @@
 {
-  "extends": "@hypernym/tsconfig",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "include": [
-    "src/**/*",
-    "test/**/*",
-    "bundler.config.ts",
-    "prettier.config.js",
-    "eslint.config.js"
-  ]
+  "extends": "@hypernym/tsconfig"
 }
