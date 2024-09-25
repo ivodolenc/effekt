@@ -1,144 +1,104 @@
-import { defineConfig } from '@hypernym/bundler'
+import { defineConfig, resolvePaths } from '@hypernym/bundler'
 import { version, homepage } from './package.json'
 
 const banner = `/*! effekt ${version} | ${homepage} | MIT License | Ivo Dolenc (c) 2024 */\n`
 
-function replacePath(
-  path: RegExp | string,
-  replace: string,
-): (id: string) => string {
-  return (id) => {
-    if (id.match(path)) return replace
-    return id
-  }
-}
-
 export default defineConfig({
-  alias: true,
   entries: [
-    // ------------------
-    // * Main
-    // ------------------
+    // Main
     {
-      // esm
       input: './src/index.ts',
-      output: './dist/index.mjs',
       externals: [/^@\/easing/],
-      paths: (id) => replacePath(/^@\/easing/, './easing/index.mjs')(id),
+      paths: resolvePaths([
+        { find: /^@\/easing/, replacement: './easing/index.mjs' },
+      ]),
       banner,
     },
     {
-      // esm minified
       input: './src/index.ts',
       output: './dist/index.min.mjs',
-      plugins: { esbuild: { minify: true } },
+      minify: true,
       banner,
     },
     {
-      // iife minified
       input: './src/index.ts',
       output: './dist/index.iife.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'iife',
       name: 'Effekt',
+      format: 'iife',
+      minify: true,
       banner,
     },
     {
-      // umd minified
       input: './src/index.ts',
       output: './dist/index.umd.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'umd',
       name: 'Effekt',
+      format: 'umd',
+      minify: true,
       banner,
     },
     {
-      // types
-      types: './src/types/index.ts',
-      output: './dist/types/index.d.ts',
+      dts: './src/types/index.ts',
     },
-
-    // ------------------
-    // * Easing
-    // ------------------
+    // Easing
     {
-      // esm
       input: './src/easing/index.ts',
-      output: './dist/easing/index.mjs',
       externals: [/^@\/utils/],
-      paths: (id) => replacePath(/^@\/utils/, '../index.mjs')(id),
+      paths: resolvePaths([{ find: /^@\/utils/, replacement: '../index.mjs' }]),
     },
     {
-      // esm minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.min.mjs',
-      plugins: { esbuild: { minify: true } },
+      minify: true,
     },
     {
-      // iife minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.iife.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'iife',
       name: 'EffektEasing',
+      format: 'iife',
+      minify: true,
     },
     {
-      // umd minified
       input: './src/easing/index.ts',
       output: './dist/easing/index.umd.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'umd',
       name: 'EffektEasing',
+      format: 'umd',
+      minify: true,
     },
     {
-      // types
-      types: './src/types/easing/index.ts',
-      output: './dist/types/easing/index.d.ts',
+      dts: './src/types/easing/index.ts',
       externals: ['@/types'],
-      paths: (id) => replacePath(/^@\/types/, '../index.ts')(id),
+      paths: resolvePaths([{ find: /^@\/types/, replacement: '../index.mts' }]),
     },
-
-    // ------------------
-    // * Interaction
-    // ------------------
+    // Interaction
     {
-      // esm
       input: './src/interaction/in-view/index.ts',
       output: './dist/interaction/index.mjs',
       externals: ['@/utils'],
-      paths: (id) => {
-        if (id.endsWith('@/utils')) return '../index.mjs'
-        return id
-      },
+      paths: resolvePaths([{ find: /@\/utils$/, replacement: '../index.mjs' }]),
     },
     {
-      // esm minified
       input: './src/interaction/in-view/index.ts',
       output: './dist/interaction/index.min.mjs',
-      plugins: { esbuild: { minify: true } },
+      minify: true,
     },
     {
-      // iife minified
       input: './src/interaction/index.ts',
       output: './dist/interaction/index.iife.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'iife',
       name: 'EffektInteraction',
+      format: 'iife',
+      minify: true,
     },
     {
-      // umd minified
       input: './src/interaction/index.ts',
       output: './dist/interaction/index.umd.js',
-      plugins: { esbuild: { minify: true } },
-      format: 'umd',
       name: 'EffektInteraction',
+      format: 'umd',
+      minify: true,
     },
     {
-      // types
-      types: './src/types/interaction/index.ts',
-      output: './dist/types/interaction/index.d.ts',
+      dts: './src/types/interaction/index.ts',
       externals: ['@/types'],
-      paths: (id) => replacePath(/^@\/types/, '../index.ts')(id),
+      paths: resolvePaths([{ find: /^@\/types/, replacement: '../index.mts' }]),
     },
   ],
 })
