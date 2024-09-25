@@ -9,15 +9,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/types/index.d.mts",
       "import": "./dist/index.mjs"
     },
     "./easing": {
-      "types": "./dist/types/easing/index.d.ts",
+      "types": "./dist/types/easing/index.d.mts",
       "import": "./dist/easing/index.mjs"
     },
     "./interaction": {
-      "types": "./dist/types/interaction/index.d.ts",
+      "types": "./dist/types/interaction/index.d.mts",
       "import": "./dist/interaction/index.mjs"
     }
   },
@@ -62,8 +62,8 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.9.3",
-    "jsdom": "^25.0.0",
-    "vitest": "^2.0.5"
+    "@hypernym/bundler": "^0.14.0",
+    "jsdom": "^25.0.1",
+    "vitest": "^2.1.1"
   }
 }
