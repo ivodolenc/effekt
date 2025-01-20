@@ -5,12 +5,56 @@
 <h1 align="center">Effekt</h1>
 
 <p align="center">
-  Universal web animation platform.
+  Universal animation and interaction platform for the modern web.
 </p>
 
-## Packages
+<p align="center">
+  <a href="https://github.com/ivodolenc/effekt">Repository</a>
+  <span>✦</span>
+  <a href="https://www.npmjs.com/package/effekt">Package</a>
+  <span>✦</span>
+  <a href="https://github.com/ivodolenc/effekt/releases">Releases</a>
+  <span>✦</span>
+  <a href="https://github.com/ivodolenc/effekt/discussions">Discussions</a>
+</p>
 
-- [`effekt`](./packages/effekt)
+<pre align="center">pnpm add effekt</pre>
+
+<br>
+
+<p align="center">
+  <sub>Special Sponsor</sub>
+</p>
+
+<p align="center">
+  <a title="Hypernym Studio" href="https://github.com/hypernym-studio">
+    <img alt="Hypernym Studio" width="200" src=".assets/hypernym-logo.svg">
+  </a>
+</p>
+
+<br>
+
+> [!NOTE]
+>
+> **Effekt** is in active development. While the **API** is solid and mostly complete, some changes may still occur before the first stable release.
+>
+> Ideas, [suggestions](https://github.com/ivodolenc/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
+>
+> If you find any issues or bugs, please [report](https://github.com/ivodolenc/effekt/issues/new/choose) them so the project can be improved.
+
+<br>
+
+## Features
+
+- Free & Open Source
+- Ultra-lightweight & Powerful
+- Modular & Fully Tree-Shakeable
+- Framework-Independent
+- Written in TypeScript
+- Native SSR Support
+- No External Dependencies
+- Extremely Easy to Use
+- API-Friendly
 
 ## Community
 
