@@ -36,7 +36,7 @@
 
 > [!NOTE]
 >
-> **Effekt** is in active development. While the **API** is solid and mostly complete, some changes may still occur before the first stable release.
+> **Effekt** is under active development. While the **API** is solid and mostly complete, some changes may still occur before the first stable release.
 >
 > Ideas, [suggestions](https://github.com/ivodolenc/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
 >
