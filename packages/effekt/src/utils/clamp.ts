@@ -10,12 +10,9 @@
  * ```ts
  * import { clamp } from 'effekt/utils'
  *
- * // Clamps the value 10 between 1 and 5, returns 5
- * clamp(1, 5, 10)
- * // Clamps the value -3 between 0 and 5, returns 0
- * clamp(0, 5, -3)
- * // No change, as 3 is between 1 and 5, returns 3
- * clamp(1, 5, 3)
+ * clamp(1, 5, 10) // Clamps the value 10 between 1 and 5, returns 5
+ * clamp(0, 5, -3) // Clamps the value -3 between 0 and 5, returns 0
+ * clamp(1, 5, 3) // No change, as 3 is between 1 and 5, returns 3
  * ```
  */
 export function clamp(min: number, max: number, value: number): number {
