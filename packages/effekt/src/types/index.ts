@@ -1,5 +1,9 @@
-export * from './shared'
-export * from './utils'
-export * from './engine'
-export * from './animation'
-export * from './animate'
+// Exports types intended only for the `main` package
+// import type { ... } from 'effekt'
+
+export * from '@/shared/types'
+export * from '@/animation/types'
+export * from '@/animation'
+export * from '@/animate'
+
+import '../../global'
