@@ -1,23 +1,31 @@
 {
   "name": "effekt",
-  "version": "0.4.0",
+  "version": "0.10.0",
   "author": "Ivo Dolenc",
-  "description": "Universal web animation platform.",
+  "description": "Universal animation and interaction platform for the modern web.",
   "license": "MIT",
   "repository": "ivodolenc/effekt",
   "homepage": "https://github.com/ivodolenc/effekt",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.mts",
+      "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
     },
+    "./utils": {
+      "types": "./dist/utils/index.d.mts",
+      "import": "./dist/utils/index.mjs"
+    },
     "./easing": {
-      "types": "./dist/types/easing/index.d.mts",
+      "types": "./dist/easing/index.d.mts",
       "import": "./dist/easing/index.mjs"
     },
+    "./frame": {
+      "types": "./dist/frame/index.d.mts",
+      "import": "./dist/frame/index.mjs"
+    },
     "./interaction": {
-      "types": "./dist/types/interaction/index.d.mts",
+      "types": "./dist/interaction/index.d.mts",
       "import": "./dist/interaction/index.mjs"
     }
   },
@@ -35,7 +43,7 @@
     "universal",
     "animation",
     "platform",
-    "engine",
+    "frame",
     "tween"
   ],
   "scripts": {
@@ -43,9 +51,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write .",
-    "test": "vitest -c test/vitest.config.ts",
-    "test:utils": "vitest -c test/utils/vitest.config.ts",
-    "test:easing": "vitest -c test/easing/vitest.config.ts",
     "publish:effekt": "npm run build && npm publish"
   },
   "sideEffects": false,
@@ -62,8 +67,6 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.14.0",
-    "jsdom": "^25.0.1",
-    "vitest": "^2.1.1"
+    "@hypernym/bundler": "^0.14.0"
   }
 }
