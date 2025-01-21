@@ -1,8 +1,8 @@
-import { AnimationController } from '@/animation'
-import type { Targets, AnimationOptions } from '@/types'
+import { Animation } from '@/animation'
+import type { AnimationTargets, AnimationOptions } from '@/animation/types'
 
 /**
- * Creates a new `AnimationController` instance.
+ * Creates a new `Animation` instance.
  *
  * Provides advanced controls that manage all animated elements.
  *
@@ -21,8 +21,8 @@ import type { Targets, AnimationOptions } from '@/types'
  * @see [Repository](https://github.com/ivodolenc/effekt)
  */
 export function animate(
-  targets: Targets,
+  targets: AnimationTargets,
   options: AnimationOptions,
-): AnimationController {
-  return new AnimationController(targets, options)
+): Animation {
+  return new Animation(targets, options)
 }
