@@ -4,15 +4,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/favicons/icon-512.png" />
-    <link class="app-css" rel="stylesheet" href="/src/app.css?param=required" />
+    <link
+      class="app-css"
+      rel="stylesheet"
+      href="/src/styles/app.css?param=required"
+    />
     <title>Effekt Playground — Vite</title>
   </head>
   <body>
-    <main class="p-6 space-y-4">
-      <h1 class="text-white/70 text-xl mb-10">@playground/vite</h1>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
+    <div
+      class="flex items-center justify-center text-white/30 text-lg pt-3 pb-2"
+    >
+      <h1>@playground/vite</h1>
+    </div>
+    <main
+      class="m-2 p-6 min-h-screen rounded-xl space-y-2 bg-gradient-to-b from-sky-900/70 to-black"
+    >
+      <div
+        data-target
+        class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center text-white/70"
+      >
+        1
+      </div>
+      <div
+        data-target
+        class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center text-white/70"
+      >
+        2
+      </div>
+      <div
+        data-target
+        class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center text-white/70"
+      >
+        3
+      </div>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>

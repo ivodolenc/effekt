@@ -7,7 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve('../../packages/effekt/src'),
-      '#effekt': resolve('../../packages/effekt/src'),
     },
   },
 })
