@@ -1,7 +1,7 @@
-// Inspired by Bezier Easing, 2.1.0, MIT License, https://github.com/gre/bezier-easing
-// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+// Inspired by Bezier Easing, v2.1.0, MIT License, https://github.com/gre/bezier-easing
+// Rewritten and adapted to Effekt, v0.10.0, MIT License, https://github.com/ivodolenc/effekt
 
-import type { Easing } from '@/types'
+import type { EasingFunction } from '@/shared/types'
 
 const subPrecision = 0.0000001
 const subMaxIterations = 12
@@ -49,7 +49,7 @@ export function cubicBezier(
   y1: number,
   x2: number,
   y2: number,
-): Easing {
+): EasingFunction {
   if (x1 === y1 && x2 === y2) return (p) => p
 
   const getTForX = (aX: number): number => subdivide(aX, 0, 1, x1, x2)
