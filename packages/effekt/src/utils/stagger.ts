@@ -1,10 +1,8 @@
-// Inspired by Stagger from Framer Motion, 11.0.8, MIT License, https://github.com/framer/motion
-// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
+import { isNumber } from '@/shared'
+import type { DelayFunction } from '@/shared/types'
+import type { StaggerOptions, StaggerOrigin } from './types'
 
-import { isNumber } from './is'
-import type { StaggerOptions, StaggerOrigin, DelayFunction } from '@/types'
-
-function getOriginIndex(from: StaggerOrigin, total: number): number {
+const getOriginIndex = (from: StaggerOrigin, total: number): number => {
   if (isNumber(from)) return from
   if (from === 'first') return 0
   const lastIndex = total - 1
@@ -14,13 +12,41 @@ function getOriginIndex(from: StaggerOrigin, total: number): number {
 /**
  * Creates a `stagger` animation effect.
  *
+ * Applies delay based on index, distance from the origin and specified options.
+ *
+ * This function calculates the delay for each element based on its position relative to others in the sequence,
+ * and optionally considers a grid layout and axis-specific distances.
+ *
+ * The staggered delay is useful for creating animations where elements appear or move in sequence (with delays between them),
+ * often seen in UI animations such as grid layouts or lists.
+ *
  * @example
  *
  * ```ts
- * import { animate, stagger } from 'effekt'
+ * import { animate } from 'effekt'
+ * import { stagger } from 'effekt/utils'
  *
- * animate('.el', {
+ * animate('.els', {
+ *   // Creates a 0.1 sec default staggered delay
  *   delay: stagger(),
+ * })
+ * ```
+ *
+ * If necessary, it's possible to specify some advanced options to further customize the behavior,
+ * such as controlling the starting point of the stagger, applying easing functions,
+ * or defining a grid layout for more complex animations.
+ *
+ * @example
+ *
+ * ```ts
+ * import { animate } from 'effekt'
+ * import { stagger } from 'effekt/utils'
+ * import { spring } from 'effekt/easing'
+ *
+ * animate('.els', {
+ *   // Creates a 0.3 sec staggered delay, starting from the center of a 6x6 grid
+ *   // and with a `spring` easing effect
+ *   delay: stagger(0.3, { from: 'center', grid: [6, 6], ease: spring() }),
  * })
  * ```
  */
@@ -31,19 +57,20 @@ export function stagger(
   const { delay: startDelay = 0, from = 0, ease, grid, axis } = options
   const { floor, sqrt, abs } = Math
 
+  const width = grid ? grid[0] : 0
+  const height = grid ? grid[1] : 0
+
   return (i: number, t: number) => {
     const fromIndex = getOriginIndex(from, t)
-    const fromCenter = !isNumber(fromIndex) && fromIndex === 'center'
+    const fromCenter = from === 'center'
     let distance = 0
 
     if (!grid) distance = abs(fromIndex - i)
     else {
-      // Inspired by Stagger Grid Option from Anime.js, 3.2.2, MIT License, https://github.com/juliangarnier/anime
-      // Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
-      const fromX = !fromCenter ? fromIndex % grid[0] : (grid[0] - 1) / 2
-      const fromY = !fromCenter ? floor(fromIndex / grid[0]) : (grid[1] - 1) / 2
-      const toX = i % grid[0]
-      const toY = floor(i / grid[0])
+      const fromX = fromCenter ? (width - 1) / 2 : fromIndex % width
+      const fromY = fromCenter ? (height - 1) / 2 : floor(fromIndex / width)
+      const toX = i % width
+      const toY = floor(i / width)
       const distanceX = fromX - toX
       const distanceY = fromY - toY
       let value = sqrt(distanceX * distanceX + distanceY * distanceY)

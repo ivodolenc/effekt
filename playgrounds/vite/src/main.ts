@@ -1,6 +1,5 @@
-import { animate } from '#effekt'
+import { animate } from '@'
 
-animate('.box', {
-  x: [0, 300],
-  duration: 1,
+animate('[data-target]', {
+  x: [0, 600],
 })

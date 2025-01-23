@@ -1,4 +1,4 @@
-import type { EasingModifier } from '@/types/easing'
+import type { EasingModifier } from './types'
 
 /**
  * Creates a `reverse` easing modifier.

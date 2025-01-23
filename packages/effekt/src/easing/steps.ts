@@ -1,5 +1,5 @@
 import { clamp } from '@/utils'
-import type { Easing } from '@/types'
+import type { EasingFunction } from '@/shared/types'
 
 /**
  * Creates a `steps` easing effect.
@@ -18,8 +18,7 @@ import type { Easing } from '@/types'
 export function steps(
   intervals: number,
   position: 'start' | 'end' = 'end',
-): Easing {
+): EasingFunction {
   const round = position === 'end' ? Math.floor : Math.ceil
-
   return (p) => clamp(0, 1, round(p * intervals) / intervals)
 }

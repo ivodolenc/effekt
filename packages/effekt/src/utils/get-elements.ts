@@ -1,52 +1,32 @@
-import {
-  isBrowser,
-  isElement,
-  isHtmlElement,
-  isSvgElement,
-  isString,
-} from './is'
-import type { Targets, ParsedElements } from '@/types'
-
-const isValidElement = (v: any): v is HTMLElement | SVGElement => {
-  if (v && (isHtmlElement(v) || isSvgElement(v))) return true
-  return false
-}
-
-function parseElements(
-  elements: (Element | null)[] | NodeListOf<Element> | null,
-): ParsedElements {
-  const els: (HTMLElement | SVGElement)[] = []
-  if (elements) {
-    for (let i = 0, l = elements.length; i < l; i++) {
-      const el = elements[i]
-      if (isValidElement(el)) els.push(el)
-    }
-  }
-  return els
-}
+import { isBrowser, isString, isArray, isElement } from '@/shared'
+import type { AnimationTargets } from '@/animation/types'
 
 /**
  * Gets a parsed list of DOM elements.
  *
+ * Converts a given selector or array of elements into a consistent array of valid DOM elements.
+ *
  * @example
  *
  * ```ts
- * import { getElements } from 'effekt'
+ * import { getElements } from 'effekt/utils'
  *
- * getElements('.class') // => [el]
+ * getElements('.class') // Returns [el]
+ * getElements(document.querySelector('.class')) // Returns [el]
+ * getElements(document.querySelectorAll('.class')) // Returns [el1, el2, el3]
  * ```
  */
-export function getElements(targets: Targets): ParsedElements {
+export function getElements(targets: AnimationTargets): Element[] {
   if (!isBrowser) return []
-  if (isElement(targets)) {
-    if (isValidElement(targets)) return [targets]
-  } else if (isString(targets)) {
-    const els = parseElements(document.querySelectorAll(targets))
-    if (els.length) return els
-  } else {
-    const els = parseElements(targets)
-    if (els.length) return els
+
+  const els = isString(targets) ? document.querySelectorAll(targets) : targets
+
+  if (isElement(els)) return [els]
+  if (els) {
+    const arr = !isArray(els) ? [...els] : els.filter((el) => isElement(el))
+    if (arr.length) return arr
   }
+
   console.warn('Effekt: The specified elements were not found in the DOM.')
   return []
 }

@@ -1,27 +1,24 @@
-// Inspired by Easing Functions from Jquery Easing, 1.3.0, BSD License, https://github.com/danro/jquery-easing
-// Rewritten and adapted to Effekt, 0.1.0, MIT License, https://github.com/ivodolenc/effekt
-
+import { noop } from '@/shared'
 import { easingOut, easingInOut, easingOutIn } from './modifiers'
-import type { Easing } from '@/types'
+import type { EasingFunction } from '@/shared/types'
 
-const quad: Easing = (p) => Math.pow(p, 2)
-const cubic: Easing = (p) => Math.pow(p, 3)
-const quart: Easing = (p) => Math.pow(p, 4)
-const quint: Easing = (p) => Math.pow(p, 5)
-const expo: Easing = (p) => Math.pow(p, 6)
-const sine: Easing = (p) => 1 - Math.cos((p * Math.PI) / 2)
-const circ: Easing = (p) => 1 - Math.sqrt(1 - p * p)
-const back: Easing = (p) => p * p * (3 * p - 2)
-const bounce: Easing = (p) => {
-  const noop = () => {}
-  const { pow } = Math
+const { pow, cos, sqrt, sin, asin, PI } = Math
+
+const quad: EasingFunction = (p) => pow(p, 2)
+const cubic: EasingFunction = (p) => pow(p, 3)
+const quart: EasingFunction = (p) => pow(p, 4)
+const quint: EasingFunction = (p) => pow(p, 5)
+const expo: EasingFunction = (p) => pow(p, 6)
+const sine: EasingFunction = (p) => 1 - cos((p * PI) / 2)
+const circ: EasingFunction = (p) => 1 - sqrt(1 - p * p)
+const back: EasingFunction = (p) => p * p * (3 * p - 2)
+const bounce: EasingFunction = (p) => {
   let pow2
   let b = 4
   while (p < ((pow2 = pow(2, --b)) - 1) / 11) noop()
   return 1 / pow(4, 3 - b) - 7.5625 * pow((pow2 * 3 - 2) / 22 - p, 2)
 }
-const elastic = (amplitude = 1, period = 0.5): Easing => {
-  const { PI, pow, sin, asin } = Math
+const elastic = (amplitude = 1, period = 0.5): EasingFunction => {
   const amp = amplitude <= 1 ? 1 : amplitude >= 10 ? 10 : amplitude
   const per = period <= 0.1 ? 0.1 : period >= 2 ? 2 : period
   const pi2 = PI * 2
@@ -35,661 +32,644 @@ const elastic = (amplitude = 1, period = 0.5): Easing => {
 }
 
 /**
- * Creates a `linear` easing effect.
+ * Creates a `quad-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { linear } from 'effekt/easing'
+ * import { quadIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: linear,
+ *   ease: quadIn,
  * })
  * ```
  */
-export const linear: Easing = (p) => p
+export const quadIn = quad
 
 /**
- * Creates a `in-quad` easing effect.
+ * Creates a `quadOut` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inQuad } from 'effekt/easing'
+ * import { quadOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inQuad,
+ *   ease: quadOut,
  * })
  * ```
  */
-export const inQuad = quad
+export const quadOut = easingOut(quad)
 
 /**
- * Creates a `outQuad` easing effect.
+ * Creates a `quad-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outQuad } from 'effekt/easing'
+ * import { quadInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outQuad,
+ *   ease: quadInOut,
  * })
  * ```
  */
-export const outQuad = easingOut(quad)
+export const quadInOut = easingInOut(quad)
 
 /**
- * Creates a `in-out-quad` easing effect.
+ * Creates a `quad-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutQuad } from 'effekt/easing'
+ * import { quadOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutQuad,
+ *   ease: quadOutIn,
  * })
  * ```
  */
-export const inOutQuad = easingInOut(quad)
+export const quadOutIn = easingOutIn(quad)
 
 /**
- * Creates a `out-in-quad` easing effect.
+ * Creates a `cubic-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInQuad } from 'effekt/easing'
+ * import { cubicIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInQuad,
+ *   ease: cubicIn,
  * })
  * ```
  */
-export const outInQuad = easingOutIn(quad)
+export const cubicIn = cubic
 
 /**
- * Creates a `in-cubic` easing effect.
+ * Creates a `cubic-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inCubic } from 'effekt/easing'
+ * import { cubicOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inCubic,
+ *   ease: cubicOut,
  * })
  * ```
  */
-export const inCubic = cubic
+export const cubicOut = easingOut(cubic)
 
 /**
- * Creates a `out-cubic` easing effect.
+ * Creates a `cubic-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outCubic } from 'effekt/easing'
+ * import { cubicInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outCubic,
+ *   ease: cubicInOut,
  * })
  * ```
  */
-export const outCubic = easingOut(cubic)
+export const cubicInOut = easingInOut(cubic)
 
 /**
- * Creates a `in-out-cubic` easing effect.
+ * Creates a `cubic-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutCubic } from 'effekt/easing'
+ * import { cubicOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutCubic,
+ *   ease: cubicOutIn,
  * })
  * ```
  */
-export const inOutCubic = easingInOut(cubic)
+export const cubicOutIn = easingOutIn(cubic)
 
 /**
- * Creates a `out-in-cubic` easing effect.
+ * Creates a `quart-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInCubic } from 'effekt/easing'
+ * import { quartIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInCubic,
+ *   ease: quartIn,
  * })
  * ```
  */
-export const outInCubic = easingOutIn(cubic)
+export const quartIn = quart
 
 /**
- * Creates a `in-quart` easing effect.
+ * Creates a `quart-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inQuart } from 'effekt/easing'
+ * import { quartOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inQuart,
+ *   ease: quartOut,
  * })
  * ```
  */
-export const inQuart = quart
+export const quartOut = easingOut(quart)
 
 /**
- * Creates a `out-quart` easing effect.
+ * Creates a `quart-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outQuart } from 'effekt/easing'
+ * import { quartInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outQuart,
+ *   ease: quartInOut,
  * })
  * ```
  */
-export const outQuart = easingOut(quart)
+export const quartInOut = easingInOut(quart)
 
 /**
- * Creates a `in-out-quart` easing effect.
+ * Creates a `quart-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutQuart } from 'effekt/easing'
+ * import { quartOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutQuart,
+ *   ease: quartOutIn,
  * })
  * ```
  */
-export const inOutQuart = easingInOut(quart)
+export const quartOutIn = easingOutIn(quart)
 
 /**
- * Creates a `out-in-quart` easing effect.
+ * Creates a `quint-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInQuart } from 'effekt/easing'
+ * import { quintIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInQuart,
+ *   ease: quintIn,
  * })
  * ```
  */
-export const outInQuart = easingOutIn(quart)
+export const quintIn = quint
 
 /**
- * Creates a `in-quint` easing effect.
+ * Creates a `quint-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inQuint } from 'effekt/easing'
+ * import { quintOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inQuint,
+ *   ease: quintOut,
  * })
  * ```
  */
-export const inQuint = quint
+export const quintOut = easingOut(quint)
 
 /**
- * Creates a `out-quint` easing effect.
+ * Creates a `quint-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outQuint } from 'effekt/easing'
+ * import { quintInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outQuint,
+ *   ease: quintInOut,
  * })
  * ```
  */
-export const outQuint = easingOut(quint)
+export const quintInOut = easingInOut(quint)
 
 /**
- * Creates a `in-out-quint` easing effect.
+ * Creates a `quint-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutQuint } from 'effekt/easing'
+ * import { quintOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutQuint,
+ *   ease: quintOutIn,
  * })
  * ```
  */
-export const inOutQuint = easingInOut(quint)
+export const quintOutIn = easingOutIn(quint)
 
 /**
- * Creates a `out-in-quint` easing effect.
+ * Creates a `expo-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInQuint } from 'effekt/easing'
+ * import { expoIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInQuint,
+ *   ease: expoIn,
  * })
  * ```
  */
-export const outInQuint = easingOutIn(quint)
+export const expoIn = expo
 
 /**
- * Creates a `in-expo` easing effect.
+ * Creates a `expo-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inExpo } from 'effekt/easing'
+ * import { expoOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inExpo,
+ *   ease: expoOut,
  * })
  * ```
  */
-export const inExpo = expo
+export const expoOut = easingOut(expo)
 
 /**
- * Creates a `out-expo` easing effect.
+ * Creates a `expo-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outExpo } from 'effekt/easing'
+ * import { expoInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outExpo,
+ *   ease: expoInOut,
  * })
  * ```
  */
-export const outExpo = easingOut(expo)
+export const expoInOut = easingInOut(expo)
 
 /**
- * Creates a `in-out-expo` easing effect.
+ * Creates a `expo-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutExpo } from 'effekt/easing'
+ * import { expoOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutExpo,
+ *   ease: expoOutIn,
  * })
  * ```
  */
-export const inOutExpo = easingInOut(expo)
+export const expoOutIn = easingOutIn(expo)
 
 /**
- * Creates a `out-in-expo` easing effect.
+ * Creates a `sine-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInExpo } from 'effekt/easing'
+ * import { sineIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInExpo,
+ *   ease: sineIn,
  * })
  * ```
  */
-export const outInExpo = easingOutIn(expo)
+export const sineIn = sine
 
 /**
- * Creates a `in-sine` easing effect.
+ * Creates a `sine-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inSine } from 'effekt/easing'
+ * import { sineOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inSine,
+ *   ease: sineOut,
  * })
  * ```
  */
-export const inSine = sine
+export const sineOut = easingOut(sine)
 
 /**
- * Creates a `out-sine` easing effect.
+ * Creates a `sine-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outSine } from 'effekt/easing'
+ * import { sineInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outSine,
+ *   ease: sineInOut,
  * })
  * ```
  */
-export const outSine = easingOut(sine)
+export const sineInOut = easingInOut(sine)
 
 /**
- * Creates a `in-out-sine` easing effect.
+ * Creates a `sine-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutSine } from 'effekt/easing'
+ * import { sineOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutSine,
+ *   ease: sineOutIn,
  * })
  * ```
  */
-export const inOutSine = easingInOut(sine)
+export const sineOutIn = easingOutIn(sine)
 
 /**
- * Creates a `out-in-sine` easing effect.
+ * Creates a `circ-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInSine } from 'effekt/easing'
+ * import { circIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInSine,
+ *   ease: circIn,
  * })
  * ```
  */
-export const outInSine = easingOutIn(sine)
+export const circIn = circ
 
 /**
- * Creates a `in-circ` easing effect.
+ * Creates a `circ-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inCirc } from 'effekt/easing'
+ * import { circOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inCirc,
+ *   ease: circOut,
  * })
  * ```
  */
-export const inCirc = circ
+export const circOut = easingOut(circ)
 
 /**
- * Creates a `out-circ` easing effect.
+ * Creates a `circ-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outCirc } from 'effekt/easing'
+ * import { circInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outCirc,
+ *   ease: circInOut,
  * })
  * ```
  */
-export const outCirc = easingOut(circ)
+export const circInOut = easingInOut(circ)
 
 /**
- * Creates a `in-out-circ` easing effect.
+ * Creates a `circ-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutCirc } from 'effekt/easing'
+ * import { circOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutCirc,
+ *   ease: circOutIn,
  * })
  * ```
  */
-export const inOutCirc = easingInOut(circ)
+export const circOutIn = easingOutIn(circ)
 
 /**
- * Creates a `out-in-circ` easing effect.
+ * Creates a `back-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInCirc } from 'effekt/easing'
+ * import { backIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInCirc,
+ *   ease: backIn,
  * })
  * ```
  */
-export const outInCirc = easingOutIn(circ)
+export const backIn = back
 
 /**
- * Creates a `in-back` easing effect.
+ * Creates a `back-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inBack } from 'effekt/easing'
+ * import { backOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inBack,
+ *   ease: backOut,
  * })
  * ```
  */
-export const inBack = back
+export const backOut = easingOut(back)
 
 /**
- * Creates a `out-back` easing effect.
+ * Creates a `back-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outBack } from 'effekt/easing'
+ * import { backInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outBack,
+ *   ease: backInOut,
  * })
  * ```
  */
-export const outBack = easingOut(back)
+export const backInOut = easingInOut(back)
 
 /**
- * Creates a `in-out-back` easing effect.
+ * Creates a `back-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutBack } from 'effekt/easing'
+ * import { backOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutBack,
+ *   ease: backOutIn,
  * })
  * ```
  */
-export const inOutBack = easingInOut(back)
+export const backOutIn = easingOutIn(back)
+/**
+ * Creates a `bounce-in` easing effect.
+ *
+ * @example
+ *
+ * ```ts
+ * import { animate } from 'effekt'
+ * import { bounceIn } from 'effekt/easing'
+ *
+ * animate('.el', {
+ *   ease: bounceIn,
+ * })
+ * ```
+ */
+export const bounceIn = bounce
 
 /**
- * Creates a `out-in-back` easing effect.
+ * Creates a `bounce-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInBack } from 'effekt/easing'
+ * import { bounceOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInBack,
+ *   ease: bounceOut,
  * })
  * ```
  */
-export const outInBack = easingOutIn(back)
+export const bounceOut = easingOut(bounce)
 
 /**
- * Creates a `in-bounce` easing effect.
+ * Creates a `bounce-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inBounce } from 'effekt/easing'
+ * import { bounceInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inBounce,
+ *   ease: bounceInOut,
  * })
  * ```
  */
-export const inBounce = bounce
+export const bounceInOut = easingInOut(bounce)
 
 /**
- * Creates a `out-bounce` easing effect.
+ * Creates a `bounce-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outBounce } from 'effekt/easing'
+ * import { bounceOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outBounce,
+ *   ease: bounceOutIn,
  * })
  * ```
  */
-export const outBounce = easingOut(bounce)
+export const bounceOutIn = easingOutIn(bounce)
 
 /**
- * Creates a `in-out-bounce` easing effect.
+ * Creates a `elastic-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutBounce } from 'effekt/easing'
+ * import { elasticIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutBounce,
+ *   ease: elasticIn(),
  * })
  * ```
  */
-export const inOutBounce = easingInOut(bounce)
-
-/**
- * Creates a `out-in-bounce` easing effect.
- *
- * @example
- *
- * ```ts
- * import { animate } from 'effekt'
- * import { outInBounce } from 'effekt/easing'
- *
- * animate('.el', {
- *   ease: outInBounce,
- * })
- * ```
- */
-export const outInBounce = easingOutIn(bounce)
-
-/**
- * Creates a `in-elastic` easing effect.
- *
- * @example
- *
- * ```ts
- * import { animate } from 'effekt'
- * import { inElastic } from 'effekt/easing'
- *
- * animate('.el', {
- *   ease: inElastic(),
- * })
- * ```
- */
-export const inElastic = (amplitude?: number, period?: number) =>
+export const elasticIn = (amplitude?: number, period?: number) =>
   elastic(amplitude, period)
 
 /**
- * Creates a `out-elastic` easing effect.
+ * Creates a `elastic-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outElastic } from 'effekt/easing'
+ * import { elasticOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outElastic(),
+ *   ease: elasticOut(),
  * })
  * ```
  */
-export const outElastic = (amplitude?: number, period?: number) =>
+export const elasticOut = (amplitude?: number, period?: number) =>
   easingOut(elastic(amplitude, period))
 
 /**
- * Creates a `in-out-elastic` easing effect.
+ * Creates a `elastic-in-out` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { inOutElastic } from 'effekt/easing'
+ * import { elasticInOut } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: inOutElastic(),
+ *   ease: elasticInOut(),
  * })
  * ```
  */
-export const inOutElastic = (amplitude?: number, period?: number) =>
+export const elasticInOut = (amplitude?: number, period?: number) =>
   easingInOut(elastic(amplitude, period))
 
 /**
- * Creates a `out-in-elastic` easing effect.
+ * Creates a `elastic-out-in` easing effect.
  *
  * @example
  *
  * ```ts
  * import { animate } from 'effekt'
- * import { outInElastic } from 'effekt/easing'
+ * import { elasticOutIn } from 'effekt/easing'
  *
  * animate('.el', {
- *   ease: outInElastic(),
+ *   ease: elasticOutIn(),
  * })
  * ```
  */
-export const outInElastic = (amplitude?: number, period?: number) =>
+export const elasticOutIn = (amplitude?: number, period?: number) =>
   easingOutIn(elastic(amplitude, period))

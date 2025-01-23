@@ -4,9 +4,9 @@
  * @example
  *
  * ```ts
- * import { secToMs } from 'effekt'
+ * import { secToMs } from 'effekt/utils'
  *
- * secToMs(1) // => 1000
+ * secToMs(1) // Returns 1000
  * ```
  */
 export function secToMs(seconds: number): number {
@@ -19,9 +19,9 @@ export function secToMs(seconds: number): number {
  * @example
  *
  * ```ts
- * import { msToSec } from 'effekt'
+ * import { msToSec } from 'effekt/utils'
  *
- * msToSec(1000) // => 1
+ * msToSec(1000)  // Returns 1
  * ```
  */
 export function msToSec(milliseconds: number): number {
