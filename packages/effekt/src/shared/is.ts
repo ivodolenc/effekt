@@ -1,8 +1,5 @@
 // Inspired by Hypernym Utils, v3.4.1, MIT License, https://github.com/hypernym-studio/utils
 
-const toString = (v: any): string =>
-  Object.prototype.toString.call(v).slice(8, -1)
-
 export const noop = (): void => {}
 
 export const isBrowser: boolean = typeof window !== 'undefined'
@@ -12,9 +9,8 @@ export const isNumber = (v: any): v is number =>
 
 export const isString = (v: any): v is string => typeof v === 'string'
 
-export const isNull = (v: any): v is null => v === null
-
-export const isObject = (v: any): v is object => toString(v) === 'Object'
+export const isObject = (v: any): v is object =>
+  Object.prototype.toString.call(v).slice(8, -1) === 'Object'
 
 export const isArray = (v: any): v is any[] => Array.isArray(v)
 
