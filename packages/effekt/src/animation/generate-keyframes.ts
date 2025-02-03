@@ -80,7 +80,6 @@ export function generateKeyframes(
     composite,
     pseudoElement,
     repeatComposite,
-    timeline,
     offset,
     rangeStart,
     rangeEnd,
