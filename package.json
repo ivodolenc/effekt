@@ -18,17 +18,17 @@
     "dev:vite": "pnpm --filter @playground/vite dev"
   },
   "sideEffects": false,
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@9.15.5",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
   "devDependencies": {
-    "@hypernym/eslint-config": "^3.5.4",
-    "@hypernym/prettier-config": "^3.2.1",
+    "@hypernym/eslint-config": "^3.5.5",
+    "@hypernym/prettier-config": "^3.2.2",
     "@hypernym/tsconfig": "^2.5.0",
-    "@types/node": "^22.10.9",
-    "eslint": "^9.18.0",
+    "@types/node": "^22.13.0",
+    "eslint": "^9.19.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3"
   }
