@@ -3,7 +3,6 @@
 
 export * from '@/shared/types'
 export * from '@/animation/types'
-export * from '@/animation'
 export * from '@/animate'
 
 import '../../global'

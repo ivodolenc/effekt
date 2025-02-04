@@ -1,10 +1,17 @@
-import { Animation } from '@/animation'
-import type { AnimationTargets, AnimationOptions } from '@/animation/types'
+import { createAnimation } from '@/animation'
+import type {
+  Animation,
+  AnimationTargets,
+  AnimationOptions,
+} from '@/animation/types'
 
 /**
- * Creates a new `Animation` instance.
+ * Creates a new `Animation` object with powerful controls for advanced manipulations on specified DOM targets.
  *
- * Provides advanced controls that manage all animated elements.
+ * Provides the flexibility to design complex and dynamic animations, which can be played, paused, reversed, or even stopped programmatically,
+ * enabling highly responsive interactions that can be synchronized with other events or actions.
+ *
+ * Supports multiple targets and a wide range of custom options, offering fine-grained control to easily run animations with minimal effort.
  *
  * @example
  *
@@ -24,5 +31,5 @@ export function animate(
   targets: AnimationTargets,
   options: AnimationOptions,
 ): Animation {
-  return new Animation(targets, options)
+  return createAnimation(targets, options)
 }

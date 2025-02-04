@@ -45,7 +45,6 @@ export function createEffect(
     composite,
     pseudoElement,
     repeatComposite: iterationComposite,
-    timeline,
     rangeStart,
     rangeEnd,
   } = options
@@ -64,7 +63,6 @@ export function createEffect(
     composite: !isArray(composite) ? composite : undefined,
     pseudoElement,
     iterationComposite,
-    timeline,
     rangeStart,
     rangeEnd,
   }

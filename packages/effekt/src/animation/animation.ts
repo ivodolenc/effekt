@@ -3,37 +3,31 @@ import { createEffect, setEasing } from './create-effect'
 import { noop, isNumber, isArray } from '@/shared'
 import { getElements, msToSec, secToMs, nextTick } from '@/utils'
 import type {
+  Animation,
   AnimationTargets,
   AnimationOptions,
   AnimationPropertyNames,
   AnimationEventNames,
-  AnimationPromise,
   GeneratedKeyframe,
 } from './types'
 
-export class Animation {
-  #animation!: globalThis.Animation | null
-  #animations: globalThis.Animation[] = []
-  #onPlay: AnimationOptions['onPlay']
-  #onPause: AnimationOptions['onPause']
-  #onReverse: AnimationOptions['onReverse']
-  #onStop: AnimationOptions['onStop']
-  #resolve?: (value: globalThis.Animation[]) => void
-  #reject?: (value: any) => void
-  #isCompleted: boolean = false
-  #isTimeline: boolean
+export function createAnimation(
+  targets: AnimationTargets,
+  options: AnimationOptions,
+): Animation {
+  const { autoplay = true, commitStyles = true, timeline } = options
 
-  constructor(targets: AnimationTargets, options: AnimationOptions) {
-    const { autoplay = true, commitStyles = true, timeline } = options
+  let animations: globalThis.Animation[] = []
+  let isReady: boolean = false
+  let isCompleted: boolean = false
+  let isTimeline: boolean = timeline ? true : false
+  let resolve: (value: globalThis.Animation[]) => void
+  let reject: (value: any) => void
 
-    this.#onPlay = options.onPlay
-    this.#onPause = options.onPause
-    this.#onReverse = options.onReverse
-    this.#onStop = options.onStop
-    this.#isTimeline = timeline ? true : false
+  const els = getElements(targets)
 
-    const els = getElements(targets)
-    if (!els.length) return
+  if (els.length) {
+    isReady = true
 
     const keyframes = new WeakMap<Element, GeneratedKeyframe[]>([
       [els[0], generateKeyframes(options)],
@@ -46,17 +40,21 @@ export class Animation {
         const keyframe = keyframes.get(els[0])![kI]
         const { key, value, ease, composite, offset } = keyframe
 
-        const animation = el.animate(
-          {
-            [key]: value as any,
-            easing: isArray(ease) ? ease.map((e) => setEasing(e)) : undefined,
-            composite: isArray(composite) ? composite : undefined,
-            offset,
-          },
-          createEffect({ index: i, total: l }, keyframe),
+        const animation = new Animation(
+          new KeyframeEffect(
+            el,
+            {
+              [key]: value as any,
+              easing: isArray(ease) ? ease.map((e) => setEasing(e)) : undefined,
+              composite: isArray(composite) ? composite : undefined,
+              offset,
+            },
+            createEffect({ index: i, total: l }, keyframe),
+          ),
+          timeline,
         )
 
-        if (!autoplay) animation.pause()
+        if (autoplay) animation.play()
         if (commitStyles) {
           animation.finished
             .then((a) => {
@@ -65,153 +63,154 @@ export class Animation {
             })
             .catch(noop)
         }
-        this.#animations.push(animation)
+        animations.push(animation)
       }
     }
+  }
 
-    this.#animation = this.#getAnimation()
+  const each = (callback: (a: globalThis.Animation) => void): void => {
+    for (let i = 0, l = animations.length; i < l; i++) callback(animations[i])
+  }
 
-    options.onStart?.(this.#animations)
+  const set = <
+    T extends globalThis.Animation,
+    K extends AnimationPropertyNames,
+  >(
+    name: AnimationPropertyNames,
+    value: T[K],
+  ): void => {
+    if (isReady) each((k) => (k[name] = value as any))
+  }
 
-    Promise.all(this.#animations.map((a) => a.finished))
+  const run = (name: AnimationEventNames): void => {
+    if (isReady) each((a) => a[name]())
+  }
+
+  const call = (
+    callback?: (animations: globalThis.Animation[]) => void,
+  ): void => {
+    if (isReady) callback?.(animations)
+  }
+
+  const numberish = (v: globalThis.CSSNumberish): number =>
+    isNumber(v) ? v : (v as globalThis.CSSUnitValue).value
+
+  const getAnimation = (): globalThis.Animation | null => {
+    if (isReady) {
+      if (isTimeline) return animations[0]
+      return animations.reduce((prev, curr) => {
+        const pT = prev.effect?.getComputedTiming().endTime as number
+        const cT = curr.effect?.getComputedTiming().endTime as number
+        return numberish(pT) > numberish(cT) ? prev : curr
+      })
+    }
+    return null
+  }
+
+  const instance = {
+    value: getAnimation(),
+    get endTime(): Readonly<number | null> {
+      const t = this.value?.effect?.getComputedTiming().endTime
+      return t ? numberish(t) : null
+    },
+    get time(): Readonly<number | null> {
+      const t = this.value?.currentTime
+      return t ? numberish(t) : null
+    },
+  }
+
+  const animation: Animation = {
+    play(): void {
+      run('play')
+      call(options.onPlay)
+    },
+    pause(): void {
+      run('pause')
+      call(options.onPause)
+    },
+    reverse(): void {
+      run('reverse')
+      call(options.onReverse)
+    },
+    stop(): void {
+      each((a) => {
+        a.commitStyles()
+        a.cancel()
+      })
+      call(options.onStop)
+    },
+    complete(): void {
+      run('finish')
+    },
+    cancel(): void {
+      run('cancel')
+    },
+    completed: new Promise((res, rej): void => {
+      resolve = res
+      reject = rej
+    }),
+    get startTime(): number {
+      return msToSec(numberish(animations[0].startTime || 0))
+    },
+    set startTime(t) {
+      set('startTime', secToMs(t))
+    },
+    get time(): number {
+      return msToSec(instance.time || 0)
+    },
+    set time(t) {
+      set('currentTime', secToMs(t))
+    },
+    get playRate(): number {
+      return instance.value?.playbackRate || 1
+    },
+    set playRate(r) {
+      set('playbackRate', r)
+    },
+    get effect(): globalThis.AnimationEffect | null {
+      return instance.value?.effect || null
+    },
+    set effect(e) {
+      set('effect', e)
+    },
+    get timeline(): globalThis.AnimationTimeline | null {
+      return instance.value?.timeline || null
+    },
+    set timeline(t) {
+      isTimeline ||= true
+      set('timeline', t)
+    },
+    get playState(): Readonly<globalThis.AnimationPlayState> {
+      return instance.value?.playState || 'idle'
+    },
+    get progress(): Readonly<number> {
+      const cT = instance.time
+      const eT = instance.endTime
+      return cT && eT ? cT / eT : 0
+    },
+    get isCompleted(): Readonly<boolean> {
+      return isCompleted && !isTimeline
+    },
+  }
+
+  if (isReady) {
+    options.onStart?.(animations)
+
+    Promise.all(animations.map((a) => a.finished))
       .then((a) => {
-        this.#isCompleted = true
+        isCompleted = true
         nextTick(() => {
-          this.#resolve?.(a)
+          resolve?.(a)
           options.onComplete?.(a)
         })
       })
       .catch((err) => {
         nextTick(() => {
-          this.#reject?.(err)
+          reject?.(err)
           options.onCancel?.(err)
         })
       })
   }
 
-  #each(callback: (a: globalThis.Animation) => void): void {
-    for (let i = 0, l = this.#animations.length; i < l; i++) {
-      callback(this.#animations[i])
-    }
-  }
-
-  #set<T extends globalThis.Animation, K extends AnimationPropertyNames>(
-    name: AnimationPropertyNames,
-    value: T[K],
-  ): void {
-    this.#each((k) => (k[name] = value as any))
-  }
-
-  #run(name: AnimationEventNames): void {
-    this.#each((a) => a[name]())
-  }
-
-  #numberish(v: globalThis.CSSNumberish): number {
-    return isNumber(v) ? v : (v as globalThis.CSSUnitValue).value
-  }
-
-  #getAnimation(): globalThis.Animation | null {
-    if (this.#isTimeline) return this.#animations[0]
-    return this.#animations.reduce((prev, curr) => {
-      const pT = prev.effect?.getComputedTiming().endTime as number
-      const cT = curr.effect?.getComputedTiming().endTime as number
-      return this.#numberish(pT) > this.#numberish(cT) ? prev : curr
-    })
-  }
-
-  completed: AnimationPromise = new Promise((resolve, reject): void => {
-    this.#resolve = resolve
-    this.#reject = reject
-  })
-
-  play(): void {
-    this.#run('play')
-    this.#onPlay?.(this.#animations)
-  }
-
-  pause(): void {
-    this.#run('pause')
-    this.#onPause?.(this.#animations)
-  }
-
-  reverse(): void {
-    this.#run('reverse')
-    this.#onReverse?.(this.#animations)
-  }
-
-  stop(): void {
-    this.#each((a) => {
-      a.commitStyles()
-      a.cancel()
-    })
-    this.#onStop?.(this.#animations)
-  }
-
-  complete(): void {
-    this.#run('finish')
-  }
-
-  cancel(): void {
-    this.#run('cancel')
-  }
-
-  get #endTime(): Readonly<number | null> {
-    const t = this.#animation?.effect?.getComputedTiming().endTime
-    return t ? this.#numberish(t) : null
-  }
-
-  get #currentTime(): Readonly<number | null> {
-    const t = this.#animation?.currentTime
-    return t ? this.#numberish(t) : null
-  }
-
-  get startTime(): number {
-    return msToSec(this.#numberish(this.#animations[0].startTime || 0))
-  }
-  set startTime(t) {
-    this.#set('startTime', secToMs(t))
-  }
-
-  get time(): number {
-    return msToSec(this.#currentTime || 0)
-  }
-  set time(t) {
-    this.#set('currentTime', secToMs(t))
-  }
-
-  get playRate(): number {
-    return this.#animation?.playbackRate || 1
-  }
-  set playRate(r) {
-    this.#set('playbackRate', r)
-  }
-
-  get effect(): globalThis.AnimationEffect | null {
-    return this.#animation?.effect || null
-  }
-  set effect(e) {
-    this.#set('effect', e)
-  }
-
-  get timeline(): globalThis.AnimationTimeline | null {
-    return this.#animation?.timeline || null
-  }
-  set timeline(t) {
-    this.#isTimeline ||= true
-    this.#set('timeline', t)
-  }
-
-  get playState(): Readonly<globalThis.AnimationPlayState> {
-    return this.#animation?.playState || 'idle'
-  }
-
-  get progress(): Readonly<number> {
-    const cT = this.#currentTime
-    const eT = this.#endTime
-    return cT && eT ? cT / eT : 0
-  }
-
-  get isCompleted(): Readonly<boolean> {
-    return this.#isCompleted && !this.#isTimeline
-  }
+  return animation
 }
