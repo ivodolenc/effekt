@@ -17,18 +17,16 @@ export function createAnimation(
 ): Animation {
   const { autoplay = true, commitStyles = true, timeline } = options
 
-  let animations: globalThis.Animation[] = []
-  let isReady: boolean = false
+  const animations: globalThis.Animation[] = []
   let isCompleted: boolean = false
   let isTimeline: boolean = timeline ? true : false
+
   let resolve: (value: globalThis.Animation[]) => void
   let reject: (value: any) => void
 
   const els = getElements(targets)
 
   if (els.length) {
-    isReady = true
-
     const keyframes = new WeakMap<Element, GeneratedKeyframe[]>([
       [els[0], generateKeyframes(options)],
     ])
@@ -68,6 +66,8 @@ export function createAnimation(
     }
   }
 
+  let isReady: boolean = els.length > 0
+
   const each = (callback: (a: globalThis.Animation) => void): void => {
     for (let i = 0, l = animations.length; i < l; i++) callback(animations[i])
   }
@@ -78,13 +78,9 @@ export function createAnimation(
   >(
     name: AnimationPropertyNames,
     value: T[K],
-  ): void => {
-    if (isReady) each((k) => (k[name] = value as any))
-  }
+  ): void => each((k) => (k[name] = value as any))
 
-  const run = (name: AnimationEventNames): void => {
-    if (isReady) each((a) => a[name]())
-  }
+  const run = (name: AnimationEventNames): void => each((a) => a[name]())
 
   const call = (
     callback?: (animations: globalThis.Animation[]) => void,
@@ -195,6 +191,8 @@ export function createAnimation(
 
   if (isReady) {
     options.onStart?.(animations)
+
+    animation.completed.catch(noop)
 
     Promise.all(animations.map((a) => a.finished))
       .then((a) => {
