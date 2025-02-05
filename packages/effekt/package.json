@@ -20,13 +20,9 @@
       "types": "./dist/easing/index.d.mts",
       "import": "./dist/easing/index.mjs"
     },
-    "./frame": {
-      "types": "./dist/frame/index.d.mts",
-      "import": "./dist/frame/index.mjs"
-    },
-    "./interaction": {
-      "types": "./dist/interaction/index.d.mts",
-      "import": "./dist/interaction/index.mjs"
+    "./sequence": {
+      "types": "./dist/sequence/index.d.mts",
+      "import": "./dist/sequence/index.mjs"
     }
   },
   "files": [
@@ -34,6 +30,7 @@
   ],
   "keywords": [
     "effekt",
+    "effect",
     "animate",
     "animations",
     "web-animations",
