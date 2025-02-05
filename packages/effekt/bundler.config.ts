@@ -1,104 +1,88 @@
 import { defineConfig, resolvePaths } from '@hypernym/bundler'
 import { version, homepage } from './package.json'
 
-const banner = `/*! effekt ${version} | ${homepage} | MIT License | Ivo Dolenc (c) 2024 */\n`
+const banner = `/*! effekt v${version} | MIT License | Ivo Dolenc (c) 2025 | ${homepage} */\n`
 
 export default defineConfig({
   entries: [
+    // Shared
+    {
+      input: './src/shared/index.ts',
+    },
+    // Utils
+    {
+      input: './src/utils/index.ts',
+      externals: [/^@\/shared/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../shared/index.mjs' },
+      ]),
+    },
+    {
+      dts: './src/types/utils.ts',
+      output: './dist/utils/index.d.mts',
+      externals: [/^@\/shared/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../index.mts' },
+      ]),
+    },
+    // Animation
+    {
+      input: './src/animation/index.ts',
+      externals: [/^@\/shared/, /^@\/utils/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../shared/index.mjs' },
+        { find: /^@\/utils/, replacement: '../utils/index.mjs' },
+      ]),
+    },
     // Main
     {
       input: './src/index.ts',
-      externals: [/^@\/easing/],
+      externals: [/^@\/shared/, /^@\/utils/, /^@\/animation/],
       paths: resolvePaths([
-        { find: /^@\/easing/, replacement: './easing/index.mjs' },
+        { find: /^@\/shared/, replacement: './shared/index.mjs' },
+        { find: /^@\/utils/, replacement: './utils/index.mjs' },
+        { find: /^@\/animation/, replacement: './animation/index.mjs' },
       ]),
       banner,
     },
     {
-      input: './src/index.ts',
-      output: './dist/index.min.mjs',
-      minify: true,
-      banner,
-    },
-    {
-      input: './src/index.ts',
-      output: './dist/index.iife.js',
-      name: 'Effekt',
-      format: 'iife',
-      minify: true,
-      banner,
-    },
-    {
-      input: './src/index.ts',
-      output: './dist/index.umd.js',
-      name: 'Effekt',
-      format: 'umd',
-      minify: true,
-      banner,
-    },
-    {
       dts: './src/types/index.ts',
+      output: './dist/index.d.mts',
     },
     // Easing
     {
       input: './src/easing/index.ts',
-      externals: [/^@\/utils/],
-      paths: resolvePaths([{ find: /^@\/utils/, replacement: '../index.mjs' }]),
+      externals: [/^@\/shared/, /^@\/utils/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../shared/index.mjs' },
+        { find: /^@\/utils/, replacement: '../utils/index.mjs' },
+      ]),
     },
     {
-      input: './src/easing/index.ts',
-      output: './dist/easing/index.min.mjs',
-      minify: true,
+      dts: './src/types/easing.ts',
+      output: './dist/easing/index.d.mts',
+      externals: [/^@\/shared/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../index.mts' },
+      ]),
+    },
+    // Sequence
+    {
+      input: './src/sequence/index.ts',
+      externals: [/^@\/shared/, /^@\/utils/, /^@\/animation/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../shared/index.mjs' },
+        { find: /^@\/utils/, replacement: '../utils/index.mjs' },
+        { find: /^@\/animation/, replacement: '../animation/index.mjs' },
+      ]),
     },
     {
-      input: './src/easing/index.ts',
-      output: './dist/easing/index.iife.js',
-      name: 'EffektEasing',
-      format: 'iife',
-      minify: true,
-    },
-    {
-      input: './src/easing/index.ts',
-      output: './dist/easing/index.umd.js',
-      name: 'EffektEasing',
-      format: 'umd',
-      minify: true,
-    },
-    {
-      dts: './src/types/easing/index.ts',
-      externals: ['@/types'],
-      paths: resolvePaths([{ find: /^@\/types/, replacement: '../index.mts' }]),
-    },
-    // Interaction
-    {
-      input: './src/interaction/in-view/index.ts',
-      output: './dist/interaction/index.mjs',
-      externals: ['@/utils'],
-      paths: resolvePaths([{ find: /@\/utils$/, replacement: '../index.mjs' }]),
-    },
-    {
-      input: './src/interaction/in-view/index.ts',
-      output: './dist/interaction/index.min.mjs',
-      minify: true,
-    },
-    {
-      input: './src/interaction/index.ts',
-      output: './dist/interaction/index.iife.js',
-      name: 'EffektInteraction',
-      format: 'iife',
-      minify: true,
-    },
-    {
-      input: './src/interaction/index.ts',
-      output: './dist/interaction/index.umd.js',
-      name: 'EffektInteraction',
-      format: 'umd',
-      minify: true,
-    },
-    {
-      dts: './src/types/interaction/index.ts',
-      externals: ['@/types'],
-      paths: resolvePaths([{ find: /^@\/types/, replacement: '../index.mts' }]),
+      dts: './src/types/sequence.ts',
+      output: './dist/sequence/index.d.mts',
+      externals: [/^@\/animation/],
+      paths: resolvePaths([
+        { find: /^@\/animation/, replacement: '../index.mts' },
+      ]),
     },
   ],
 })
