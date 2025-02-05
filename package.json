@@ -24,7 +24,7 @@
     "pnpm": ">=9.0.0"
   },
   "devDependencies": {
-    "@hypernym/eslint-config": "^3.5.5",
+    "@hypernym/eslint-config": "^3.5.6",
     "@hypernym/prettier-config": "^3.2.2",
     "@hypernym/tsconfig": "^2.5.0",
     "@types/node": "^22.13.1",
