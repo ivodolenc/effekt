@@ -18,7 +18,7 @@
     "dev:vite": "pnpm --filter @playground/vite dev"
   },
   "sideEffects": false,
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.2.1",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
