@@ -23,6 +23,10 @@
     "./sequence": {
       "types": "./dist/sequence/index.d.mts",
       "import": "./dist/sequence/index.mjs"
+    },
+    "./interaction": {
+      "types": "./dist/interaction/index.d.mts",
+      "import": "./dist/interaction/index.mjs"
     }
   },
   "files": [
