@@ -84,5 +84,22 @@ export default defineConfig({
         { find: /^@\/animation/, replacement: '../index.mts' },
       ]),
     },
+    // Interaction
+    {
+      input: './src/interaction/index.ts',
+      externals: [/^@\/shared/, /^@\/utils/],
+      paths: resolvePaths([
+        { find: /^@\/shared/, replacement: '../shared/index.mjs' },
+        { find: /^@\/utils/, replacement: '../utils/index.mjs' },
+      ]),
+    },
+    {
+      dts: './src/types/interaction.ts',
+      output: './dist/interaction/index.d.mts',
+      externals: [/^@\/animation/],
+      paths: resolvePaths([
+        { find: /^@\/animation/, replacement: '../index.mts' },
+      ]),
+    },
   ],
 })
