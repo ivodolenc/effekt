@@ -95,7 +95,7 @@ export function generateKeyframes(
 
       const keyframe: GeneratedKeyframe = {
         ...effect,
-        composite: 'add',
+        composite: composite || 'add',
         ...parseObjectValue(value),
         key: 'transform',
       }
