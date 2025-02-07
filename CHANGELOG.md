@@ -2,4 +2,4 @@
 
 Check out the latest features and improvements.
 
-#### [Release Notes](https://github.com/ivodolenc/effekt/releases)
+#### [Release Notes](https://github.com/effekt-labs/effekt/releases)

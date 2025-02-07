@@ -2,10 +2,10 @@
   "name": "effekt",
   "version": "0.10.0",
   "author": "Ivo Dolenc",
-  "description": "Universal animation and interaction platform for the modern web.",
+  "description": "Universal interaction platform for the modern web.",
   "license": "MIT",
-  "repository": "ivodolenc/effekt",
-  "homepage": "https://github.com/ivodolenc/effekt",
+  "repository": "effekt-labs/effekt",
+  "homepage": "https://github.com/effekt-labs/effekt",
   "type": "module",
   "exports": {
     ".": {

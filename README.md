@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ivodolenc/effekt">Repository</a>
+  <a href="https://github.com/effekt-labs/effekt">Repository</a>
   <span>✦</span>
   <a href="https://www.npmjs.com/package/effekt">Package</a>
   <span>✦</span>
-  <a href="https://github.com/ivodolenc/effekt/releases">Releases</a>
+  <a href="https://github.com/effekt-labs/effekt/releases">Releases</a>
   <span>✦</span>
-  <a href="https://github.com/ivodolenc/effekt/discussions">Discussions</a>
+  <a href="https://github.com/effekt-labs/effekt/discussions">Discussions</a>
 </p>
 
 <pre align="center">pnpm add effekt</pre>
@@ -38,9 +38,9 @@
 >
 > **Effekt** is under active development. While the **API** is solid and mostly complete, some changes may still occur before the first stable release.
 >
-> Ideas, [suggestions](https://github.com/ivodolenc/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
+> Ideas, [suggestions](https://github.com/effekt-labs/effekt/discussions) and code [contributions](.github/CONTRIBUTING.md) are welcome.
 >
-> If you find any issues or bugs, please [report](https://github.com/ivodolenc/effekt/issues/new/choose) them so the project can be improved.
+> If you find any issues or bugs, please [report](https://github.com/effekt-labs/effekt/issues/new/choose) them so the project can be improved.
 
 <br>
 
@@ -60,7 +60,7 @@
 
 Feel free to ask questions or share new ideas.
 
-Use the official [discussions](https://github.com/ivodolenc/effekt/discussions) to get involved.
+Use the official [discussions](https://github.com/effekt-labs/effekt/discussions) to get involved.
 
 ## Contribute
 

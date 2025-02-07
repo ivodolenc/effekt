@@ -1,5 +1,5 @@
 // Inspired by Bezier Easing, v2.1.0, MIT License, https://github.com/gre/bezier-easing
-// Rewritten and adapted to Effekt, v0.10.0, MIT License, https://github.com/ivodolenc/effekt
+// Rewritten and adapted to Effekt, v0.10.0, MIT License, https://github.com/effekt-labs/effekt
 
 import type { EasingFunction } from '@/shared/types'
 

@@ -25,7 +25,7 @@ import type {
  * })
  * ```
  *
- * @see [Repository](https://github.com/ivodolenc/effekt)
+ * @see [Repository](https://github.com/effekt-labs/effekt)
  */
 export function animate(
   targets: AnimationTargets,
