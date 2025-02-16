@@ -68,6 +68,6 @@
     }
   },
   "devDependencies": {
-    "@hypernym/bundler": "^0.14.0"
+    "@hypernym/bundler": "^0.14.2"
   }
 }

@@ -19,7 +19,7 @@
     "dev:host:vite": "pnpm --filter @playground/vite dev:host"
   },
   "sideEffects": false,
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.4.0",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
@@ -28,9 +28,9 @@
     "@hypernym/eslint-config": "^3.5.6",
     "@hypernym/prettier-config": "^3.2.2",
     "@hypernym/tsconfig": "^2.5.0",
-    "@types/node": "^22.13.1",
-    "eslint": "^9.20.0",
-    "prettier": "^3.4.2",
+    "@types/node": "^22.13.4",
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.1",
     "typescript": "^5.7.3"
   }
 }
